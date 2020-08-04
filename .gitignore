@@ -251,10 +251,14 @@ UpgradeLog*.htm
 ServiceFabricBackup/
 *.rptproj.bak
 
+
 # SQL Server files
-*.mdf
-*.ldf
-*.ndf
+#allowing to change DB online
+#*.mdf
+#*.ldf
+#*.ndf
+
+
 
 # Business Intelligence projects
 *.rdl.data
