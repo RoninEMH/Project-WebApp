@@ -1,0 +1,56 @@
+﻿@model Shwallak.Models.Writer
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<h4>Writer</h4>
+
+<div class="form-horizontal">
+    <hr />
+
+    <form action="~/Writers/Results" , method="get">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="name">full name</label>
+
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="name" name="name" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="email">email</label>
+
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="email" name="email" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="year">year</label>
+
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="year" name="year" type="number" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-3">
+
+                <input type="submit" value="Search" class="btn btn-default" />
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

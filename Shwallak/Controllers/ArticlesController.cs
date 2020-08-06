@@ -128,5 +128,103 @@ namespace Shwallak.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult Results(string title, int? year, int? month, int? day)
+        {
+            List<Article> results = new List<Article>();
+            List<Article> temp = new List<Article>();
+
+            if ((title == null || title.Equals("")) && year == null && month == null && day == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            foreach (Article article in db.Articles.ToList())
+            {
+                article.Writer = db.Writers.Find(article.WriterID);
+                results.Add(article);
+            }
+
+
+            if (title != null && !title.Equals(""))
+            {
+                temp.AddRange(results);
+                foreach (Article article in temp)
+                {
+                    if (article.Title == null)
+                        results.Remove(article);
+                    else if (!article.Title.Equals(title))
+                        results.Remove(article);
+                }
+                temp.Clear();
+            }
+
+            if (year != null)
+            {
+                temp.AddRange(results);
+                foreach (Article article in temp)
+                {
+                    if (article.Year != year)
+                        results.Remove(article);
+                }
+                temp.Clear();
+            }
+
+            if (month != null)
+            {
+                temp.AddRange(results);
+                foreach (Article article in temp)
+                {
+                    if (article.Month != month)
+                        results.Remove(article);
+                }
+                temp.Clear();
+            }
+
+            if (day != null)
+            {
+                temp.AddRange(results);
+                foreach (Article article in temp)
+                {
+                    if (article.Day != day)
+                        results.Remove(article);
+                }
+                temp.Clear();
+            }
+
+            return View(results);
+        }
+
+        public ActionResult SortByDate()
+        {
+            List<Article> articles = new List<Article>();
+
+            foreach (Article article in db.Articles.ToList())
+            {
+                article.Writer = db.Writers.Find(article.WriterID);
+                articles.Add(article);
+            }
+
+            articles.Sort(delegate (Article x, Article y)
+            {
+                if (x.Year == y.Year)
+                {
+                    if (x.Month == y.Month)
+                    {
+                        return x.Day - y.Day;
+                    }
+                    else
+                        return x.Month - y.Month;
+                }
+                else
+                    return x.Year - y.Year;
+            });
+            return View(articles);
+        }
     }
 }

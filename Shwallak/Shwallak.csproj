@@ -201,6 +201,12 @@
     <Content Include="Views\Writers\Details.cshtml" />
     <Content Include="Views\Writers\Edit.cshtml" />
     <Content Include="Views\Writers\Index.cshtml" />
+    <Content Include="Views\Articles\Search.cshtml" />
+    <Content Include="Views\Articles\Results.cshtml" />
+    <Content Include="Views\Articles\SortByDate.cshtml" />
+    <Content Include="Views\Writers\Search.cshtml" />
+    <Content Include="Views\Writers\Results.cshtml" />
+    <Content Include="Views\Writers\SortByDate.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

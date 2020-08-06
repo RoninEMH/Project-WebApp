@@ -16,7 +16,7 @@ namespace Shwallak.Models
         [Display(Name = "title")]
         public string Title { get; set; }
 
-        [Display(Name = "content")]
+        [DataType(DataType.MultilineText), Display(Name = "content")]
         public string Content { get; set; }
 
         [Display(Name = "upload year")]

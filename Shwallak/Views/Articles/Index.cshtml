@@ -4,11 +4,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>List</h2>
+
+<h4>Article</h4>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -73,3 +76,31 @@
 }
 
 </table>
+
+<p>
+    <table>
+        <tr>
+            <th>
+                <form action="~/Articles/Search" method="get">
+                    <div class="form-group">
+                        <div class="control-label col-md-0">
+                            <input type="submit" value="Search" class="btn btn-default" />
+
+                        </div>
+                    </div>
+                </form>
+            </th>
+            <th>
+                <form action="~/Articles/SortByDate" , method="get">
+                    <div class="form-group">
+                        <div class="control-label col-md-offset-2">
+                            <input type="submit" value="Sort" class="btn btn-default" />
+
+                        </div>
+                    </div>
+                </form>
+            </th>
+        </tr>
+    </table>
+
+</p>

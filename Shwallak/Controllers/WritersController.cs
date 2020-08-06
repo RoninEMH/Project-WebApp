@@ -123,5 +123,73 @@ namespace Shwallak.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult Results(string name, string email, int? year)
+        {
+            List<Writer> results = new List<Writer>();
+            List<Writer> temp = new List<Writer>();
+
+            if ((name == null || name.Equals("")) && (email == null || email.Equals("")) && year == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            foreach (Writer writer in db.Writers.ToList())
+            {
+                results.Add(writer);
+            }
+
+
+            if (name != null && !name.Equals(""))
+            {
+                temp.AddRange(results);
+                foreach (Writer writer in temp)
+                {
+                    if (writer.FullName == null)
+                        results.Remove(writer);
+                    else if (!writer.FullName.Equals(name))
+                        results.Remove(writer);
+                }
+                temp.Clear();
+            }
+
+            if (email != null && !email.Equals(""))
+            {
+                temp.AddRange(results);
+                foreach (Writer writer in temp)
+                {
+                    if (writer.Email == null)
+                        results.Remove(writer);
+                    else if (!writer.Email.Equals(email))
+                        results.Remove(writer);
+                }
+                temp.Clear();
+            }
+
+            if (year != null)
+            {
+                temp.AddRange(results);
+                foreach (Writer writer in temp)
+                {
+                    if (writer.Year != year)
+                        results.Remove(writer);
+                }
+                temp.Clear();
+            }
+
+            return View(results);
+        }
+
+        public ActionResult SortByDate()
+        {
+            List<Writer> writers = db.Writers.ToList();
+            writers.Sort((x, y) => x.Year - y.Year);
+            return View(writers);
+        }
     }
 }
