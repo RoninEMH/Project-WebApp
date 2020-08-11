@@ -207,6 +207,8 @@
     <Content Include="Views\Writers\Search.cshtml" />
     <Content Include="Views\Writers\Results.cshtml" />
     <Content Include="Views\Writers\SortByDate.cshtml" />
+    <Content Include="Views\Subscribers\Sort.cshtml" />
+    <Content Include="Views\Subscribers\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -6,9 +6,66 @@
 
 <h2>Index</h2>
 
+<head>
+    <script type="text/javascript">
+        function genderModes() {
+            var mode = document.getElementsByName("sortBy")[2];
+            if (mode.checked) {
+                var male = document.getElementsByName("gender")[0];
+                var titleMale = document.getElementById("maleTitle");
+                titleMale.style.display = 'inline';
+                male.style.display = 'inline';
+                var female = document.getElementsByName("gender")[1];
+                var titleFemale = document.getElementById("femaleTitle");
+                titleFemale.style.display = 'inline';
+                female.style.display = 'inline';
+            }
+            else {
+                var male = document.getElementsByName("gender")[0];
+                var titleMale = document.getElementById("maleTitle");
+                titleMale.style.display = 'none';
+                male.style.display = 'none';
+                var female = document.getElementsByName("gender")[1];
+                var titleFemale = document.getElementById("femaleTitle");
+                titleFemale.style.display = 'none';
+                female.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<p>
+    <form action="Subscribers/Search" method="get">
+        Username:<br>
+        <input type="text" name="username">
+        <br>
+        Age:<br>
+        <input type="text" name="age">
+        <br><br>
+        <input type="submit" value="Search">
+
+    </form>
+</p>
+
+<p>
+    <form action="/Subscribers/Sort" method="get">
+        Nickname: <input type="radio" name="sortBy" value="nickname" checked="checked" onclick="genderModes()" />
+        <br />
+        Age: <input type="radio" name="sortBy" value="age" onclick="genderModes()" />
+        <br />
+        Gender:<input type="radio" name="sortBy" value="gender" onclick="genderModes()" />
+        <label id="maleTitle" hidden="hidden">male first: </label><input type="radio" name="gender" value="1" hidden="hidden" />
+        <label id="femaleTitle" hidden="hidden">female first: </label><input type="radio" name="gender" value="2" hidden="hidden" />
+        <br />
+        <input type="submit" value="Sort" />
+    </form>
+
+</p>
+
 <table class="table">
     <tr>
         <th>
@@ -29,29 +86,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Age)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nickname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SubscriberID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SubscriberID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SubscriberID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nickname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SubscriberID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SubscriberID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SubscriberID })
+            </td>
+        </tr>
+    }
 
 </table>

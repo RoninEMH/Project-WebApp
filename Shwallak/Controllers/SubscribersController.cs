@@ -115,6 +115,94 @@ namespace Shwallak.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Search(string userName, int? age)
+        {
+            if (userName == null)
+                return RedirectToAction("Index");
+            List<Subscriber> subscribers = new List<Subscriber>();
+            if (age == null)
+            {
+                foreach (Subscriber s in db.Subscribers)
+                {
+                    if (s.Nickname.Equals(userName))
+                        subscribers.Add(s);
+                }
+                return View(subscribers);
+            }
+            else
+            {
+                foreach (Subscriber s in db.Subscribers)
+                {
+                    if (s.Nickname.Equals(userName) && s.Age >= age)
+                        subscribers.Add(s);
+                }
+                return View(subscribers);
+            }
+        }
+
+        private int CompareGenderMale(Subscriber x, Subscriber y)
+        {
+            if (x.Gender.ToString().Equals(y.Gender))
+                return 0;
+            if (x.Gender.ToString().Equals("Male"))
+                return -1;
+            else if (x.Gender.ToString().Equals("Female"))
+            {
+                if (y.Gender.ToString().Equals("Male"))
+                    return 1;
+                else
+                    return -1;
+            }
+            else if (x.Gender.ToString().Equals("Other"))
+                return 1;
+            return 1;
+        }
+        private int CompareGenderFemale(Subscriber x, Subscriber y)
+        {
+            if (x.Gender.ToString().Equals(y.Gender))
+                return 0;
+            if (x.Gender.ToString().Equals("Female"))
+                return -1;
+            else if (x.Gender.ToString().Equals("Male"))
+            {
+                if (y.Gender.ToString().Equals("Female"))
+                    return 1;
+                else
+                    return -1;
+            }
+            else if (x.Gender.ToString().Equals("Other"))
+                return 1;
+            return 1;
+        }
+
+        private int CompareGender(Subscriber x, Subscriber y, Gender gender)
+        {
+            if (gender.Equals(Gender.Male))
+                return CompareGenderMale(x, y);
+            else
+                return CompareGenderFemale(x, y);
+        }
+
+        public ActionResult Sort(string sortBy, int? gender)
+        {
+            if (sortBy == null)
+                return RedirectToAction("Index");
+            List<Subscriber> list = new List<Subscriber>();
+            foreach (Subscriber s in db.Subscribers)
+                list.Add(s);
+            if (sortBy.Equals("age"))
+                list.Sort((x, y) => x.Age - y.Age);
+            else if (sortBy.Equals("nickname"))
+                list.Sort((x, y) => string.Compare(x.Nickname, y.Nickname));
+            else if (sortBy.Equals("gender"))
+                if (gender == 1)
+                    list.Sort((x, y) => CompareGender(x, y, Gender.Male));
+                else
+                    list.Sort((x, y) => CompareGender(x, y, Gender.Female));
+            return View(list);
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
