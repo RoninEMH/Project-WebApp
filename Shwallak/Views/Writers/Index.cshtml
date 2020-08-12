@@ -8,6 +8,35 @@
 
 <h4>Writer</h4>
 
+<head>
+    <script type="text/javascript">
+        function genderModes() {
+            var mode = document.getElementsByName("sortBy")[2];
+            if (mode.checked) {
+                var male = document.getElementsByName("gender")[0];
+                var titleMale = document.getElementById("maleTitle");
+                titleMale.style.display = 'inline';
+                male.style.display = 'inline';
+                var female = document.getElementsByName("gender")[1];
+                var titleFemale = document.getElementById("femaleTitle");
+                titleFemale.style.display = 'inline';
+                female.style.display = 'inline';
+            }
+            else {
+                var male = document.getElementsByName("gender")[0];
+                var titleMale = document.getElementById("maleTitle");
+                titleMale.style.display = 'none';
+                male.style.display = 'none';
+                var female = document.getElementsByName("gender")[1];
+                var titleFemale = document.getElementById("femaleTitle");
+                titleFemale.style.display = 'none';
+                female.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -67,22 +96,28 @@
                     <div class="form-group">
                         <div class="control-label col-md-0">
                             <input type="submit" value="Search" class="btn btn-default" />
-
+                            <br />
                         </div>
                     </div>
                 </form>
             </th>
             <th>
-                <form action="~/Writers/SortByDate" , method="get">
+                <form action="/Writers/Sort" method="get">
                     <div class="form-group">
-                        <div class="control-label col-md-offset-2">
+                        <div class="control-label col-md-0">
                             <input type="submit" value="Sort" class="btn btn-default" />
-
                         </div>
+                            Fullname: <input type="radio" name="sortBy" value="fullname" checked="checked" onclick="genderModes()" />
+                            <br />
+                            Year: <input type="radio" name="sortBy" value="year" onclick="genderModes()" />
+                            <br />
+                            Gender:<input type="radio" name="sortBy" value="gender" onclick="genderModes()" />
+                            <label id="maleTitle" hidden="hidden">male first: </label><input type="radio" name="gender" value="1" hidden="hidden" />
+                            <label id="femaleTitle" hidden="hidden">female first: </label><input type="radio" name="gender" value="2" hidden="hidden" />
+                            <br />    
                     </div>
                 </form>
             </th>
         </tr>
     </table>
-
 </p>

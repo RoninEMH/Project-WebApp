@@ -185,11 +185,59 @@ namespace Shwallak.Controllers
             return View(results);
         }
 
-        public ActionResult SortByDate()
+        private int CompareGenderMale(Writer x, Writer y)
         {
-            List<Writer> writers = db.Writers.ToList();
-            writers.Sort((x, y) => x.Year - y.Year);
-            return View(writers);
+            if (x.Gender.ToString().Equals(y.Gender))
+                return 0;
+            if (x.Gender.ToString().Equals("Male"))
+                return -1;
+            else if (x.Gender.ToString().Equals("Female"))
+            {
+                if (y.Gender.ToString().Equals("Male"))
+                    return 1;
+                else
+                    return -1;
+            }
+            else if (x.Gender.ToString().Equals("Other"))
+                return 1;
+            return 1;
+        }
+
+        private int CompareGenderFemale(Writer x, Writer y)
+        {
+            if (x.Gender.ToString().Equals(y.Gender))
+                return 0;
+            if (x.Gender.ToString().Equals("Female"))
+                return -1;
+            else if (x.Gender.ToString().Equals("Male"))
+            {
+                if (y.Gender.ToString().Equals("Female"))
+                    return 1;
+                else
+                    return -1;
+            }
+            else if (x.Gender.ToString().Equals("Other"))
+                return 1;
+            return 1;
+        }
+
+        public ActionResult Sort(string sortBy, int? gender)
+        {
+            if (sortBy == null)
+                return RedirectToAction("Index");
+            List<Writer> list = new List<Writer>();
+            foreach (Writer w in db.Writers)
+                list.Add(w);
+            if (sortBy.Equals("year"))
+                list.Sort((x, y) => x.Year - y.Year);
+            else if (sortBy.Equals("fullname"))
+                list.Sort((x, y) => string.Compare(x.FullName, y.FullName));
+            else if (sortBy.Equals("gender"))
+                if (gender == 1)
+                    list.Sort((x, y) => CompareGenderMale(x, y));
+                else
+                    list.Sort((x, y) => CompareGenderFemale(x, y));
+            return View(list);
         }
     }
 }
