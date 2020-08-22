@@ -23,7 +23,14 @@
                         <div class="single_page_content">
                             @{ string img = "/Content/images/" + Model.Section + "_section1.jpg";}
                             <img class="img-center" src=@img alt="">
-                            <p>@Model.Content</p>
+                            @{ 
+                                string[] arr = { "\r\n" };
+                                string[] paragrapghs = Model.Content.Split(arr, StringSplitOptions.None);
+                                foreach(string paragraph in paragrapghs)
+                                {
+                                    <p>@paragraph</p>
+                                }
+                            }
                             <form action="~/Comments/Create">
                                 <button type="submit" class="btn btn-theme">Add Comment</button>
                             </form>
@@ -44,7 +51,33 @@
                         <ul class="spost_nav">
                             @if (Model.Comments != null)
                             {
-                                foreach (Shwallak.Models.Comment comment in Model.Comments)
+
+                                List<Shwallak.Models.Comment> comments = Model.Comments.ToList();
+                                comments.Sort(delegate(Shwallak.Models.Comment x, Shwallak.Models.Comment y)
+                                {
+                                    if (x.Year == y.Year)
+                                    {
+                                        if (x.Month == y.Month)
+                                        {
+                                            if (x.Day == y.Day)
+                                            {
+                                                if (x.Hour == y.Hour)
+                                                {
+                                                    return y.Minute - x.Minute;
+                                                }
+                                                else
+                                                    return y.Hour - x.Hour;
+                                            }
+                                            else
+                                                return y.Day - x.Day;
+                                        }
+                                        else
+                                            return y.Month - x.Month;
+                                    }
+                                    else
+                                        return y.Year - x.Year;
+                                });
+                                foreach (Shwallak.Models.Comment comment in comments)
                                 {
                                     <li>
                                         <div class="media wow fadeInDown">
@@ -52,6 +85,8 @@
                                                 <img alt="" src="~/Content/images/Comment.jpg">
                                             </a>
                                             <div class="media-body">
+                                                <a href="~/Comments/Details/@comment.CommentID" class="catg_title"> <h4>@comment.Author</h4></a>
+                                                <br />
                                                 <a href="~/Comments/Details/@comment.CommentID" class="catg_title"> @comment.Content</a>
                                             </div>
                                         </div>
