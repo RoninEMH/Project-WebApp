@@ -28,12 +28,15 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Commants.Find(id);
-            if (comment == null)
+            List<Comment> comments = new List<Comment>();
+            comments.AddRange(db.Commants.Include(x => x.Article).Include(x=>x.Article.Comments).Where(x => x.CommentID == id));
+            if (comments.Count == 0)
             {
                 return HttpNotFound();
             }
-            return View(comment);
+            db.Commants.Find(id).Watches = db.Commants.Find(id).Watches + 1;
+            db.SaveChanges();
+            return View(comments.ElementAt(0));
         }
 
         // GET: Comments/Create

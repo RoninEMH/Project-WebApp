@@ -2,81 +2,107 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
+<section id="contentSection">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="left_content">
+                <div class="single_page">
+                    <ol class="breadcrumb">
+                        <li><a href="~/Home/Index">Home</a></li>
+                        <li><a href="~/Articles/SectionList?section=@Model.Article.Section">@Model.Article.Section</a></li>
+                        <li><a href="~/Articles/Details/@Model.ArticleID">@Model.Article.Title</a></li>
+                        <li class="active">@Model.Author</li>
+                    </ol>
+                    <h1>@Model.Author</h1>
+                    <div class="post_commentbox">
+                        <span><i class="fa fa-calendar"></i>@Model.Day/@Model.Month/@Model.Year</span>
+                        <span><i class="fa fa-clock-o"></i>@Model.Hour:@Model.Minute</span>
+                        <span><i class="fa fa-eye"></i>@Model.Watches</span>
+                        @if (Model.Article.SubscribersOnly)
+                        {
+                            <span><i class="fa fa-lock"></i>subscribers only</span>
+                        }
+                        else
+                        {
+                            <span><i class="fa fa-lock"></i>public</span>
+                        }
+                    </div>
+                    <div class="single_page_content">
+                        <img class="img-center" src="~/Content/images/Comment.jpg" alt="">
+                        @{
+                            string[] arr = { "\r\n" };
+                            string[] paragrapghs = Model.Content.Split(arr, StringSplitOptions.None);
+                            foreach (string paragraph in paragrapghs)
+                            {
+                                <p>@paragraph</p>
+                            }
+                        }
 
-<h2>Details</h2>
+                    </div>
+                    <div class="social_link">
+                        <ul class="sociallink_nav">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <aside class="right_content">
+                <div class="single_sidebar">
+                    <h2><span>More Comments</span></h2>
+                    <ul class="spost_nav">
+                        @if (Model.Article.Comments != null)
+                        {
 
-<div>
-    <h4>Comment</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.Title)
-        </dt>
+                            List<Shwallak.Models.Comment> comments = Model.Article.Comments.ToList();
+                            comments.Sort(delegate (Shwallak.Models.Comment x, Shwallak.Models.Comment y)
+                            {
+                                if (x.Year == y.Year)
+                                {
+                                    if (x.Month == y.Month)
+                                    {
+                                        if (x.Day == y.Day)
+                                        {
+                                            if (x.Hour == y.Hour)
+                                            {
+                                                return y.Minute - x.Minute;
+                                            }
+                                            else
+                                                return y.Hour - x.Hour;
+                                        }
+                                        else
+                                            return y.Day - x.Day;
+                                    }
+                                    else
+                                        return y.Month - x.Month;
+                                }
+                                else
+                                    return y.Year - x.Year;
+                            });
+                            foreach (Shwallak.Models.Comment comment in comments)
+                            {
+                                <li>
+                                    <div class="media wow fadeInDown">
+                                        <a href="~/Comments/Details/@comment.CommentID" class="media-left">
+                                            <img alt="" src="~/Content/images/Comment.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <a href="~/Comments/Details/@comment.CommentID" class="catg_title"> <h4>@comment.Author</h4></a>
+                                            <br />
+                                            <a href="~/Comments/Details/@comment.CommentID" class="catg_title"> @comment.Content</a>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Article.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Month)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Month)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Day)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Day)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Hour)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Hour)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Minute)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Minute)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CommentID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            </aside>
+        </div>
+    </div>
+</section>
