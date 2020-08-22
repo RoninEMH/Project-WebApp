@@ -231,5 +231,51 @@ namespace Shwallak.Controllers
             });
             return View(articles);
         }
+
+        public ActionResult SectionList(string section)
+        {
+            List<Article> articles = db.Articles.Include(x => x.Comments).ToList();
+            List<Article> results = new List<Article>();
+            Section sec;
+            if (section == null)
+                return HttpNotFound();
+            switch (section)
+            {
+                case "Sport":
+                    sec = Section.Sport;
+                    break;
+                case "Business":
+                    sec = Section.Business;
+                    break;
+                case "Culture":
+                    sec = Section.Culture;
+                    break;
+                case "Food":
+                    sec = Section.Food;
+                    break;
+                case "Fashion":
+                    sec = Section.Fashion;
+                    break;
+                case "Tourism":
+                    sec = Section.Tourism;
+                    break;
+                case "Celebs":
+                    sec = Section.Celebs;
+                    break;
+                case "Health":
+                    sec = Section.Health;
+                    break;
+                case "Other":
+                    sec = Section.Other;
+                    break;
+                default:
+                    return HttpNotFound();
+
+
+            }
+            ViewBag.Section = section;
+            results.AddRange(articles.Where(x => x.Section == sec));
+            return View(results);
+        }
     }
 }
