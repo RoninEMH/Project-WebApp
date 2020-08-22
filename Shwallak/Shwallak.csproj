@@ -143,6 +143,10 @@
     <Compile Include="Migrations\202008221256089_add_watches_to_article_and_comment.designer.cs">
       <DependentUpon>202008221256089_add_watches_to_article_and_comment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008222248086_add_second_to_comment.cs" />
+    <Compile Include="Migrations\202008222248086_add_second_to_comment.designer.cs">
+      <DependentUpon>202008222248086_add_second_to_comment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -279,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008221256089_add_watches_to_article_and_comment.resx">
       <DependentUpon>202008221256089_add_watches_to_article_and_comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008222248086_add_second_to_comment.resx">
+      <DependentUpon>202008222248086_add_second_to_comment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

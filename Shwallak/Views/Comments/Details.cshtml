@@ -18,7 +18,26 @@
                     <h1>@Model.Author</h1>
                     <div class="post_commentbox">
                         <span><i class="fa fa-calendar"></i>@Model.Day/@Model.Month/@Model.Year</span>
-                        <span><i class="fa fa-clock-o"></i>@Model.Hour:@Model.Minute</span>
+                        @{
+                            string clock = "";
+                            if (Model.Hour < 10)
+                            {
+                                clock = clock + "0";
+                            }
+                            clock = clock + Model.Hour.ToString()+":";
+                            if (Model.Minute < 10)
+                            {
+                                clock = clock + "0";
+                            }
+                            clock = clock + Model.Minute.ToString()+":";
+                            if (Model.Second < 10)
+                            {
+                                clock = clock + "0";
+                            }
+                            clock = clock + Model.Second.ToString();
+
+                        }
+                        <span><i class="fa fa-clock-o"></i>@clock</span>
                         <span><i class="fa fa-eye"></i>@Model.Watches</span>
                         @if (Model.Article.SubscribersOnly)
                         {

@@ -30,6 +30,9 @@ namespace Shwallak.Models
         [Display(Name = "upload minute")]
         public int Minute { get; set; }
 
+        [Display(Name = "upload second")]
+        public int Second { get; set; }
+
         [Display(Name = "content")]
         public string Content { get; set; }
 
