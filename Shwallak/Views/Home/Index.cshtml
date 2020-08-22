@@ -1,32 +1,571 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<Shwallak.Models.Article>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@{
 
-<table>
-    <tr class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </tr>
-    <tr class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </tr>
-    <tr class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </tr>
-    
-</table>
+
+    List<Shwallak.Models.Article> latestNews = Model.ToList();
+    List<Shwallak.Models.Article> popularNews = Model.ToList();
+    List<Shwallak.Models.Comment> popularComments = new List<Shwallak.Models.Comment>();
+
+    latestNews.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+    {
+        if (x.Year == y.Year)
+        {
+            if (x.Month == y.Month)
+            {
+                return y.Day - x.Day;
+            }
+            else
+                return y.Month - x.Month;
+        }
+        else
+            return y.Year - x.Year;
+    });
+    if (latestNews.Count > 10)
+    {
+        latestNews = latestNews.GetRange(0, 10);
+    }
+
+    popularNews.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+    {
+        return y.Watches - x.Watches;
+    });
+    if (popularNews.Count > 5)
+    {
+        popularNews = popularNews.GetRange(0, 5);
+    }
+
+    foreach (Shwallak.Models.Article article in Model.ToList())
+    {
+        if (article.Comments != null)
+        {
+            foreach (Shwallak.Models.Comment comment in article.Comments.ToList())
+            {
+                popularComments.Add(comment);
+            }
+        }
+    }
+
+    popularComments.Sort(delegate (Shwallak.Models.Comment x, Shwallak.Models.Comment y)
+    {
+        return y.Watches - x.Watches;
+    });
+    if (popularComments.Count > 19)
+    {
+        popularComments = popularComments.GetRange(0, 19);
+    }
+}
+
+<section id="newsSection">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <!-- date sortes news navbar-->
+            <div class="latest_newsarea">
+                <span>Latest News</span>
+                <ul id="ticker01" class="news_sticker">
+                    @foreach (Shwallak.Models.Article article in latestNews)
+                    {
+                        <li>
+                            <a href="~/Articles/Details/@article.ArticleID">
+                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                <img src=@img alt="">
+                                @article.Title
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <div class="social_area">
+                    <ul class="social_nav">
+                        <li class="facebook"><a href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="sliderSection">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <!-- date sortes news slider-->
+            <div class="slick_slider">
+                @foreach (Shwallak.Models.Article article in latestNews)
+                {
+                    <div class="single_iteam">
+                        <a href="~/Articles/Details/@article.ArticleID">
+                            @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                            <img src=@img alt="">
+                        </a>
+                        <div class="slider_article">
+                            <h2>
+                                <a class="slider_tittle" href="~/Articles/Details/@article.ArticleID">@article.Title</a>
+                            </h2>
+                            @{
+                                string content = article.Content;
+                                if (content.Length > 200)
+                                {
+                                    content = content.Substring(0, 200);
+                                    content = content + "...";
+                                }
+                            }
+                            <p>@content</p>
+                            <br />
+                            <p>by @article.Writer.FullName</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <!-- watches sortes news list-->
+            <div class="latest_post">
+                <h2><span>Popular News</span></h2>
+                <div class="latest_post_container">
+                    <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
+                    <ul class="latest_postnav">
+                        @foreach (Shwallak.Models.Article article in popularNews)
+                        {
+                            <li>
+                                <div class="media">
+                                    <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                        @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                        <img src=@img alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        @{
+                                            string title = article.Title;
+                                            if (title.Length > 23)
+                                            {
+                                                title = title.Substring(0, 23);
+                                                title = title + "...";
+                                            }
+                                        }
+                                        <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> <h5>@title</h5></a>
+                                        @{
+                                            string content = article.Content;
+                                            if (content.Length > 37)
+                                            {
+                                                content = content.Substring(0, 37);
+                                                content = content + "...";
+                                            }
+                                        }
+                                        <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @content  </a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                    <div id="next-button"><i class="fa  fa-chevron-down"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contentSection">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="left_content">
+                <div class="fashion_technology_area">
+                    <div class="fashion">
+                        <!-- Sport Section -->
+                        <div class="single_post_content">
+                            <h2><span>Sport</span></h2>
+                            <ul class="spost_nav">
+                                @{
+                                    List<Shwallak.Models.Article> sports = new List<Shwallak.Models.Article>();
+                                    sports.AddRange(Model.ToList().Where(x => x.Section == Shwallak.Models.Section.Sport));
+                                    sports.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                                    {
+                                        if (x.Year == y.Year)
+                                        {
+                                            if (x.Month == y.Month)
+                                            {
+                                                return y.Day - x.Day;
+                                            }
+                                            else
+                                                return y.Month - x.Month;
+                                        }
+                                        else
+                                            return y.Year - x.Year;
+                                    });
+                                    if (sports.Count > 4)
+                                    {
+                                        sports = sports.GetRange(0, 4);
+                                    }
+                                }
+                                @foreach (Shwallak.Models.Article article in sports)
+                                {
+                                    <li>
+                                        <div class="media wow fadeInDown">
+                                            <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                                <img src=@img alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @article.Title</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="technology">
+                        <!-- Business Section -->
+                        <div class="single_post_content">
+                            <h2><span>Business</span></h2>
+                            <ul class="spost_nav">
+                                @{
+                                    List<Shwallak.Models.Article> business = new List<Shwallak.Models.Article>();
+                                    business.AddRange(Model.ToList().Where(x => x.Section == Shwallak.Models.Section.Business));
+                                    business.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                                    {
+                                        if (x.Year == y.Year)
+                                        {
+                                            if (x.Month == y.Month)
+                                            {
+                                                return y.Day - x.Day;
+                                            }
+                                            else
+                                                return y.Month - x.Month;
+                                        }
+                                        else
+                                            return y.Year - x.Year;
+                                    });
+                                    if (business.Count > 4)
+                                    {
+                                        business = business.GetRange(0, 4);
+                                    }
+                                }
+                                @foreach (Shwallak.Models.Article article in business)
+                                {
+                                    <li>
+                                        <div class="media wow fadeInDown">
+                                            <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                                <img src=@img alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @article.Title</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="fashion">
+                        <!-- Culture Section -->
+                        <div class="single_post_content">
+                            <h2><span>Culture</span></h2>
+                            <ul class="spost_nav">
+                                @{
+                                    List<Shwallak.Models.Article> cultures = new List<Shwallak.Models.Article>();
+                                    cultures.AddRange(Model.ToList().Where(x => x.Section == Shwallak.Models.Section.Culture));
+                                    cultures.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                                    {
+                                        if (x.Year == y.Year)
+                                        {
+                                            if (x.Month == y.Month)
+                                            {
+                                                return y.Day - x.Day;
+                                            }
+                                            else
+                                                return y.Month - x.Month;
+                                        }
+                                        else
+                                            return y.Year - x.Year;
+                                    });
+                                    if (cultures.Count > 4)
+                                    {
+                                        cultures = cultures.GetRange(0, 4);
+                                    }
+                                }
+                                @foreach (Shwallak.Models.Article article in cultures)
+                                {
+                                    <li>
+                                        <div class="media wow fadeInDown">
+                                            <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                                <img src=@img alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @article.Title</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="technology">
+                        <!-- Food Section -->
+                        <div class="single_post_content">
+                            <h2><span>Food</span></h2>
+                            <ul class="spost_nav">
+                                @{
+                                    List<Shwallak.Models.Article> foods = new List<Shwallak.Models.Article>();
+                                    foods.AddRange(Model.ToList().Where(x => x.Section == Shwallak.Models.Section.Food));
+                                    foods.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                                    {
+                                        if (x.Year == y.Year)
+                                        {
+                                            if (x.Month == y.Month)
+                                            {
+                                                return y.Day - x.Day;
+                                            }
+                                            else
+                                                return y.Month - x.Month;
+                                        }
+                                        else
+                                            return y.Year - x.Year;
+                                    });
+                                    if (foods.Count > 4)
+                                    {
+                                        foods = foods.GetRange(0, 4);
+                                    }
+                                }
+                                @foreach (Shwallak.Models.Article article in foods)
+                                {
+                                    <li>
+                                        <div class="media wow fadeInDown">
+                                            <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                                <img src=@img alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @article.Title</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="fashion">
+                        <!-- Celebs Section -->
+                        <div class="single_post_content">
+                            <h2><span>Celebs</span></h2>
+                            <ul class="spost_nav">
+                                @{
+                                    List<Shwallak.Models.Article> celebs = new List<Shwallak.Models.Article>();
+                                    celebs.AddRange(Model.ToList().Where(x => x.Section == Shwallak.Models.Section.Celebs));
+                                    celebs.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                                    {
+                                        if (x.Year == y.Year)
+                                        {
+                                            if (x.Month == y.Month)
+                                            {
+                                                return y.Day - x.Day;
+                                            }
+                                            else
+                                                return y.Month - x.Month;
+                                        }
+                                        else
+                                            return y.Year - x.Year;
+                                    });
+                                    if (celebs.Count > 4)
+                                    {
+                                        celebs = celebs.GetRange(0, 4);
+                                    }
+                                }
+                                @foreach (Shwallak.Models.Article article in celebs)
+                                {
+                                    <li>
+                                        <div class="media wow fadeInDown">
+                                            <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                                <img src=@img alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @article.Title</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="technology">
+                        <!-- Fashion Section -->
+                        <div class="single_post_content">
+                            <h2><span>Fashion</span></h2>
+                            <ul class="spost_nav">
+                                @{
+                                    List<Shwallak.Models.Article> fashions = new List<Shwallak.Models.Article>();
+                                    fashions.AddRange(Model.ToList().Where(x => x.Section == Shwallak.Models.Section.Fashion));
+                                    fashions.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                                    {
+                                        if (x.Year == y.Year)
+                                        {
+                                            if (x.Month == y.Month)
+                                            {
+                                                return y.Day - x.Day;
+                                            }
+                                            else
+                                                return y.Month - x.Month;
+                                        }
+                                        else
+                                            return y.Year - x.Year;
+                                    });
+                                    if (fashions.Count > 4)
+                                    {
+                                        fashions = fashions.GetRange(0, 4);
+                                    }
+                                }
+                                @foreach (Shwallak.Models.Article article in fashions)
+                                {
+                                    <li>
+                                        <div class="media wow fadeInDown">
+                                            <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                                <img src=@img alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @article.Title</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="fashion">
+                        <!-- Health Section -->
+                        <div class="single_post_content">
+                            <h2><span>Health</span></h2>
+                            <ul class="spost_nav">
+                                @{
+                                    List<Shwallak.Models.Article> healthes = new List<Shwallak.Models.Article>();
+                                    healthes.AddRange(Model.ToList().Where(x => x.Section == Shwallak.Models.Section.Health));
+                                    healthes.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                                    {
+                                        if (x.Year == y.Year)
+                                        {
+                                            if (x.Month == y.Month)
+                                            {
+                                                return y.Day - x.Day;
+                                            }
+                                            else
+                                                return y.Month - x.Month;
+                                        }
+                                        else
+                                            return y.Year - x.Year;
+                                    });
+                                    if (healthes.Count > 4)
+                                    {
+                                        healthes = healthes.GetRange(0, 4);
+                                    }
+                                }
+                                @foreach (Shwallak.Models.Article article in healthes)
+                                {
+                                    <li>
+                                        <div class="media wow fadeInDown">
+                                            <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                                <img src=@img alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @article.Title</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="technology">
+                        <!-- Tourism Section -->
+                        <div class="single_post_content">
+                            <h2><span>Tourism</span></h2>
+                            <ul class="spost_nav">
+                                @{
+                                    List<Shwallak.Models.Article> tourism = new List<Shwallak.Models.Article>();
+                                    tourism.AddRange(Model.ToList().Where(x => x.Section == Shwallak.Models.Section.Tourism));
+                                    tourism.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                                    {
+                                        if (x.Year == y.Year)
+                                        {
+                                            if (x.Month == y.Month)
+                                            {
+                                                return y.Day - x.Day;
+                                            }
+                                            else
+                                                return y.Month - x.Month;
+                                        }
+                                        else
+                                            return y.Year - x.Year;
+                                    });
+                                    if (tourism.Count > 4)
+                                    {
+                                        tourism = tourism.GetRange(0, 4);
+                                    }
+                                }
+                                @foreach (Shwallak.Models.Article article in tourism)
+                                {
+                                    <li>
+                                        <div class="media wow fadeInDown">
+                                            <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                                @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                                <img src=@img alt="" />
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @article.Title</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <aside class="right_content">
+                <!-- watches sortes comments list-->
+                <div class="single_sidebar">
+                    <h2><span>Popular Comments</span></h2>
+                    <ul class="spost_nav">
+                        @foreach (Shwallak.Models.Comment comment in popularComments)
+                        {
+                            <li>
+                                <div class="media wow fadeInDown">
+                                    <a href="~/Comments/Details/@comment.CommentID" class="media-left">
+                                        @{ string img = "/Content/images/" + comment.Article.Section + "_section1.jpg";}
+                                        <img src=@img alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        @{
+                                            string title = comment.Article.Title;
+                                            if (title.Length > 23)
+                                            {
+                                                title = title.Substring(0, 23);
+                                                title = title + "...";
+                                            }
+                                        }
+                                        <a href="~/Articles/Details/@comment.ArticleID" class="catg_title"> <h5>@title</h5></a>
+                                        <br />
+                                        @{
+                                            string content = comment.Content;
+                                            if (content.Length > 23)
+                                            {
+                                                content = content.Substring(0, 23);
+                                                content = content + "...";
+                                            }
+                                        }
+                                        <a href="~/Comments/Details/@comment.CommentID" class="catg_title"> <h6>@content</h6></a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>

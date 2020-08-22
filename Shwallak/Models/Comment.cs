@@ -33,6 +33,9 @@ namespace Shwallak.Models
         [Display(Name = "content")]
         public string Content { get; set; }
 
+        [Display(Name = "watches")]
+        public int Watches { get; set; }
+
         [Display(Name = "article")]
         public Article Article { get; set; }
 

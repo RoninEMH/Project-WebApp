@@ -28,11 +28,16 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = db.Articles.Find(id);
+            List<Article> articles = new List<Article>();
+            articles.AddRange(db.Articles.Include(x => x.Comments));
+            Article article = articles.Find(x => x.ArticleID == id);
             if (article == null)
             {
                 return HttpNotFound();
             }
+            article.Watches = article.Watches + 1;
+            db.SaveChanges();
+            article.Writer = db.Writers.Find(article.WriterID);
             return View(article);
         }
 

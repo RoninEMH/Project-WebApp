@@ -135,6 +135,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008041351535_InitialCreate.cs" />
+    <Compile Include="Migrations\202008041351535_InitialCreate.designer.cs">
+      <DependentUpon>202008041351535_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008221256089_add_watches_to_article_and_comment.cs" />
+    <Compile Include="Migrations\202008221256089_add_watches_to_article_and_comment.designer.cs">
+      <DependentUpon>202008221256089_add_watches_to_article_and_comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Gender.cs" />
@@ -146,16 +155,68 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Cheker.txt" />
+    <Content Include="Content\assets\css\animate.css" />
+    <Content Include="Content\assets\css\bootstrap.min.css" />
+    <Content Include="Content\assets\css\font-awesome.min.css" />
+    <Content Include="Content\assets\css\font.css" />
+    <Content Include="Content\assets\css\images\blank.gif" />
+    <Content Include="Content\assets\css\images\fancybox_loading%402x.gif" />
+    <Content Include="Content\assets\css\images\fancybox_loading.gif" />
+    <Content Include="Content\assets\css\images\fancybox_overlay.png" />
+    <Content Include="Content\assets\css\images\fancybox_sprite%402x.png" />
+    <Content Include="Content\assets\css\images\fancybox_sprite.png" />
+    <Content Include="Content\assets\css\images\slider_next.png" />
+    <Content Include="Content\assets\css\images\slider_prev.png" />
+    <Content Include="Content\assets\css\images\socials.png" />
+    <Content Include="Content\assets\css\images\status.gif" />
+    <Content Include="Content\assets\css\jquery.fancybox.css" />
+    <Content Include="Content\assets\css\li-scroller.css" />
+    <Content Include="Content\assets\css\slick.css" />
+    <Content Include="Content\assets\css\style.css" />
+    <Content Include="Content\assets\css\theme.css" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\assets\js\bootstrap.min.js" />
+    <Content Include="Content\assets\js\custom.js" />
+    <Content Include="Content\assets\js\html5shiv.min.js" />
+    <Content Include="Content\assets\js\jquery.fancybox.pack.js" />
+    <Content Include="Content\assets\js\jquery.li-scroller.1.0.js" />
+    <Content Include="Content\assets\js\jquery.min.js" />
+    <Content Include="Content\assets\js\jquery.newsTicker.min.js" />
+    <Content Include="Content\assets\js\respond.min.js" />
+    <Content Include="Content\assets\js\slick.min.js" />
+    <Content Include="Content\assets\js\wow.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\Business_section1.jpg" />
+    <Content Include="Content\images\Celebs_section1.jpg" />
+    <Content Include="Content\images\Comment.jpg" />
+    <Content Include="Content\images\Culture_section1.jpg" />
+    <Content Include="Content\images\Fashion_section1.jpg" />
+    <Content Include="Content\images\Food_section1.jpg" />
+    <Content Include="Content\images\Health_section1.jpg" />
+    <Content Include="Content\images\Other_section1.jpg" />
+    <Content Include="Content\images\shwallak_logo.jpg" />
+    <Content Include="Content\images\Sport_section1.jpg" />
+    <Content Include="Content\images\Tourism_section1.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\assets\fonts\FontAwesome.otf" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\assets\fonts\OpenSans-400.woff" />
+    <Content Include="Content\assets\fonts\Oswald-Regular-400.woff" />
+    <Content Include="Content\assets\fonts\Varela-400.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -180,10 +241,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Articles\Create.cshtml" />
     <Content Include="Views\Articles\Delete.cshtml" />
-    <Content Include="Views\Articles\Details.cshtml" />
     <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
@@ -209,8 +268,18 @@
     <Content Include="Views\Subscribers\Sort.cshtml" />
     <Content Include="Views\Subscribers\Search.cshtml" />
     <Content Include="Views\Writers\Sort.cshtml" />
+    <Content Include="Views\Shared\Readers_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Articles\Details.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
+      <DependentUpon>202008041351535_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008221256089_add_watches_to_article_and_comment.resx">
+      <DependentUpon>202008221256089_add_watches_to_article_and_comment.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

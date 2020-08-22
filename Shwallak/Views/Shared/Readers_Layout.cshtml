@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>NewsFeed</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/font.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/li-scroller.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/theme.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/style.css">
+    <!--[if lt IE 9]>
+    <script src="~/Content/assets/js/html5shiv.min.js"></script>
+    <script src="~/Content/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    @{
+        var monthes = new Dictionary<int, string>()
+    {
+            { 1, "January"},
+            { 2, "February"},
+            { 3, "March"},
+            { 4, "April"},
+            { 5, "May"},
+            { 6, "June"},
+            { 7, "July"},
+            { 8, "August"},
+            { 9, "September"},
+            { 10, "October"},
+            { 11, "November"},
+            { 12, "December"},
+        };
+    }
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+    <div class="container">
+        <header id="header">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="header_top">
+                        <div class="header_top_left">
+                            <ul class="top_nav">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="~/Home/About">About</a></li>
+                                <li><a href="~/Home/Contact">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="header_top_right">
+                            <p> @DateTime.Now.DayOfWeek, @monthes[DateTime.Now.Month] @DateTime.Now.Day, @DateTime.Now.Year </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="header_bottom">
+                        <div class="logo_area"><a href="index.html" class="logo"><img src="~/Content/images/shwallak_logo.jpg" alt=""></a></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section id="navArea">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav main_nav">
+                        <li class="active"><a href="~/Home/Index"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+                        <li><a href="#">Sport</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Culture</a></li>
+                        <li><a href="#">Food</a></li>
+                        <li><a href="#">Celebs</a></li>
+                        <li><a href="#">Fashion</a></li>
+                        <li><a href="#">Health</a></li>
+                        <li><a href="#">Tourism</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">. . .</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Other</a></li>
+                                <li><a href="#">Weather</a></li>
+                                <li><a href="#">Map</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </section>
+        @RenderBody()
+        <footer id="footer">
+            <div class="footer_top">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="footer_widget wow fadeInLeftBig">
+                            <h2>Thanks</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="footer_widget wow fadeInDown">
+                            <h2>Links</h2>
+                            <ul class="tag_nav">
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="https://www.google.com">google</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="footer_widget wow fadeInRightBig">
+                            <h2>Contact</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            <address>
+                                Perfect News,1238 S . 123 St.Suite 25 Town City 3333,USA Phone: 123-326-789 Fax: 123-546-567
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_bottom">
+                <p class="copyright">Copyright &copy; 2045 <a href="index.html">NewsFeed</a></p>
+                <p class="developer">Developed By Wpfreeware</p>
+            </div>
+        </footer>
+    </div>
+    <script src="~/Content/assets/js/jquery.min.js"></script>
+    <script src="~/Content/assets/js/wow.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/slick.min.js"></script>
+    <script src="~/Content/assets/js/jquery.li-scroller.1.0.js"></script>
+    <script src="~/Content/assets/js/jquery.newsTicker.min.js"></script>
+    <script src="~/Content/assets/js/jquery.fancybox.pack.js"></script>
+    <script src="~/Content/assets/js/custom.js"></script>
+</body>
+</html>

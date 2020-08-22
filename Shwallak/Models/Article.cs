@@ -36,6 +36,9 @@ namespace Shwallak.Models
 
         public ICollection<Comment> Comments { get; set; }
 
+        [Display(Name = "watches")]
+        public int Watches { get; set; }
+
         [Display(Name = "writer")]
         public Writer Writer { get; set; }
 
