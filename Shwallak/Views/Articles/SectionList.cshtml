@@ -5,35 +5,9 @@
     Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-@{
-    List<Shwallak.Models.Comment> popularComments = new List<Shwallak.Models.Comment>();
-
-    foreach (Shwallak.Models.Article article in Model.ToList())
-    {
-        if (article.Comments != null)
-        {
-            foreach (Shwallak.Models.Comment comment in article.Comments.ToList())
-            {
-                popularComments.Add(comment);
-            }
-        }
-    }
-
-    popularComments.Sort(delegate (Shwallak.Models.Comment x, Shwallak.Models.Comment y)
-    {
-        return y.Watches - x.Watches;
-    });
-    int size = (int)Math.Ceiling(Model.ToList().Count / 3.0);
-    if (popularComments.Count > size)
-    {
-        popularComments = popularComments.GetRange(0, size);
-    }
-}
 
 <section id="contentSection">
     <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8">
-            <div class="left_content">
                 <div class="single_page">
                     <div class="related_post">
                         <h2>@ViewBag.Section</h2>
@@ -119,48 +93,4 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <aside class="right_content">
-                <div class="single_sidebar">
-                    <h2><span>Popular Comments</span></h2>
-                    <ul class="spost_nav">
-                        @foreach (Shwallak.Models.Comment comment in popularComments)
-                        {
-                            <li>
-                                <div class="media wow fadeInDown">
-                                    <a href="~/Comments/Details/@comment.CommentID" class="media-left">
-                                        <img src="~/Content/images/Comment.jpg" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        @{
-                                            string title = comment.Article.Title;
-                                            if (title.Length > 23)
-                                            {
-                                                title = title.Substring(0, 23);
-                                                title = title + "...";
-                                            }
-                                        }
-                                        <a href="~/Articles/Details/@comment.ArticleID" class="catg_title"> <h5>@title</h5></a>
-                                        <br />
-                                        @{
-                                            string content = comment.Content;
-                                            if (content.Length > 23)
-                                            {
-                                                content = content.Substring(0, 23);
-                                                content = content + "...";
-                                            }
-                                        }
-                                        <a href="~/Comments/Details/@comment.CommentID" class="catg_title"> <h6>@content</h6></a>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                    </ul>
-                </div>
-
-            </aside>
-        </div>
-    </div>
-
 </section>

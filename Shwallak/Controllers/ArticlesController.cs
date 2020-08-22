@@ -139,14 +139,14 @@ namespace Shwallak.Controllers
             return View();
         }
 
-        public ActionResult Results(string title, int? year, int? month, int? day)
+        public ActionResult Results(string title, string date)
         {
             List<Article> results = new List<Article>();
             List<Article> temp = new List<Article>();
 
-            if ((title == null || title.Equals("")) && year == null && month == null && day == null)
+            if ((title == null || title.Equals("")) && (date == null || date.Equals("")))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Search");
             }
 
             foreach (Article article in db.Articles.ToList())
@@ -163,14 +163,21 @@ namespace Shwallak.Controllers
                 {
                     if (article.Title == null)
                         results.Remove(article);
-                    else if (!article.Title.Equals(title))
+                    else if (!article.Title.ToLower().Contains(title.ToLower()))
                         results.Remove(article);
                 }
                 temp.Clear();
             }
 
-            if (year != null)
+
+
+            if (date != null && !date.Equals(""))
             {
+                string[] numbers = date.Split('-');
+                int year = int.Parse(numbers[0]);
+                int month = int.Parse(numbers[1]);
+                int day = int.Parse(numbers[2]);
+
                 temp.AddRange(results);
                 foreach (Article article in temp)
                 {
@@ -178,10 +185,8 @@ namespace Shwallak.Controllers
                         results.Remove(article);
                 }
                 temp.Clear();
-            }
 
-            if (month != null)
-            {
+
                 temp.AddRange(results);
                 foreach (Article article in temp)
                 {
@@ -189,10 +194,7 @@ namespace Shwallak.Controllers
                         results.Remove(article);
                 }
                 temp.Clear();
-            }
 
-            if (day != null)
-            {
                 temp.AddRange(results);
                 foreach (Article article in temp)
                 {

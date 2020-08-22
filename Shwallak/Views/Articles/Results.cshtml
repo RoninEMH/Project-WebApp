@@ -2,77 +2,102 @@
 
 @{
     ViewBag.Title = "Results";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<h2>Results</h2>
 
-<h4>Article</h4>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Writer.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Month)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Day)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SubscribersOnly)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Section)
-        </th>
-        <th></th>
-    </tr>
+<section id="contentSection">
+    <div class="row">
+        <div class="single_page">
+            <div class="related_post">
+                <h2>Results</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Writer.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Month)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Day)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubscribersOnly)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Section)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ArticleID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ArticleID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ArticleID })
-        </td>
-    </tr>
-}
+                @{
+                    List<Shwallak.Models.Article> articles = Model.ToList();
+                    articles.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                    {
+                        if (x.Year == y.Year)
+                        {
+                            if (x.Month == y.Month)
+                            {
+                                return y.Day - x.Day;
+                            }
+                            else
+                                return y.Month - x.Month;
+                        }
+                        else
+                            return y.Year - x.Year;
+                    });
 
-</table>
+                    int i;
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                }
+                @for (i = 0; articles.Count - 3 > i; i += 3)
+                {
+                    Shwallak.Models.Article article1 = articles.ElementAt(i);
+                    Shwallak.Models.Article article2 = articles.ElementAt(i + 1);
+                    Shwallak.Models.Article article3 = articles.ElementAt(i + 2);
+                    string img1 = "/Content/images/" + article1.Section + "_section1.jpg";
+                    string img2 = "/Content/images/" + article2.Section + "_section1.jpg";
+                    string img3 = "/Content/images/" + article3.Section + "_section1.jpg";
+
+                    <ul class="spost_nav wow fadeInDown animated">
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Articles/Details/@article1.ArticleID">
+
+                                    <img src=@img1 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@article1.ArticleID">@article1.Title </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Articles/Details/@article2.ArticleID">
+                                    <img src=@img2 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@article2.ArticleID">@article2.Title </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Articles/Details/@article3.ArticleID">
+                                    <img src=@img3 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@article3.ArticleID">@article3.Title </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                }
+
+                <ul class="spost_nav wow fadeInDown animated">
+                    @while (i < articles.Count)
+                    {
+                        Shwallak.Models.Article article = articles.ElementAt(i);
+                        string img = "/Content/images/" + article.Section + "_section1.jpg";
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Articles/Details/@article.ArticleID">
+                                    <img src=@img alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@article.ArticleID">@article.Title </a>
+                                </div>
+                            </div>
+                        </li>
+                        i++;
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</section>
