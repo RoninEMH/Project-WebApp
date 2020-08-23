@@ -40,8 +40,16 @@ namespace Shwallak.Controllers
         }
 
         // GET: Comments/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+                return HttpNotFound();
+            Article article = db.Articles.Find(id);
+            if (article == null)
+                return HttpNotFound();
+
+            ViewBag.id = id;
+            ViewBag.name = article.Title;
             ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "Title");
             return View();
         }
@@ -51,15 +59,23 @@ namespace Shwallak.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CommentID,Author,Year,Month,Day,Hour,Minute,Content,ArticleID")] Comment comment)
+        public ActionResult Create([Bind(Include = "CommentID,Author,Year,Month,Day,Hour,Minute,Content,ArticleID")] Comment comment, int? id)
         {
             if (ModelState.IsValid)
             {
                 db.Commants.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/"+comment.CommentID);
             }
 
+            if (id == null)
+                return HttpNotFound();
+            Article article = db.Articles.Find(id);
+            if (article == null)
+                return HttpNotFound();
+
+            ViewBag.id = id;
+            ViewBag.name = article.Title;
             ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "Title", comment.ArticleID);
             return View(comment);
         }

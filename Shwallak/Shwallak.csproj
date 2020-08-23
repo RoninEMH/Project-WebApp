@@ -147,6 +147,18 @@
     <Compile Include="Migrations\202008222248086_add_second_to_comment.designer.cs">
       <DependentUpon>202008222248086_add_second_to_comment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008231348467_validation_for_comment.cs" />
+    <Compile Include="Migrations\202008231348467_validation_for_comment.designer.cs">
+      <DependentUpon>202008231348467_validation_for_comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008231404489_validation.cs" />
+    <Compile Include="Migrations\202008231404489_validation.designer.cs">
+      <DependentUpon>202008231404489_validation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008231411073_validation2.cs" />
+    <Compile Include="Migrations\202008231411073_validation2.designer.cs">
+      <DependentUpon>202008231411073_validation2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -286,6 +298,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008222248086_add_second_to_comment.resx">
       <DependentUpon>202008222248086_add_second_to_comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008231348467_validation_for_comment.resx">
+      <DependentUpon>202008231348467_validation_for_comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008231404489_validation.resx">
+      <DependentUpon>202008231404489_validation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008231411073_validation2.resx">
+      <DependentUpon>202008231411073_validation2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@
 <body>
     @{
         var monthes = new Dictionary<int, string>()
-    {
+{
             { 1, "January"},
             { 2, "February"},
             { 3, "March"},
@@ -48,7 +48,7 @@
                     <div class="header_top">
                         <div class="header_top_left">
                             <ul class="top_nav">
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="~/Home/Index">Home</a></li>
                                 <li><a href="~/Home/About">About</a></li>
                                 <li><a href="~/Home/Contact">Contact</a></li>
                             </ul>
@@ -136,5 +136,7 @@
     <script src="~/Content/assets/js/jquery.newsTicker.min.js"></script>
     <script src="~/Content/assets/js/jquery.fancybox.pack.js"></script>
     <script src="~/Content/assets/js/custom.js"></script>
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>
