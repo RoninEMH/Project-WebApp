@@ -35,6 +35,9 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+            if (article.SubscribersOnly && Session["type"].Equals("none"))
+                return RedirectToAction("LoginBy", "Home");
+
             article.Watches = article.Watches + 1;
             db.SaveChanges();
             article.Writer = db.Writers.Find(article.WriterID);

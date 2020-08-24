@@ -37,6 +37,15 @@
             { 12, "December"},
         };
     }
+
+    @{
+        if (Session["type"] == null)
+        {
+            Session["username"] = "guest";
+            Session["type"] = "none";
+            Session["id"] = null;
+        }
+    }
     <div id="preloader">
         <div id="status">&nbsp;</div>
     </div>
@@ -49,12 +58,23 @@
                         <div class="header_top_left">
                             <ul class="top_nav">
                                 <li><a href="~/Home/Index">Home</a></li>
+                                @if (Session["type"].Equals("none"))
+                                {
+                                    <li><a href="~/Subscribers/Create">Sigh Up</a></li>
+                                    <li><a href="~/Home/LoginBy">Log In</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="~/Home/LogOut">Log Out</a></li>
+                                }
                                 <li><a href="~/Home/About">About</a></li>
                                 <li><a href="~/Home/Contact">Contact</a></li>
                             </ul>
                         </div>
                         <div class="header_top_right">
                             <p> @DateTime.Now.DayOfWeek, @monthes[DateTime.Now.Month] @DateTime.Now.Day, @DateTime.Now.Year </p>
+                            <p>|</p>
+                            <p> hello @Session["username"]</p>
                         </div>
                     </div>
                 </div>

@@ -17,12 +17,15 @@ namespace Shwallak.Models
         [Display(Name = "gender")]
         public Gender Gender { get; set; }
 
+        [Required(AllowEmptyStrings = false)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required(AllowEmptyStrings = false)]
         [Display(Name = "nickname")]
         public string Nickname { get; set; }
 
+        [Required(AllowEmptyStrings = false)]
         [Display(Name = "password")]
         public string Password { get; set; }
     }

@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "LoginBy";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
+}
+
+    <section id="contentSection">
+        <div class="row">
+            <div class="contact_area">
+                <h2>Login</h2>
+                <form action="~/Home/Login" class="contact_form" method="get">
+                    <input class="form-control" id="userName" type="text" placeholder="User Name" name="userName">
+                    <input class="form-control" id="password" type="password" placeholder="Password" name="password">
+                    <br />
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="radio" name="type" value="1" checked="checked" />
+                            </td>
+                            <td>
+                                <h5> &nbsp; As Subscriber</h5>
+                            </td>
+                            <td>&nbsp; &nbsp;&nbsp; </td>
+                            <td>
+                                <input type="radio" name="type" value="2" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; As Writer</h5>
+                            </td>
+                    </table>
+
+                    <br />
+                    <input type="submit" value="Log In">
+                </form>
+                <br />
+                <table>
+                    <tr>
+                        <td>
+                            <form action="~/Subscribers/Create">
+                                <button type="submit" class="btn btn-theme">Sigh Up</button>
+                            </form>
+                        </td>
+                        <td>
+                            &ensp;
+                        </td>
+                        <td>
+                            <form action="~/Home/Index">
+                                <button type="submit" class="btn btn-theme">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+</section>
+

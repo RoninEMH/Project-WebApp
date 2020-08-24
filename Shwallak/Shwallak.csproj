@@ -62,6 +62,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -158,6 +159,10 @@
     <Compile Include="Migrations\202008231411073_validation2.cs" />
     <Compile Include="Migrations\202008231411073_validation2.designer.cs">
       <DependentUpon>202008231411073_validation2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008241544107_required_subscriber.cs" />
+    <Compile Include="Migrations\202008241544107_required_subscriber.designer.cs">
+      <DependentUpon>202008241544107_required_subscriber.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
@@ -290,6 +295,7 @@
     <Content Include="Views\Articles\SectionList.cshtml" />
     <Content Include="Views\Comments\Results.cshtml" />
     <Content Include="Views\Comments\Search.cshtml" />
+    <Content Include="Views\Home\LoginBy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
@@ -309,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008231411073_validation2.resx">
       <DependentUpon>202008231411073_validation2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008241544107_required_subscriber.resx">
+      <DependentUpon>202008241544107_required_subscriber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

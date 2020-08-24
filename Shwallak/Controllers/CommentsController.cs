@@ -34,6 +34,9 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+            if (db.Commants.Find(id).Article.SubscribersOnly && Session["type"].Equals("none"))
+                return RedirectToAction("LoginBy", "Home");
+
             db.Commants.Find(id).Watches = db.Commants.Find(id).Watches + 1;
             db.SaveChanges();
             return View(comments.ElementAt(0));
@@ -47,6 +50,9 @@ namespace Shwallak.Controllers
             Article article = db.Articles.Find(id);
             if (article == null)
                 return HttpNotFound();
+
+            if (article.SubscribersOnly && Session["type"].Equals("none"))
+                return RedirectToAction("LoginBy", "Home");
 
             ViewBag.id = id;
             ViewBag.name = article.Title;

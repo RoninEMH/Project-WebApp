@@ -50,9 +50,20 @@ namespace Shwallak.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach(Subscriber sub in db.Subscribers.ToList())
+                {
+                    if(sub.Nickname.Equals(subscriber.Nickname))
+                        return View(subscriber);
+                    if(sub.Email.Equals(subscriber.Email))
+                        return View(subscriber);
+                }
                 db.Subscribers.Add(subscriber);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                Session["username"] = subscriber.Nickname;
+                Session["type"] = "subscriber";
+                Session["id"] = subscriber.SubscriberID;
+                return Redirect("~/Home/Index");
             }
 
             return View(subscriber);
