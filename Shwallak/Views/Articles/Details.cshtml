@@ -15,6 +15,7 @@
                             <li class="active">@Model.Title</li>
                         </ol>
                         <h1>@Model.Title</h1>
+                        <a href="~/Views/Articles/Details.cshtml">~/Views/Articles/Details.cshtml</a>
                         <div class="post_commentbox">
                             <span><i class="fa fa-user"></i>@Model.Writer.FullName</span>
                             <span><i class="fa fa-calendar"></i>@Model.Day/@Model.Month/@Model.Year</span>
@@ -32,10 +33,10 @@
                         <div class="single_page_content">
                             @{ string img = "/Content/images/" + Model.Section + "_section1.jpg";}
                             <img class="img-center" src=@img alt="">
-                            @{ 
+                            @{
                                 string[] arr = { "\r\n" };
                                 string[] paragrapghs = Model.Content.Split(arr, StringSplitOptions.None);
-                                foreach(string paragraph in paragrapghs)
+                                foreach (string paragraph in paragrapghs)
                                 {
                                     <p>@paragraph</p>
                                 }
