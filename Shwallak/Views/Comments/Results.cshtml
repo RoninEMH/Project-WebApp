@@ -1,0 +1,152 @@
+﻿@model IEnumerable<Shwallak.Models.Comment>
+
+@{
+    ViewBag.Title = "Resultd";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
+}
+
+
+
+<section id="contentSection">
+    <div class="row">
+        <div class="single_page">
+            <div class="related_post">
+                <h2>Results</h2>
+
+                <br />
+                <form action="~/Comments/Sort/">
+                    <button type="submit" class="btn btn-theme">Sort</button>
+                </form>
+                <br />
+
+                @{
+                    List<Shwallak.Models.Comment> comments = Model.ToList();
+                    comments.Sort(delegate (Shwallak.Models.Comment x, Shwallak.Models.Comment y)
+                    {
+                        if (x.Year == y.Year)
+                        {
+                            if (x.Month == y.Month)
+                            {
+                                if (x.Day == y.Day)
+                                {
+                                    if (x.Hour == y.Hour)
+                                    {
+                                        if (x.Minute == y.Minute)
+                                        {
+                                            return y.Second - x.Second;
+                                        }
+                                        else
+                                            return y.Minute - x.Minute;
+                                    }
+                                    else
+                                        return y.Hour - x.Hour;
+                                }
+                                else
+                                    return y.Day - x.Day;
+                            }
+                            else
+                                return y.Month - x.Month;
+                        }
+                        else
+                            return y.Year - x.Year;
+                    });
+
+                    int i;
+
+                }
+                @for (i = 0; comments.Count - 3 > i; i += 3)
+                {
+                    Shwallak.Models.Comment comment1 = comments.ElementAt(i);
+                    Shwallak.Models.Comment comment2 = comments.ElementAt(i + 1);
+                    Shwallak.Models.Comment comment3 = comments.ElementAt(i + 2);
+                    string content1 = comment1.Content;
+                    if (content1.Length > 30)
+                    {
+                        content1 = content1.Substring(0, 30) + "...";
+                    }
+                    string content2 = comment2.Content;
+                    if (content2.Length > 30)
+                    {
+                        content2 = content2.Substring(0, 30) + "...";
+                    }
+                    string content3 = comment3.Content;
+                    if (content3.Length > 30)
+                    {
+                        content3 = content3.Substring(0, 30) + "...";
+                    }
+
+                    <ul class="spost_nav wow fadeInDown animated">
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Comments/Details/@comment1.CommentID">
+
+                                    <img src="~/Content/images/Comment.jpg" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@comment1.ArticleID">@comment1.Article.Title</a>
+                                    <br />
+                                    <a class="catg_title" href="~/Comments/Details/@comment1.CommentID">@content1 </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Comments/Details/@comment2.CommentID">
+
+                                    <img src="~/Content/images/Comment.jpg" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@comment2.ArticleID">@comment2.Article.Title</a>
+                                    <br />
+                                    <a class="catg_title" href="~/Comments/Details/@comment2.CommentID">@content2 </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Comments/Details/@comment3.CommentID">
+
+                                    <img src="~/Content/images/Comment.jpg" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@comment3.ArticleID">@comment3.Article.Title </a>
+                                    <br />
+                                    <a class="catg_title" href="~/Comments/Details/@comment3.CommentID">@content3</a>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                }
+
+                <ul class="spost_nav wow fadeInDown animated">
+                    @while (i < comments.Count)
+                    {
+                        Shwallak.Models.Comment comment = comments.ElementAt(i);
+                        string content = comment.Content;
+                        if (content.Length > 30)
+                        {
+                            content = content.Substring(0, 30) + "...";
+                        }
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Comments/Details/@comment.CommentID">
+
+                                    <img src="~/Content/images/Comment.jpg" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@comment.ArticleID">@comment.Article.Title</a>
+                                    <br />
+                                    <a class="catg_title" href="~/Comments/Details/@comment.CommentID">@content </a>
+                                </div>
+                            </div>
+                        </li>
+                        i++;
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</section>

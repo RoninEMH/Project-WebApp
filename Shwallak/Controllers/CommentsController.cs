@@ -147,5 +147,98 @@ namespace Shwallak.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult Results(string author, string contnet, string date)
+        {
+            List<Comment> results = new List<Comment>();
+            List<Comment> temp = new List<Comment>();
+
+            if ((author == null || author.Equals("")) && (contnet == null || contnet.Equals("")) && (date == null || date.Equals("")))
+            {
+                return RedirectToAction("Search");
+            }
+
+            foreach (Comment comment in db.Commants.Include(x=>x.Article).ToList())
+            {
+                results.Add(comment);
+            }
+
+
+            if (author != null && !author.Equals(""))
+            {
+                temp.AddRange(results);
+                foreach (Comment comment in temp)
+                {
+                    if (comment.Author == null)
+                        results.Remove(comment);
+                    else if (!comment.Author.ToLower().Contains(author.ToLower()))
+                        results.Remove(comment);
+                }
+                temp.Clear();
+            }
+
+            if (contnet != null && !contnet.Equals(""))
+            {
+                temp.AddRange(results);
+                foreach (Comment comment in temp)
+                {
+                    if (comment.Content == null)
+                        results.Remove(comment);
+                    else if (!comment.Content.ToLower().Contains(contnet.ToLower()))
+                        results.Remove(comment);
+                }
+                temp.Clear();
+            }
+
+            if (date != null && !date.Equals(""))
+            {
+                try
+                {
+                    string[] numbers = date.Split('-');
+                    if (numbers.Length != 3)
+                        return RedirectToAction("Search");
+
+                    int year = int.Parse(numbers[0]);
+                    int month = int.Parse(numbers[1]);
+                    int day = int.Parse(numbers[2]);
+
+                    temp.AddRange(results);
+                    foreach (Comment comment in temp)
+                    {
+                        if (comment.Year != year)
+                            results.Remove(comment);
+                    }
+                    temp.Clear();
+
+
+                    temp.AddRange(results);
+                    foreach (Comment comment in temp)
+                    {
+                        if (comment.Month != month)
+                            results.Remove(comment);
+                    }
+                    temp.Clear();
+
+                    temp.AddRange(results);
+                    foreach (Comment comment in temp)
+                    {
+                        if (comment.Day != day)
+                            results.Remove(comment);
+                    }
+                    temp.Clear();
+                }
+                catch (FormatException e)
+                {
+                    return RedirectToAction("Search");
+                }
+            }
+
+                return View(results);
+        }
     }
 }

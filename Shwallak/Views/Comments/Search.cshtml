@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
+}
+
+<section id="contentSection">
+    <div class="row">
+        <div class="contact_area">
+            <h2>Search</h2>
+            <p>Search comments by their author, content or by their uplous date.</p>
+            <p>Leave input area empty if you don't want to filter comments by it's property.</p>
+            <form action="~/Comments/Results" class="contact_form">
+                <input class="form-control" id="author" type="text" placeholder="Author" name="author">
+                <input class="form-control" id="content" type="text" placeholder="Content" name="content">
+                <input class="form-control" id="date" type="date" name="date">
+                <br />
+                <input type="submit" value="Search">
+            </form>
+        </div>
+    </div>
+</section>

@@ -149,9 +149,8 @@ namespace Shwallak.Controllers
                 return RedirectToAction("Search");
             }
 
-            foreach (Article article in db.Articles.ToList())
+            foreach (Article article in db.Articles.Include(x=>x.Writer).ToList())
             {
-                article.Writer = db.Writers.Find(article.WriterID);
                 results.Add(article);
             }
 
@@ -173,35 +172,45 @@ namespace Shwallak.Controllers
 
             if (date != null && !date.Equals(""))
             {
-                string[] numbers = date.Split('-');
-                int year = int.Parse(numbers[0]);
-                int month = int.Parse(numbers[1]);
-                int day = int.Parse(numbers[2]);
-
-                temp.AddRange(results);
-                foreach (Article article in temp)
+                try
                 {
-                    if (article.Year != year)
-                        results.Remove(article);
+                    string[] numbers = date.Split('-');
+                    if (numbers.Length != 3)
+                        return RedirectToAction("Search");
+
+                    int year = int.Parse(numbers[0]);
+                    int month = int.Parse(numbers[1]);
+                    int day = int.Parse(numbers[2]);
+
+                    temp.AddRange(results);
+                    foreach (Article article in temp)
+                    {
+                        if (article.Year != year)
+                            results.Remove(article);
+                    }
+                    temp.Clear();
+
+
+                    temp.AddRange(results);
+                    foreach (Article article in temp)
+                    {
+                        if (article.Month != month)
+                            results.Remove(article);
+                    }
+                    temp.Clear();
+
+                    temp.AddRange(results);
+                    foreach (Article article in temp)
+                    {
+                        if (article.Day != day)
+                            results.Remove(article);
+                    }
+                    temp.Clear();
                 }
-                temp.Clear();
-
-
-                temp.AddRange(results);
-                foreach (Article article in temp)
+                catch(FormatException e)
                 {
-                    if (article.Month != month)
-                        results.Remove(article);
+                    return RedirectToAction("Search");
                 }
-                temp.Clear();
-
-                temp.AddRange(results);
-                foreach (Article article in temp)
-                {
-                    if (article.Day != day)
-                        results.Remove(article);
-                }
-                temp.Clear();
             }
 
             return View(results);

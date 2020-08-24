@@ -288,6 +288,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Articles\Details.cshtml" />
     <Content Include="Views\Articles\SectionList.cshtml" />
+    <Content Include="Views\Comments\Results.cshtml" />
+    <Content Include="Views\Comments\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
