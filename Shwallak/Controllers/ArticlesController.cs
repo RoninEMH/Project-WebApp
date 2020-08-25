@@ -50,9 +50,15 @@ namespace Shwallak.Controllers
         {
             if (id == null)
                 return HttpNotFound();
+            else if (Session["id"] == null || !Session["id"].Equals(db.Articles.Find(id).WriterID))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Writer writer = db.Writers.Find(id);
             if (writer == null)
                 return HttpNotFound();
+
+           
 
             ViewBag.id = id;
             ViewBag.name = writer.FullName;
@@ -94,13 +100,25 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = db.Articles.Find(id);
-            if (article == null)
+            else if (Session["id"] == null || !Session["id"].Equals(db.Articles.Find(id).WriterID))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<Article> articles = new List<Article>();
+            List<Article> results = new List<Article>();
+
+            articles.AddRange(db.Articles.Include(x => x.Writer));
+            results.AddRange(articles.Where(x => x.ArticleID == id));
+
+            if (results.Count != 1)
             {
                 return HttpNotFound();
             }
-            ViewBag.WriterID = new SelectList(db.Writers, "WriterID", "FullName", article.WriterID);
-            return View(article);
+            ViewBag.id = results.First().WriterID;
+            ViewBag.name = results.First().Writer.FullName;
+
+            ViewBag.WriterID = new SelectList(db.Writers, "WriterID", "FullName", results.First().WriterID);
+            return View(results.First());
         }
 
         // POST: Articles/Edit/5
@@ -114,8 +132,21 @@ namespace Shwallak.Controllers
             {
                 db.Entry(article).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyArea", "Writers");
             }
+            List<Article> articles = new List<Article>();
+            List<Article> results = new List<Article>();
+
+            articles.AddRange(db.Articles.Include(x => x.Writer));
+            results.AddRange(articles.Where(x => x.ArticleID == article.ArticleID));
+
+            if (results.Count != 1)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.id = results.First().WriterID;
+            ViewBag.name = results.First().Writer.FullName;
+
             ViewBag.WriterID = new SelectList(db.Writers, "WriterID", "FullName", article.WriterID);
             return View(article);
         }

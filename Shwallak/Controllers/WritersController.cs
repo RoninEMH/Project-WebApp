@@ -27,6 +27,10 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            else if (Session["id"] == null || !Session["id"].Equals(id))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Writer writer = db.Writers.Find(id);
             if (writer == null)
             {
@@ -64,6 +68,11 @@ namespace Shwallak.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            else if (Session["id"] == null || !Session["id"].Equals(id))
+            {
+                return RedirectToAction("Index", "Home");
             }
             Writer writer = db.Writers.Find(id);
             if (writer == null)
@@ -245,6 +254,10 @@ namespace Shwallak.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else if(Session["id"] == null || !Session["id"].Equals(id))
+            {
+                return RedirectToAction("Index", "Home");
             }
             List<Writer> writers = new List<Writer>();
             List<Writer> results = new List<Writer>();

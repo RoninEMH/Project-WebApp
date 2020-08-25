@@ -276,7 +276,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Articles\CreateOld.cshtml" />
     <Content Include="Views\Articles\Delete.cshtml" />
-    <Content Include="Views\Articles\Edit.cshtml" />
+    <Content Include="Views\Articles\EditOld.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
@@ -311,6 +311,7 @@
     <Content Include="Views\Writers\MyArea.cshtml" />
     <Content Include="Views\Articles\Create.cshtml" />
     <Content Include="Views\Writers\Details.cshtml" />
+    <Content Include="Views\Articles\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
