@@ -49,7 +49,7 @@ namespace Shwallak.Controllers
 
                 DialogResult result = MessageBox.Show(message, message, MessageBoxButtons.YesNo);
                 if (result == System.Windows.Forms.DialogResult.Yes)
-                    return RedirectToAction("Create", "Subscriber");
+                    return RedirectToAction("Create", "Subscribers");
                 else
                     return tryChecker();
             }
@@ -123,7 +123,12 @@ namespace Shwallak.Controllers
                 return RedirectToAction("LoginBy");
         }
 
-        public ActionResult LoginBy() => View();
+        public ActionResult LoginBy()
+        {
+            if (!Session["type"].Equals("none"))
+                return RedirectToAction("Index");
+            return View();
+        }
 
         private ActionResult tryChecker()
         {

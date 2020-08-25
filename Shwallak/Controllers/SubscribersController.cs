@@ -38,6 +38,8 @@ namespace Shwallak.Controllers
         // GET: Subscribers/Create
         public ActionResult Create()
         {
+            if (!Session["type"].Equals("none"))
+                return RedirectToAction("Index");
             return View();
         }
 

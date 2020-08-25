@@ -43,6 +43,30 @@
                             <form action="~/Comments/Create/@Model.ArticleID">
                                 <button type="submit" class="btn btn-theme">Add Comment</button>
                             </form>
+                            @if (Session["id"] != null && Session["id"].Equals(Model.WriterID))
+                            {
+                                <br />
+                                <table>
+                                    <tr>
+                                        <td>
+
+                                            <form action="~/Articles/Edit/@Model.ArticleID">
+                                                <button type="submit" class="btn btn-theme">Edit</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            &nbsp;&nbsp;
+                                        </td>
+                                        <td>
+
+                                            <form action="~/Articles/Delete/@Model.ArticleID">
+                                                <button type="submit" class="btn btn-theme">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+
 
                         </div>
                         <div class="social_link">

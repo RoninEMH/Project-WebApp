@@ -158,12 +158,20 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = db.Articles.Find(id);
-            if (article == null)
+
+            List<Article> articles = new List<Article>();
+            List<Article> results = new List<Article>();
+            articles.AddRange(db.Articles.Include(x => x.Writer));
+            results.AddRange(articles.Where(x => x.ArticleID == id));
+            if (results.Count != 1)
             {
                 return HttpNotFound();
             }
-            return View(article);
+            if (Session["id"] == null || !Session["id"].Equals(results.First().WriterID))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(results.First());
         }
 
         // POST: Articles/Delete/5
@@ -174,7 +182,7 @@ namespace Shwallak.Controllers
             Article article = db.Articles.Find(id);
             db.Articles.Remove(article);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("MyArea", "Writers");
         }
 
         protected override void Dispose(bool disposing)
