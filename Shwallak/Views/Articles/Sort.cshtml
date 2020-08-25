@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<Shwallak.Models.Article>
 
 @{
-    ViewBag.Title = "Results";
+    ViewBag.Title = "Sort";
     Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
-
 
 
 <section id="contentSection">
@@ -14,30 +13,14 @@
                 <h2>Articles</h2>
 
                 <br />
-                <form action="~/Comments/Sort/">
+                <form action="~/Articles/Sort/">
                     <button type="submit" class="btn btn-theme">Sort</button>
                 </form>
                 <br />
 
                 @{
                     List<Shwallak.Models.Article> articles = Model.ToList();
-                    articles.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
-                    {
-                        if (x.Year == y.Year)
-                        {
-                            if (x.Month == y.Month)
-                            {
-                                return y.Day - x.Day;
-                            }
-                            else
-                                return y.Month - x.Month;
-                        }
-                        else
-                            return y.Year - x.Year;
-                    });
-
                     int i;
-
                 }
                 @for (i = 0; articles.Count - 3 > i; i += 3)
                 {

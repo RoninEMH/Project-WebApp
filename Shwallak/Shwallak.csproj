@@ -284,19 +284,16 @@
     <Content Include="Views\Subscribers\Details.cshtml" />
     <Content Include="Views\Subscribers\Edit.cshtml" />
     <Content Include="Views\Subscribers\Index.cshtml" />
-    <Content Include="Views\Writers\CreateOld.cshtml" />
     <Content Include="Views\Writers\Delete.cshtml" />
     <Content Include="Views\Writers\Details.cshtml" />
     <Content Include="Views\Writers\Edit.cshtml" />
     <Content Include="Views\Writers\Index.cshtml" />
     <Content Include="Views\Articles\Search.cshtml" />
     <Content Include="Views\Articles\Results.cshtml" />
-    <Content Include="Views\Articles\SortByDate.cshtml" />
     <Content Include="Views\Writers\Search.cshtml" />
     <Content Include="Views\Writers\Results.cshtml" />
     <Content Include="Views\Subscribers\Sort.cshtml" />
     <Content Include="Views\Subscribers\Search.cshtml" />
-    <Content Include="Views\Writers\Sort.cshtml" />
     <Content Include="Views\Shared\Readers_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Articles\Details.cshtml" />
@@ -305,6 +302,7 @@
     <Content Include="Views\Comments\Search.cshtml" />
     <Content Include="Views\Home\LoginBy.cshtml" />
     <Content Include="Views\Writers\Create.cshtml" />
+    <Content Include="Views\Articles\Sort.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">

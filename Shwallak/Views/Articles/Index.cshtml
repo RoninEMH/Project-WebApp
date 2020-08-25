@@ -12,9 +12,15 @@
         <div class="single_page">
             <div class="related_post">
                 <h2>Articles</h2>
-
                 <br />
-                <form action="~/Articles/Sort/">
+                <form action="~/Articles/Sort">
+                    Writer: <input type="radio" name="sortBy" value="writer" checked="checked" />
+                    <br />
+                    Watches: <input type="radio" name="sortBy" value="watches" />
+                    <br />
+                    Date: <input type="radio" name="sortBy" value="date" />
+                    <br />
+                    Title: <input type="radio" name="sortBy" value="title" />
                     <button type="submit" class="btn btn-theme">Sort</button>
                 </form>
                 <br />

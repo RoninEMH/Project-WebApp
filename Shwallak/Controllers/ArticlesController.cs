@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 using Shwallak.Models;
@@ -152,7 +153,7 @@ namespace Shwallak.Controllers
                 return RedirectToAction("Search");
             }
 
-            foreach (Article article in db.Articles.Include(x=>x.Writer).ToList())
+            foreach (Article article in db.Articles.Include(x => x.Writer).ToList())
             {
                 results.Add(article);
             }
@@ -210,40 +211,13 @@ namespace Shwallak.Controllers
                     }
                     temp.Clear();
                 }
-                catch(FormatException e)
+                catch (FormatException e)
                 {
                     return RedirectToAction("Search");
                 }
             }
 
             return View(results);
-        }
-
-        public ActionResult SortByDate()
-        {
-            List<Article> articles = new List<Article>();
-
-            foreach (Article article in db.Articles.ToList())
-            {
-                article.Writer = db.Writers.Find(article.WriterID);
-                articles.Add(article);
-            }
-
-            articles.Sort(delegate (Article x, Article y)
-            {
-                if (x.Year == y.Year)
-                {
-                    if (x.Month == y.Month)
-                    {
-                        return x.Day - y.Day;
-                    }
-                    else
-                        return x.Month - y.Month;
-                }
-                else
-                    return x.Year - y.Year;
-            });
-            return View(articles);
         }
 
         public ActionResult SectionList(string section)
@@ -290,6 +264,46 @@ namespace Shwallak.Controllers
             ViewBag.Section = section;
             results.AddRange(articles.Where(x => x.Section == sec));
             return View(results);
+        }
+
+        //public ActionResult SortBy() => View();
+
+        public ActionResult Sort(string sortBy)
+        {
+            if (sortBy == null)
+                return RedirectToAction("Index");
+            List<Article> list = new List<Article>();
+            foreach (Article a in db.Articles.ToList())
+            {
+                a.Writer = db.Writers.Find(a.WriterID);
+                list.Add(a);
+            }
+            if (sortBy.Equals("title"))
+                list.Sort((x, y) => string.Compare(x.Title, y.Title));
+            else if (sortBy.Equals("writer"))
+                list.Sort((x, y) => string.Compare(x.Writer.FullName, y.Writer.FullName));
+            /*
+            else if (sortBy.Equals("section"))
+                list.Sort((x, y) => string.Compare(x.Section.ToString(), y.Section.ToString()));
+            */
+            else if (sortBy.Equals("watches"))
+                list.Sort((x, y) => y.Watches - x.Watches);
+            else //by date
+            {
+                list.Sort(delegate (Article x, Article y)
+                {
+                    if (x.Year == y.Year)
+                    {
+                        if (x.Month == y.Month)
+                            return y.Day - x.Day;
+                        else
+                            return y.Month - x.Month;
+                    }
+                    else
+                        return y.Year - x.Year;
+                });
+            }
+            return View(list);
         }
     }
 }
