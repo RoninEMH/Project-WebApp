@@ -13,8 +13,47 @@
                 <h2>Articles</h2>
 
                 <br />
-                <form action="~/Articles/Sort/">
+                <form action="~/Articles/Sort">
                     <button type="submit" class="btn btn-theme">Sort</button>
+                    <br />
+
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="radio" name="sortBy" value="writer" checked="checked" />
+                            </td>
+                            <td>
+                                <h5> &nbsp; By Writer</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input type="radio" name="sortBy" value="watches" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; By Watches</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input type="radio" name="sortBy" value="date" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; By Date</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input type="radio" name="sortBy" value="title" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; By Title</h5>
+                            </td>
+                    </table>
+
                 </form>
                 <br />
 
