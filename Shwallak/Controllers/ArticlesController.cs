@@ -292,15 +292,9 @@ namespace Shwallak.Controllers
             {
                 list.Sort(delegate (Article x, Article y)
                 {
-                    if (x.Year == y.Year)
-                    {
-                        if (x.Month == y.Month)
-                            return y.Day - x.Day;
-                        else
-                            return y.Month - x.Month;
-                    }
-                    else
-                        return y.Year - x.Year;
+                    DateTime dateX = new DateTime(x.Year, x.Month, x.Day);
+                    DateTime dateY = new DateTime(y.Year, y.Month, y.Day);
+                    return DateTime.Compare(dateY, dateX);
                 });
             }
             return View(list);

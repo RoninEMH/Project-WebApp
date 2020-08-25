@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -29,7 +30,7 @@ namespace Shwallak.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             List<Comment> comments = new List<Comment>();
-            comments.AddRange(db.Commants.Include(x => x.Article).Include(x=>x.Article.Comments).Where(x => x.CommentID == id));
+            comments.AddRange(db.Commants.Include(x => x.Article).Include(x => x.Article.Comments).Where(x => x.CommentID == id));
             if (comments.Count == 0)
             {
                 return HttpNotFound();
@@ -68,7 +69,7 @@ namespace Shwallak.Controllers
             {
                 db.Commants.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Details/"+comment.CommentID);
+                return RedirectToAction("Details/" + comment.CommentID);
             }
 
             if (id == null)
@@ -170,7 +171,7 @@ namespace Shwallak.Controllers
                 return RedirectToAction("Search");
             }
 
-            foreach (Comment comment in db.Commants.Include(x=>x.Article).ToList())
+            foreach (Comment comment in db.Commants.Include(x => x.Article).ToList())
             {
                 results.Add(comment);
             }
@@ -244,8 +245,35 @@ namespace Shwallak.Controllers
                     return RedirectToAction("Search");
                 }
             }
+            return View(results);
+        }
 
-                return View(results);
+        public ActionResult Sort(string sortBy)
+        {
+            if (sortBy == null)
+                return RedirectToAction("Index");
+            List<Comment> list = new List<Comment>();
+            foreach (Comment c in db.Commants.ToList())
+            {
+                c.Article = db.Articles.Find(c.ArticleID);
+                list.Add(c);
+            }
+            if (sortBy.Equals("watches"))
+                list.Sort((x, y) => y.Watches - x.Watches);
+            else if (sortBy.Equals("article"))
+                list.Sort((x, y) => string.Compare(x.Article.Title, y.Article.Title));
+            else if (sortBy.Equals("author"))
+                list.Sort((x, y) => string.Compare(x.Author, y.Author));
+            else //by date
+            {
+                list.Sort(delegate (Comment x, Comment y)
+                {
+                    DateTime dateX = new DateTime(x.Year, x.Month, x.Day, x.Hour, x.Minute, x.Second);
+                    DateTime dateY = new DateTime(y.Year, y.Month, y.Day, y.Hour, y.Minute, y.Second);
+                    return DateTime.Compare(dateY, dateX);
+                });
+            }
+            return View(list);
         }
     }
 }
