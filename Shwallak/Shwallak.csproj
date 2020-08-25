@@ -283,7 +283,7 @@
     <Content Include="Views\Subscribers\Create.cshtml" />
     <Content Include="Views\Subscribers\Delete.cshtml" />
     <Content Include="Views\Subscribers\Details.cshtml" />
-    <Content Include="Views\Subscribers\Edit.cshtml" />
+    <Content Include="Views\Subscribers\EditOld.cshtml" />
     <Content Include="Views\Subscribers\Index.cshtml" />
     <Content Include="Views\Writers\Delete.cshtml" />
     <Content Include="Views\Writers\DetailsOld.cshtml" />
@@ -310,6 +310,7 @@
     <Content Include="Views\Writers\Details.cshtml" />
     <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Delete.cshtml" />
+    <Content Include="Views\Subscribers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
