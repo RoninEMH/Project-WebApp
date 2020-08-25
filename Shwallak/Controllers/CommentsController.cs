@@ -51,9 +51,6 @@ namespace Shwallak.Controllers
             if (article == null)
                 return HttpNotFound();
 
-            if (article.SubscribersOnly && Session["type"].Equals("none"))
-                return RedirectToAction("LoginBy", "Home");
-
             ViewBag.id = id;
             ViewBag.name = article.Title;
             ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "Title");
@@ -131,6 +128,10 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (!Session["type"].Equals("admin"))
+                return RedirectToAction("Details/" + id);
+
             return View(comment);
         }
 
