@@ -50,7 +50,7 @@ namespace Shwallak.Controllers
         {
             if (id == null)
                 return HttpNotFound();
-            else if (Session["id"] == null || !Session["id"].Equals(db.Articles.Find(id).WriterID))
+            else if (Session["id"] == null || !Session["id"].Equals(id))
             {
                 return RedirectToAction("Index", "Home");
             }
