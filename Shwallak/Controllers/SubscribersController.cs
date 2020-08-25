@@ -97,7 +97,7 @@ namespace Shwallak.Controllers
             {
                 db.Entry(subscriber).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + subscriber.SubscriberID);
             }
             return View(subscriber);
         }

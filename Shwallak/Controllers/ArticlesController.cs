@@ -132,7 +132,7 @@ namespace Shwallak.Controllers
             {
                 db.Entry(article).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("MyArea", "Writers");
+                return RedirectToAction("MyArea/"+article.WriterID, "Writers");
             }
             List<Article> articles = new List<Article>();
             List<Article> results = new List<Article>();

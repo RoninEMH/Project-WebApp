@@ -7,7 +7,7 @@
 
 <section id="contentSection">
     <div class="contact_area">
-        <h2>Edit</h2>
+        <h2>Edit - @Model.Nickname</h2>
 
 
         @using (Html.BeginForm())
@@ -15,7 +15,6 @@
             @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Subscriber</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.SubscriberID)
@@ -52,14 +51,20 @@
             </div>
         </div>
 
+        <input class="form-control" id="Password" name="Password" type="hidden" value="@Model.Password">
+
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
-                }
+        }
 
+        <form action="~/Subscribers/Details/@Model.SubscriberID" class="contact_form">
+            <input type="submit" value="cancel" />
+        </form>
     </div>
 </section>
 

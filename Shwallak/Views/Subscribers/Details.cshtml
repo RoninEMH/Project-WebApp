@@ -2,57 +2,63 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<section id="contentSection">
+    <div class="row">
+        <div class="contact_area">
+            <h2>@Model.Nickname - Details</h2>
 
-<div>
-    <h4>Subscriber</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Age)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Age)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nickname)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nickname)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nickname)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nickname)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Password)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Password)
+                    </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SubscriberID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.SubscriberID }) |
+                @Html.ActionLink("Back", "Index", "Home")
+            </p>
+        </div>
+    </div>
+</section>
