@@ -286,7 +286,7 @@
     <Content Include="Views\Subscribers\Index.cshtml" />
     <Content Include="Views\Writers\Delete.cshtml" />
     <Content Include="Views\Writers\Details.cshtml" />
-    <Content Include="Views\Writers\Edit.cshtml" />
+    <Content Include="Views\Writers\EditOld.cshtml" />
     <Content Include="Views\Writers\Index.cshtml" />
     <Content Include="Views\Articles\Search.cshtml" />
     <Content Include="Views\Articles\Results.cshtml" />
@@ -303,6 +303,7 @@
     <Content Include="Views\Home\LoginBy.cshtml" />
     <Content Include="Views\Writers\Create.cshtml" />
     <Content Include="Views\Articles\Sort.cshtml" />
+    <Content Include="Views\Writers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
