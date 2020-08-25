@@ -9,7 +9,8 @@
         <div class="row">
             <div class="single_page">
                 <div class="related_post">
-                    <h2>Articles</h2>
+                    @{ string name = Model.FullName + "'s Area";}
+                    <h2>@name</h2>
 
                     <br />
                     <table>
@@ -23,7 +24,7 @@
                                 &nbsp;&nbsp;
                             </td>
                             <td>
-                                <form action="~/Articles/Create">
+                                <form action="~/Articles/Create/@Model.WriterID">
                                     <button type="submit" class="btn btn-theme">Add</button>
                                 </form>
                             </td>

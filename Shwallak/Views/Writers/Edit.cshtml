@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
 <section id="contentSection">
     <div class="contact_area">
 
@@ -15,7 +13,7 @@
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>Writer</h4>
+                <h4>Edit Writer</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.WriterID)

@@ -172,6 +172,10 @@
     <Compile Include="Migrations\202008251012361_age_writer.designer.cs">
       <DependentUpon>202008251012361_age_writer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008251258431_required-article.cs" />
+    <Compile Include="Migrations\202008251258431_required-article.designer.cs">
+      <DependentUpon>202008251258431_required-article.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -270,7 +274,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Articles\Create.cshtml" />
+    <Content Include="Views\Articles\CreateOld.cshtml" />
     <Content Include="Views\Articles\Delete.cshtml" />
     <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
@@ -305,6 +309,7 @@
     <Content Include="Views\Writers\Edit.cshtml" />
     <Content Include="Views\Comments\Sort.cshtml" />
     <Content Include="Views\Writers\MyArea.cshtml" />
+    <Content Include="Views\Articles\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
@@ -333,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008251012361_age_writer.resx">
       <DependentUpon>202008251012361_age_writer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008251258431_required-article.resx">
+      <DependentUpon>202008251258431_required-article.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

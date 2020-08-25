@@ -46,8 +46,16 @@ namespace Shwallak.Controllers
         }
 
         // GET: Articles/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+                return HttpNotFound();
+            Writer writer = db.Writers.Find(id);
+            if (writer == null)
+                return HttpNotFound();
+
+            ViewBag.id = id;
+            ViewBag.name = writer.FullName;
             ViewBag.WriterID = new SelectList(db.Writers, "WriterID", "FullName");
             return View();
         }
@@ -57,14 +65,23 @@ namespace Shwallak.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ArticleID,Title,Content,Year,Month,Day,SubscribersOnly,Section,WriterID")] Article article)
+        public ActionResult Create([Bind(Include = "ArticleID,Title,Content,Year,Month,Day,SubscribersOnly,Section,WriterID")] Article article, int? id)
         {
             if (ModelState.IsValid)
             {
                 db.Articles.Add(article);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyArea/"+id, "Writers");
             }
+
+            if (id == null)
+                return HttpNotFound();
+            Writer writer = db.Writers.Find(id);
+            if (writer == null)
+                return HttpNotFound();
+
+            ViewBag.id = id;
+            ViewBag.name = writer.FullName;
 
             ViewBag.WriterID = new SelectList(db.Writers, "WriterID", "FullName", article.WriterID);
             return View(article);

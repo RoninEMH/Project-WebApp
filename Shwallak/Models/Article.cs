@@ -14,9 +14,11 @@ namespace Shwallak.Models
         public int ArticleID { get; set; }
 
         [Display(Name = "title")]
+        [Required(AllowEmptyStrings = false)]
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText), Display(Name = "content")]
+        [Required(AllowEmptyStrings = false)]
         public string Content { get; set; }
 
         [Display(Name = "upload year")]
@@ -28,7 +30,7 @@ namespace Shwallak.Models
         [Display(Name = "upload day")]
         public int Day { get; set; }
 
-        [Display(Name = "is for subscribers only?")]
+        [Display(Name = "subscribers only")]
         public bool SubscribersOnly { get; set; }
 
         [Display(Name = "section")]
