@@ -2,63 +2,77 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<section id="contentSection">
+    <div class="row">
+        <div class="contact_area">
+            <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Subscriber</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
+            <h3>Are you sure you want to delete this?</h3>
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Nickname)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Age)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Nickname)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Age)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nickname)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nickname)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+                </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
 
-    </dl>
+                <table>
+                    <tr>
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+                                <div class="form-actions no-color">
+                                    <button type="submit" class="btn btn-theme">Delete</button>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;
+                        </td>
+                        <td>
+                            <form action="~/Subscribers/Details/@Model.SubscriberID">
+                                <button type="submit" class="btn btn-theme">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
         </div>
-    }
-</div>
+    </div>
+</section>

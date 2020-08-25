@@ -182,7 +182,7 @@ namespace Shwallak.Controllers
             Article article = db.Articles.Find(id);
             db.Articles.Remove(article);
             db.SaveChanges();
-            return RedirectToAction("MyArea", "Writers");
+            return RedirectToAction("MyArea/" + article.WriterID, "Writers");
         }
 
         protected override void Dispose(bool disposing)

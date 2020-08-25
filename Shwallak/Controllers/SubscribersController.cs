@@ -125,7 +125,7 @@ namespace Shwallak.Controllers
             Subscriber subscriber = db.Subscribers.Find(id);
             db.Subscribers.Remove(subscriber);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details/" + subscriber.SubscriberID, "Subscribers");
         }
 
         public ActionResult Search(string userName, int? age)
