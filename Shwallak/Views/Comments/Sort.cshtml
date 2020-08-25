@@ -13,14 +13,44 @@
                 <h2>Comments</h2>
                 <br />
                 <form action="~/Comments/Sort">
-                    Author: <input type="radio" name="sortBy" value="author" checked="checked" />
-                    <br />
-                    Watches: <input type="radio" name="sortBy" value="watches" />
-                    <br />
-                    Date: <input type="radio" name="sortBy" value="date" />
-                    <br />
-                    Article: <input type="radio" name="sortBy" value="article" />
                     <button type="submit" class="btn btn-theme">Sort</button>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="radio" name="sortBy" value="author" checked="checked" />
+                            </td>
+                            <td>
+                                <h5> &nbsp; By Author</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input type="radio" name="sortBy" value="watches" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; By Watches</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input type="radio" name="sortBy" value="date" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; By Date</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input type="radio" name="sortBy" value="article" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; By article</h5>
+                            </td>
+                    </table>
+
                 </form>
                 <br />
 

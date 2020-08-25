@@ -239,5 +239,23 @@ namespace Shwallak.Controllers
                     list.Sort((x, y) => CompareGenderFemale(x, y));
             return View(list);
         }
+    
+        public ActionResult MyArea(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<Writer> writers = new List<Writer>();
+            List<Writer> results = new List<Writer>();
+
+            writers.AddRange(db.Writers.Include(x => x.Articles));
+            results.AddRange(writers.Where(x => x.WriterID == id));
+            if (results.Count != 1)
+            {
+                return HttpNotFound();
+            }
+            return View(results.First());
+        }
     }
 }

@@ -304,6 +304,7 @@
     <Content Include="Views\Articles\Sort.cshtml" />
     <Content Include="Views\Writers\Edit.cshtml" />
     <Content Include="Views\Comments\Sort.cshtml" />
+    <Content Include="Views\Writers\MyArea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
