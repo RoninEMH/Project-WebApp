@@ -63,7 +63,7 @@ namespace Shwallak.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CommentID,Author,Year,Month,Day,Hour,Minute,Content,ArticleID")] Comment comment, int? id)
+        public ActionResult Create([Bind(Include = "CommentID,Author,Year,Month,Day,Hour,Minute,Second,Content,ArticleID")] Comment comment, int? id)
         {
             if (ModelState.IsValid)
             {

@@ -78,13 +78,13 @@ namespace Shwallak.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "WriterID,FullName,Gender,Email,Year,Password")] Writer writer)
+        public ActionResult Edit([Bind(Include = "WriterID,FullName,Gender,Email,Year,Password,Address,Age")] Writer writer)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(writer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyArea/"+writer.WriterID);
             }
             return View(writer);
         }

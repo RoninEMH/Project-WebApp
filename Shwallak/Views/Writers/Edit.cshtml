@@ -7,13 +7,13 @@
 
 <section id="contentSection">
     <div class="contact_area">
+        <h2>Edit</h2>
 
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>Edit Writer</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.WriterID)
@@ -23,6 +23,14 @@
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -42,15 +50,16 @@
                     </div>
                 </div>
 
-                <input class="form-control" id="Year" name="Year" type="hidden" value="@Model.Year">
-
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                <input class="form-control" id="Year" name="Year" type="hidden" value="@Model.Year">
+
+                <input class="form-control" id="Password" name="Password" type="hidden" value="@Model.Password">
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -60,7 +69,7 @@
             </div>
         }
 
-        <form action="~/Home/Index" class="contact_form">
+        <form action="~/Writers/MyArea/@Model.WriterID" class="contact_form">
             <input type="submit" value="cancel" />
         </form>
     </div>
