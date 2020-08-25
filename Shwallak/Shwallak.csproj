@@ -164,6 +164,14 @@
     <Compile Include="Migrations\202008241544107_required_subscriber.designer.cs">
       <DependentUpon>202008241544107_required_subscriber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008251008191_required_and_address.cs" />
+    <Compile Include="Migrations\202008251008191_required_and_address.designer.cs">
+      <DependentUpon>202008251008191_required_and_address.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008251012361_age_writer.cs" />
+    <Compile Include="Migrations\202008251012361_age_writer.designer.cs">
+      <DependentUpon>202008251012361_age_writer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -276,7 +284,7 @@
     <Content Include="Views\Subscribers\Details.cshtml" />
     <Content Include="Views\Subscribers\Edit.cshtml" />
     <Content Include="Views\Subscribers\Index.cshtml" />
-    <Content Include="Views\Writers\Create.cshtml" />
+    <Content Include="Views\Writers\CreateOld.cshtml" />
     <Content Include="Views\Writers\Delete.cshtml" />
     <Content Include="Views\Writers\Details.cshtml" />
     <Content Include="Views\Writers\Edit.cshtml" />
@@ -296,6 +304,7 @@
     <Content Include="Views\Comments\Results.cshtml" />
     <Content Include="Views\Comments\Search.cshtml" />
     <Content Include="Views\Home\LoginBy.cshtml" />
+    <Content Include="Views\Writers\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
@@ -318,6 +327,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008241544107_required_subscriber.resx">
       <DependentUpon>202008241544107_required_subscriber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008251008191_required_and_address.resx">
+      <DependentUpon>202008251008191_required_and_address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008251012361_age_writer.resx">
+      <DependentUpon>202008251012361_age_writer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
