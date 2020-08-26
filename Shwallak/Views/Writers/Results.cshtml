@@ -1,60 +1,88 @@
 ﻿@model IEnumerable<Shwallak.Models.Writer>
 
 @{
-    ViewBag.Title = "Results";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<h2>Results</h2>
+<section id="contentSection">
+    <div class="row">
+        <div class="single_page">
+            <div class="related_post">
+                <h2>Results</h2>
+                
 
-<h4>Writer</h4>
+                @{
+                    List<Shwallak.Models.Writer> writers = Model.ToList();
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Year)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th></th>
-    </tr>
+                    int i;
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.WriterID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.WriterID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.WriterID })
-        </td>
-    </tr>
-}
+                }
+                @for (i = 0; writers.Count - 3 > i; i += 3)
+                {
+                    Shwallak.Models.Writer writer1 = writers.ElementAt(i);
+                    Shwallak.Models.Writer writer2 = writers.ElementAt(i + 1);
+                    Shwallak.Models.Writer writer3 = writers.ElementAt(i + 2);
+                    string img1 = "/Content/images/" + writer1.Gender + "Person.jpg";
+                    string img2 = "/Content/images/" + writer2.Gender + "Person.jpg";
+                    string img3 = "/Content/images/" + writer3.Gender + "Person.jpg";
 
-</table>
+                    <ul class="spost_nav wow fadeInDown animated">
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Writers/Details/@writer1.WriterID">
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+                                    <img src=@img1 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Writers/Details/@writer1.WriterID">@writer1.FullName </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Writers/Details/@writer2.WriterID">
+                                    <img src=@img2 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Writers/Details/@writer2.WriterID">@writer2.FullName </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Writers/Details/@writer3.WriterID">
+                                    <img src=@img3 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Writers/Details/@writer3.WriterID">@writer3.FullName </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                }
+
+                <ul class="spost_nav wow fadeInDown animated">
+                    @while (i < writers.Count)
+                    {
+                        Shwallak.Models.Writer writer = writers.ElementAt(i);
+                        string img = "/Content/images/" + writer.Gender + "Person.jpg";
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Writers/Details/@writer.WriterID">
+                                    <img src=@img alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Writers/Details/@writer.WriterID">@writer.FullName </a>
+                                </div>
+                            </div>
+                        </li>
+                        i++;
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</section>

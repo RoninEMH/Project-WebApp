@@ -15,7 +15,7 @@
                 <hr />
                 <dl class="dl-horizontal">
                     <dt>
-                        @Html.DisplayNameFor(model => model.Article.Title)
+                        Article
                     </dt>
 
                     <dd>
@@ -31,51 +31,19 @@
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.Year)
+                        Date
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Year)
+                        @Html.DisplayFor(model => model.Day)/@Html.DisplayFor(model => model.Month)/@Html.DisplayFor(model => model.Year)
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.Month)
+                        Hour
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Month)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Day)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Day)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Hour)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Hour)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Minute)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Minute)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Second)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Second)
+                        @Html.DisplayFor(model => model.Hour):@Html.DisplayFor(model => model.Minute):@Html.DisplayFor(model => model.Second)
                     </dd>
 
                     <dt>
@@ -84,14 +52,6 @@
 
                     <dd>
                         @Html.DisplayFor(model => model.Content)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Watches)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Watches)
                     </dd>
 
                 </dl>

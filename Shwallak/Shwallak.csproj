@@ -228,8 +228,11 @@
     <Content Include="Content\images\Comment.jpg" />
     <Content Include="Content\images\Culture_section1.jpg" />
     <Content Include="Content\images\Fashion_section1.jpg" />
+    <Content Include="Content\images\FemalePerson.jpg" />
     <Content Include="Content\images\Food_section1.jpg" />
     <Content Include="Content\images\Health_section1.jpg" />
+    <Content Include="Content\images\MalePerson.jpg" />
+    <Content Include="Content\images\OtherPerson.jpg" />
     <Content Include="Content\images\Other_section1.jpg" />
     <Content Include="Content\images\shwallak_logo.jpg" />
     <Content Include="Content\images\Sport_section1.jpg" />
@@ -283,7 +286,6 @@
     <Content Include="Views\Subscribers\Create.cshtml" />
     <Content Include="Views\Subscribers\Index.cshtml" />
     <Content Include="Views\Writers\DetailsOld.cshtml" />
-    <Content Include="Views\Writers\Index.cshtml" />
     <Content Include="Views\Articles\Search.cshtml" />
     <Content Include="Views\Articles\Results.cshtml" />
     <Content Include="Views\Writers\Search.cshtml" />
@@ -311,6 +313,8 @@
     <Content Include="Views\Subscribers\Delete.cshtml" />
     <Content Include="Views\Writers\Delete.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Writers\Index.cshtml" />
+    <Content Include="Views\Writers\Sort.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">

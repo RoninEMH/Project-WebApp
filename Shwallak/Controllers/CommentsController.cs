@@ -124,16 +124,20 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Commants.Find(id);
-            if (comment == null)
+            List<Comment> comments = new List<Comment>();
+            List<Comment> results = new List<Comment>();
+
+            comments.AddRange(db.Commants.Include(x => x.Article));
+            results.AddRange(comments.Where(x => x.CommentID == id));
+            if (results.Count != 1)
             {
                 return HttpNotFound();
             }
 
-            if (!Session["type"].Equals("admin"))
-                return RedirectToAction("Details/" + id);
+            //if (!Session["type"].Equals("admin"))
+                //return RedirectToAction("Details/" + id);
 
-            return View(comment);
+            return View(results.First());
         }
 
         // POST: Comments/Delete/5

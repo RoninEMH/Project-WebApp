@@ -2,55 +2,23 @@
 
 @{
     ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<h2>Search</h2>
-
-<h4>Writer</h4>
-
-<div class="form-horizontal">
-    <hr />
-
-    <form action="~/Writers/Results" , method="get">
-        <div class="form-group">
-            <label class="control-label col-md-2" for="name">full name</label>
-
-            <div class="col-md-10">
-                <input class="form-control text-box single-line" id="name" name="name" type="text" />
+    <section id="contentSection">
+        <div class="row">
+            <div class="contact_area">
+                <h2>Search</h2>
+                <p>Search writers by their name, email or by their year of hiring.</p>
+                <p>Leave input area empty if you don't want to filter articles by it's property.</p>
+                <form action="~/Writers/Results" class="contact_form">
+                    <input class="form-control" id="name" type="text" placeholder="Name" name="name">
+                    <input class="form-control" id="email" type="text" placeholder="Email" name="email">
+                    <input class="form-control" id="year" type="number" placeholder="Year Of Hiring" name="year">
+                    <br />
+                    <input type="submit" value="Search">
+                </form>
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="email">email</label>
-
-            <div class="col-md-10">
-                <input class="form-control text-box single-line" id="email" name="email" type="text" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="year">year</label>
-
-            <div class="col-md-10">
-                <input class="form-control text-box single-line" id="year" name="year" type="number" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="control-label col-md-3">
-
-                <input type="submit" value="Search" class="btn btn-default" />
-
-            </div>
-        </div>
-    </form>
-</div>
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    </section>
 

@@ -50,7 +50,7 @@ namespace Shwallak.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "WriterID,FullName,Gender,Email,Year,Password")] Writer writer)
+        public ActionResult Create([Bind(Include = "WriterID,FullName,Gender,Email,Year,Password,Address,Age")] Writer writer)
         {
             if (ModelState.IsValid)
             {
@@ -145,7 +145,7 @@ namespace Shwallak.Controllers
 
             if ((name == null || name.Equals("")) && (email == null || email.Equals("")) && year == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Search");
             }
 
             foreach (Writer writer in db.Writers.ToList())
@@ -161,7 +161,7 @@ namespace Shwallak.Controllers
                 {
                     if (writer.FullName == null)
                         results.Remove(writer);
-                    else if (!writer.FullName.Equals(name))
+                    else if (!writer.FullName.ToLower().Contains(name.ToLower()))
                         results.Remove(writer);
                 }
                 temp.Clear();
@@ -174,7 +174,7 @@ namespace Shwallak.Controllers
                 {
                     if (writer.Email == null)
                         results.Remove(writer);
-                    else if (!writer.Email.Equals(email))
+                    else if (!writer.Email.ToLower().Contains(email.ToLower()))
                         results.Remove(writer);
                 }
                 temp.Clear();
