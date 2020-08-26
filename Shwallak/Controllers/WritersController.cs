@@ -69,6 +69,19 @@ namespace Shwallak.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach (Writer wri in db.Writers.ToList())
+                {
+                    if (wri.FullName.Equals(writer.FullName))
+                    {
+                        ViewBag.messege = "this name is taken";
+                        return View(writer);
+                    }
+                    if (wri.Email.Equals(writer.Email))
+                    {
+                        ViewBag.messege = "this email is allready in use";
+                        return View(writer);
+                    }
+                }
                 db.Writers.Add(writer);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Writers");
@@ -106,6 +119,21 @@ namespace Shwallak.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach (Writer wri in db.Writers.ToList())
+                {
+                    if (wri.WriterID == writer.WriterID)
+                        continue;
+                    if (wri.FullName.Equals(writer.FullName))
+                    {
+                        ViewBag.messege = "this name is taken";
+                        return View(writer);
+                    }
+                    if (wri.Email.Equals(writer.Email))
+                    {
+                        ViewBag.messege = "this email is allready in use";
+                        return View(writer);
+                    }
+                }
                 db.Entry(writer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details/"+writer.WriterID);

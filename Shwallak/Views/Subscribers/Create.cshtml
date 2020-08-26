@@ -8,6 +8,13 @@
 <section id="contentSection">
     <div class="contact_area">
         <h2>Sigh Up</h2>
+        @if (ViewBag.messege != null)
+        {
+            <div class="post_commentbox">
+                <span><i class="fa fa-warning"></i>@ViewBag.messege</span>
+            </div>
+            ViewBag.messege = null;
+        }
 
 
         @using (Html.BeginForm())

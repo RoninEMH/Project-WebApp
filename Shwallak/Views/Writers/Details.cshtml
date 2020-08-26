@@ -72,21 +72,44 @@
                 </dl>
             </div>
             <p>
-            <p>
-                @if (Session["type"].Equals("writer"))
-                {
-                    <a href="/Writers/Edit/@Model.WriterID">Edit</a>
-                    <a href="/Writers/MyArea/@Model.WriterID">Back to My Area</a>
-                }
-                else if (Session["type"].Equals("admin"))
-                {
-                    <a href="/Writers/Delete/@Model.WriterID">Delete</a>
-                    <b> |</b>
-                    <a href="/Writers/Index">Back to Writers</a>
-                }
-
+                <table>
+                    <tr>
+                        @if (Session["type"].Equals("writer"))
+                        {
+                            <td>
+                                <form action="/Writers/Edit/@Model.WriterID" class="contact_form">
+                                    <input type="submit" value="Edit">
+                                </form>
+                            </td>
+                            <td>
+                                &nbsp;  &nbsp;
+                            </td>
+                            <td>
+                                <form action="/Writers/MyArea/@Model.WriterID" class="contact_form">
+                                    <input type="submit" value="Back To My Area">
+                                </form>
+                            </td>
+                        }
+                        else if (Session["type"].Equals("admin"))
+                        {
+                            <td>
+                                <form action="~/Writers/Delete/@Model.WriterID" class="contact_form">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
+                            <td>
+                                &nbsp;  &nbsp; &nbsp;
+                            </td>
+                            <td>
+                                <form action="~/Writers/Index" class="contact_form">
+                                    <input type="submit" value="Back To Writers">
+                                </form>
+                            </td>
+                        }
+                    </tr>
+                </table>
             </p>
-            </p>
+                
         </div>
     </div>
 </section>

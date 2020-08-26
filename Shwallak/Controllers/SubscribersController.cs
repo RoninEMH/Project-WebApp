@@ -57,10 +57,16 @@ namespace Shwallak.Controllers
             {
                 foreach(Subscriber sub in db.Subscribers.ToList())
                 {
-                    if(sub.Nickname.Equals(subscriber.Nickname))
+                    if (sub.Nickname.Equals(subscriber.Nickname))
+                    {
+                        ViewBag.messege = "this nickname is taken";
                         return View(subscriber);
-                    if(sub.Email.Equals(subscriber.Email))
+                    }
+                    if (sub.Email.Equals(subscriber.Email))
+                    {
+                        ViewBag.messege = "this email is allready in use";
                         return View(subscriber);
+                    }
                 }
                 db.Subscribers.Add(subscriber);
                 db.SaveChanges();
@@ -98,6 +104,21 @@ namespace Shwallak.Controllers
         {
             if (ModelState.IsValid)
             {
+                foreach (Subscriber sub in db.Subscribers.ToList())
+                {
+                    if (sub.SubscriberID == subscriber.SubscriberID)
+                        continue;
+                    if (sub.Nickname.Equals(subscriber.Nickname))
+                    {
+                        ViewBag.messege = "this nickname is taken";
+                        return View(subscriber);
+                    }
+                    if (sub.Email.Equals(subscriber.Email))
+                    {
+                        ViewBag.messege = "this email is allready in use";
+                        return View(subscriber);
+                    }
+                }
                 db.Entry(subscriber).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details/" + subscriber.SubscriberID);

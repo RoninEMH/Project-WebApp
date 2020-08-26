@@ -56,17 +56,42 @@
                 </dl>
             </div>
             <p>
-                @if (Session["type"].Equals("subscriber"))
-                {
-                    <a href="/Subscribers/Edit/@Model.SubscriberID">Edit</a>
-                    <a href="/Home/Index">Back</a>
-                }
-                else if (Session["type"].Equals("admin"))
-                {
-                    <a href="/Subscribers/Delete/@Model.SubscriberID">Delete</a>
-                    <b> |</b>
-                    <a href="/Subscribers/Index">Back to Subscribers</a>
-                }
+                <table>
+                    <tr>
+                        @if (Session["type"].Equals("subscriber"))
+                        {
+                            <td>
+                                <form action="/Subscribers/Edit/@Model.SubscriberID" class="contact_form">
+                                    <input type="submit" value="Edit">
+                                </form>
+                            </td>
+                            <td>
+                                &nbsp;  &nbsp;
+                            </td>
+                            <td>
+                                <form action="~/Home/Index" class="contact_form">
+                                    <input type="submit" value="Back">
+                                </form>
+                            </td>
+                        }
+                        else if (Session["type"].Equals("admin"))
+                        {
+                            <td>
+                                <form action="~/Subscribers/Delete/@Model.SubscriberID" class="contact_form">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
+                            <td>
+                                &nbsp;  &nbsp; &nbsp;
+                            </td>
+                            <td>
+                                <form action="~/Subscribers/Index" class="contact_form">
+                                    <input type="submit" value="Back To Subscribers">
+                                </form>
+                            </td>
+                        }
+                    </tr>
+                </table>
             </p>
         </div>
     </div>
