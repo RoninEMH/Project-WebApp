@@ -72,8 +72,20 @@
                 </dl>
             </div>
             <p>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.WriterID }) |
-                @Html.ActionLink("Back to My Area", "MyArea/"+Model.WriterID)
+            <p>
+                @if (Session["type"].Equals("writer"))
+                {
+                    <a href="/Writers/Edit/@Model.WriterID">Edit</a>
+                    <a href="/Writers/MyArea/@Model.WriterID">Back to My Area</a>
+                }
+                else if (Session["type"].Equals("admin"))
+                {
+                    <a href="/Writers/Delete/@Model.WriterID">Delete</a>
+                    <b> |</b>
+                    <a href="/Writers/Index">Back to Writers</a>
+                }
+
+            </p>
             </p>
         </div>
     </div>

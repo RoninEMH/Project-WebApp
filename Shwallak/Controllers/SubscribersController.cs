@@ -17,6 +17,8 @@ namespace Shwallak.Controllers
         // GET: Subscribers
         public ActionResult Index()
         {
+            if (!Session["type"].Equals("admin"))
+                RedirectToAction("Index", "Home");
             return View(db.Subscribers.ToList());
         }
 
@@ -39,7 +41,7 @@ namespace Shwallak.Controllers
         public ActionResult Create()
         {
             if (!Session["type"].Equals("none"))
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             return View();
         }
 

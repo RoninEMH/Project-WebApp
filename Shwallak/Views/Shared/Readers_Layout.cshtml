@@ -63,18 +63,23 @@
                                     <li><a href="~/Subscribers/Create">Sigh Up</a></li>
                                     <li><a href="~/Home/LoginBy">Log In</a></li>
                                 }
-                                else
+                                else if (Session["type"].Equals("writer"))
                                 {
-                                    if (!Session["type"].Equals("subscriber"))
-                                    {
-                                        <li> <a href="/Writers/MyArea/@Session["id"]"> My Area </a></li>
-                                    }
-                                    else
-                                    {
-                                        <li> <a href="/Subscribers/Details/@Session["id"]"> My Details </a></li>
-                                    }
+                                    <li> <a href="/Writers/MyArea/@Session["id"]"> My Area </a></li>
                                     <li><a href="~/Home/LogOut">Log Out</a></li>
                                 }
+                                else if (Session["type"].Equals("subscriber"))
+                                {
+                                    <li> <a href="/Subscribers/Details/@Session["id"]"> My Details </a></li>
+                                    <li><a href="~/Home/LogOut">Log Out</a></li>
+                                }
+                                else
+                                {
+                                    <li> <a href="/Writers/Index"> Writers </a></li>
+                                    <li> <a href="/Subscribers/Index"> Subscribers </a></li>
+                                    <li><a href="~/Home/LogOut">Log Out</a></li>
+                                }
+
                                 <li><a href="~/Home/About">About</a></li>
                                 <li><a href="~/Home/Contact">Contact</a></li>
                             </ul>

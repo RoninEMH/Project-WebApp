@@ -62,7 +62,7 @@ namespace Shwallak.Controllers
             }
 
             Session["id"] = wanted.SubscriberID;
-            Session["username"] = userName;
+            Session["username"] = wanted.Nickname;
             Session["type"] = "subscriber";
             return RedirectToAction("Index", "Home");
         }
@@ -81,7 +81,7 @@ namespace Shwallak.Controllers
             {
                 message = "invalid username";
                 DialogResult result = MessageBox.Show(message, message, MessageBoxButtons.OK);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("LoginBy");
             }
             Writer wanted = writers.First(); //user name supposed to be key
             if (!wanted.Password.Equals(password))
@@ -91,7 +91,7 @@ namespace Shwallak.Controllers
                 return tryChecker();
             }
             Session["id"] = wanted.WriterID;
-            Session["username"] = userName;
+            Session["username"] = wanted.FullName;
             Session["type"] = "writer";
             return RedirectToAction("Index", "Home");
         }
@@ -119,6 +119,33 @@ namespace Shwallak.Controllers
                 return LoginAsSubscriber(userName, password);
             else if (type == 2)
                 return LoginAsWriter(userName, password);
+            else if(type==3)
+            {
+                if(userName.Equals("Igor"))
+                {
+                    if(password.Equals("webApp"))
+                    {
+                        Session["type"] = "admin";
+                        Session["username"] = "Igor";
+                        Session["id"] = 0;
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        string message = "invalid password";
+                        MessageBox.Show(message, message, MessageBoxButtons.OK);
+                        return tryChecker();
+                    }
+                    
+                }    
+                else
+                {
+                    string message = "invalid username";
+                    DialogResult result = MessageBox.Show(message, message, MessageBoxButtons.OK);
+                    return RedirectToAction("LoginBy");
+                }
+
+            }
             else
                 return RedirectToAction("LoginBy");
         }

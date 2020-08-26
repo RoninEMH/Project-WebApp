@@ -17,6 +17,8 @@ namespace Shwallak.Controllers
         // GET: Writers
         public ActionResult Index()
         {
+            if (!Session["type"].Equals("admin"))
+                RedirectToAction("Index", "Home");
             return View(db.Writers.ToList());
         }
 
@@ -27,9 +29,19 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            else if (Session["id"] == null || !Session["id"].Equals(id))
-            {
+            if(Session["type"] ==null)
                 return RedirectToAction("Index", "Home");
+            if (Session["type"].Equals("writer"))
+            {
+                if(Session["id"] == null || !Session["id"].Equals(id))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else 
+            {
+                if (!Session["type"].Equals("admin"))
+                    return RedirectToAction("Index", "Home");
             }
             Writer writer = db.Writers.Find(id);
             if (writer == null)
@@ -42,6 +54,9 @@ namespace Shwallak.Controllers
         // GET: Writers/Create
         public ActionResult Create()
         {
+            if (!Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
+               
             return View();
         }
 
@@ -56,7 +71,7 @@ namespace Shwallak.Controllers
             {
                 db.Writers.Add(writer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Writers");
             }
 
             return View(writer);
@@ -93,7 +108,7 @@ namespace Shwallak.Controllers
             {
                 db.Entry(writer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("MyArea/"+writer.WriterID);
+                return RedirectToAction("Details/"+writer.WriterID);
             }
             return View(writer);
         }
@@ -105,6 +120,8 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (!Session["type"].Equals("admin"))
+                RedirectToAction("Index", "Home");
             Writer writer = db.Writers.Find(id);
             if (writer == null)
             {
@@ -232,6 +249,8 @@ namespace Shwallak.Controllers
 
         public ActionResult Sort(string sortBy, int? gender)
         {
+            if (!Session["type"].Equals("admin"))
+                RedirectToAction("Index", "Home");
             if (sortBy == null)
                 return RedirectToAction("Index");
             List<Writer> list = new List<Writer>();
