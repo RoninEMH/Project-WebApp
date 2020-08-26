@@ -77,6 +77,7 @@ namespace Shwallak.Controllers
             {
                 db.Articles.Add(article);
                 db.SaveChanges();
+                TempData["func"] = "alert(5);";
                 return RedirectToAction("MyArea/"+id, "Writers");
             }
 

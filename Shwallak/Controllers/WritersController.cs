@@ -268,6 +268,8 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+                ViewBag.JavaScriptFunction = TempData["func"];
+
             return View(results.First());
         }
     }
