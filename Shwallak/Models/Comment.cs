@@ -12,7 +12,7 @@ namespace Shwallak.Models
         [Key, Display(Name = "comment id")]
         public int CommentID { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter author name")]
         [Display(Name = "author")]
         public string Author { get; set; }
 
@@ -34,7 +34,7 @@ namespace Shwallak.Models
         [Display(Name = "upload second")]
         public int Second { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false , ErrorMessage = "you must enter content")]
         [DataType(DataType.MultilineText), Display(Name = "content")]
         public string Content { get; set; }
 

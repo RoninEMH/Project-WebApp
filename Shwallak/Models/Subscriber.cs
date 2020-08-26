@@ -11,21 +11,25 @@ namespace Shwallak.Models
         [Key, Display(Name = "subscriber id")]
         public int SubscriberID { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter age")]
+        [Range(1, 120, ErrorMessage = "you must enter number in a range of 1-120")]
         [Display(Name = "age")]
         public int Age { get; set; }
 
         [Display(Name = "gender")]
         public Gender Gender { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [DataType(DataType.EmailAddress)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter email address")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter nickname")]
         [Display(Name = "nickname")]
         public string Nickname { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [DataType(DataType.Password)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter password")]
         [Display(Name = "password")]
         public string Password { get; set; }
     }

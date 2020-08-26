@@ -14,11 +14,11 @@ namespace Shwallak.Models
         public int ArticleID { get; set; }
 
         [Display(Name = "title")]
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage ="you must enter title")]
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText), Display(Name = "content")]
-        [Required(AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter content")]
         public string Content { get; set; }
 
         [Display(Name = "upload year")]
