@@ -152,11 +152,15 @@ namespace Shwallak.Controllers
 
         public ActionResult Search()
         {
+            if (!Session["type"].Equals("admin"))
+                RedirectToAction("Index", "Home");
             return View();
         }
 
         public ActionResult Results(string name, string email, int? year)
         {
+            if (!Session["type"].Equals("admin"))
+                RedirectToAction("Index", "Home");
             List<Writer> results = new List<Writer>();
             List<Writer> temp = new List<Writer>();
 
@@ -287,7 +291,7 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
-                ViewBag.JavaScriptFunction = TempData["func"];
+            ViewBag.JavaScriptFunction = TempData["func"];
 
             return View(results.First());
         }

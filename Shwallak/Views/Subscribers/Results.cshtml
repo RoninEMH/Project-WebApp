@@ -1,92 +1,15 @@
 ﻿@model IEnumerable<Shwallak.Models.Subscriber>
 
 @{
-    ViewBag.Title = "Sort";
+    ViewBag.Title = "Results";
     Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
-
-<head>
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            $('.genderSort').hide();
-        });
-
-        function hideGender() {
-            $(document).ready(function () {
-                $('.genderSort').hide();
-            });
-        }
-
-        function showGender() {
-            $(document).ready(function () {
-                $('.genderSort').show();
-            });
-        }
-    </script>
-
-</head>
 <section id="contentSection">
     <div class="row">
         <div class="single_page">
             <div class="related_post">
                 <h2>Subscribers</h2>
-                <br />
-                <form action="~/Subscribers/Search">
-                    <button type="submit" class="btn btn-theme">Search</button>
-                </form>
-                <br />
-                <form name="myForm" action="~/Subscribers/Sort">
-                    <button type="submit" class="btn btn-theme">Sort</button>
-                    <br />
 
-                    <table>
-                        <tr>
-                            <td>
-                                <input class="radioSort" type="radio" name="sortBy" value="age" checked="checked" onchange="hideGender()" />
-                            </td>
-                            <td>
-                                <h5> &nbsp; By Age</h5>
-                            </td>
-                            <td>
-                                &nbsp; &nbsp;&nbsp;
-                            </td>
-                            <td>
-                                <input class="radioSort" type="radio" name="sortBy" value="nickname" onchange="hideGender()" />
-                            </td>
-                            <td>
-                                <h5>&nbsp; By Nickname</h5>
-                            </td>
-                            <td>
-                                &nbsp; &nbsp;&nbsp;
-                            </td>
-                            <td>
-                                <input class="radioSort" type="radio" name="sortBy" value="gender" onchange="showGender()" />
-                            </td>
-                            <td>
-                                <h5>&nbsp; By Gender</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input class="genderSort" hidden="hidden" type="radio" name="gender" value="1" checked="checked" />
-                            </td>
-                            <td>
-                                <h5 class="genderSort" hidden="hidden">&nbsp; Male First</h5>
-                            </td>
-                            <td>
-                                &nbsp; &nbsp;&nbsp;
-                            </td>
-                            <td>
-                                <input class="genderSort" hidden="hidden" type="radio" name="gender" value="2" />
-                            </td>
-                            <td>
-                                <h5 class="genderSort" hidden="hidden">&nbsp; Female First</h5>
-                            </td>
-                        </tr>
-                    </table>
-
-                </form>
                 <br />
 
                 @{

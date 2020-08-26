@@ -61,7 +61,7 @@
 
                     </div>
 
-                    @if (Session["type"].Equals("admin"))
+                    @if (Session["type"] != null && Session["type"].Equals("admin"))
                     {
                         <form action="~/Comments/Delete/@Model.CommentID">
                             <button type="submit" class="btn btn-theme">Remove Comment</button>

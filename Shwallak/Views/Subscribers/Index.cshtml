@@ -2,114 +2,163 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
-
-<h2>Index</h2>
 
 <head>
     <script type="text/javascript">
-        function genderModes() {
-            var mode = document.getElementsByName("sortBy")[2];
-            if (mode.checked) {
-                var male = document.getElementsByName("gender")[0];
-                var titleMale = document.getElementById("maleTitle");
-                titleMale.style.display = 'inline';
-                male.style.display = 'inline';
-                var female = document.getElementsByName("gender")[1];
-                var titleFemale = document.getElementById("femaleTitle");
-                titleFemale.style.display = 'inline';
-                female.style.display = 'inline';
-            }
-            else {
-                var male = document.getElementsByName("gender")[0];
-                var titleMale = document.getElementById("maleTitle");
-                titleMale.style.display = 'none';
-                male.style.display = 'none';
-                var female = document.getElementsByName("gender")[1];
-                var titleFemale = document.getElementById("femaleTitle");
-                titleFemale.style.display = 'none';
-                female.style.display = 'none';
-            }
+
+        $(document).ready(function () {
+            $('.genderSort').hide();
+        });
+
+        function hideGender() {
+            $(document).ready(function () {
+                $('.genderSort').hide();
+            });
+        }
+
+        function showGender() {
+            $(document).ready(function () {
+                $('.genderSort').show();
+            });
         }
     </script>
 </head>
+<section id="contentSection">
+    <div class="row">
+        <div class="single_page">
+            <div class="related_post">
+                <h2>Subscribers</h2>
+                <br />
+                <form action="~/Subscribers/Search">
+                    <button type="submit" class="btn btn-theme">Search</button>
+                </form>
+                <br />
+                <form name="myForm" action="~/Subscribers/Sort">
+                    <button type="submit" class="btn btn-theme">Sort</button>
+                    <br />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+                    <table>
+                        <tr>
+                            <td>
+                                <input class="radioSort" type="radio" name="sortBy" value="age" checked="checked" onchange="hideGender()" />
+                            </td>
+                            <td>
+                                <h5> &nbsp; By Age</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input class="radioSort" type="radio" name="sortBy" value="nickname" onchange="hideGender()" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; By Nickname</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input class="radioSort" type="radio" name="sortBy" value="gender" onchange="showGender()" />
+                            </td>
+                            <td>
+                                <h5>&nbsp; By Gender</h5>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="genderSort" hidden="hidden" type="radio" name="gender" value="1" checked="checked" />
+                            </td>
+                            <td>
+                                <h5 class="genderSort" hidden="hidden">&nbsp; Male First</h5>
+                            </td>
+                            <td>
+                                &nbsp; &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <input class="genderSort" hidden="hidden" type="radio" name="gender" value="2" />
+                            </td>
+                            <td>
+                                <h5 class="genderSort" hidden="hidden">&nbsp; Female First</h5>
+                            </td>
+                        </tr>
+                    </table>
 
-<p>
-    <form action="Subscribers/Search" method="get">
-        Username:<br>
-        <input type="text" name="username">
-        <br>
-        Age:<br>
-        <input type="text" name="age">
-        <br><br>
-        <input type="submit" value="Search">
+                </form>
+                <br />
 
-    </form>
-</p>
+                @{
+                    List<Shwallak.Models.Subscriber> subscribers = Model.ToList();
 
-<p>
-    <form action="/Subscribers/Sort" method="get">
-        Nickname: <input type="radio" name="sortBy" value="nickname" checked="checked" onclick="genderModes()" />
-        <br />
-        Age: <input type="radio" name="sortBy" value="age" onclick="genderModes()" />
-        <br />
-        Gender:<input type="radio" name="sortBy" value="gender" onclick="genderModes()" />
-        <label id="maleTitle" hidden="hidden">male first: </label><input type="radio" name="gender" value="1" hidden="hidden" />
-        <label id="femaleTitle" hidden="hidden">female first: </label><input type="radio" name="gender" value="2" hidden="hidden" />
-        <br />
-        <input type="submit" value="Sort" />
-    </form>
+                    int i;
 
-</p>
+                }
+                @for (i = 0; subscribers.Count - 3 > i; i += 3)
+                {
+                    Shwallak.Models.Subscriber subscriber1 = subscribers.ElementAt(i);
+                    Shwallak.Models.Subscriber subscriber2 = subscribers.ElementAt(i + 1);
+                    Shwallak.Models.Subscriber subscriber3 = subscribers.ElementAt(i + 2);
+                    string img1 = "/Content/images/" + subscriber1.Gender + "Person.jpg";
+                    string img2 = "/Content/images/" + subscriber2.Gender + "Person.jpg";
+                    string img3 = "/Content/images/" + subscriber3.Gender + "Person.jpg";
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Age)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nickname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th></th>
-    </tr>
+                    <ul class="spost_nav wow fadeInDown animated">
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Subscribers/Details/@subscriber1.SubscriberID">
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nickname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.SubscriberID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.SubscriberID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.SubscriberID })
-            </td>
-        </tr>
-    }
+                                    <img src=@img1 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Subscribers/Details/@subscriber1.SubscriberID">@subscriber1.Nickname </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Subscribers/Details/@subscriber2.SubscriberID">
+                                    <img src=@img2 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Subscribers/Details/@subscriber2.SubscriberID">@subscriber2.Nickname </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Subscribers/Details/@subscriber3.SubscriberID">
+                                    <img src=@img3 alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Subscribers/Details/@subscriber3.SubscriberID">@subscriber3.Nickname </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                }
 
-</table>
+                <ul class="spost_nav wow fadeInDown animated">
+                    @while (i < subscribers.Count)
+                    {
+                        Shwallak.Models.Subscriber subscriber = subscribers.ElementAt(i);
+                        string img = "/Content/images/" + subscriber.Gender + "Person.jpg";
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Subscribers/Details/@subscriber.SubscriberID">
+                                    <img src=@img alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Subscribers/Details/@subscriber.SubscriberID">@subscriber.Nickname </a>
+                                </div>
+                            </div>
+                        </li>
+                        i++;
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</section>

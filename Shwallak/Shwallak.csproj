@@ -284,13 +284,11 @@
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\Subscribers\Create.cshtml" />
-    <Content Include="Views\Subscribers\Index.cshtml" />
     <Content Include="Views\Writers\DetailsOld.cshtml" />
     <Content Include="Views\Articles\Search.cshtml" />
     <Content Include="Views\Articles\Results.cshtml" />
     <Content Include="Views\Writers\Search.cshtml" />
     <Content Include="Views\Writers\Results.cshtml" />
-    <Content Include="Views\Subscribers\Sort.cshtml" />
     <Content Include="Views\Subscribers\Search.cshtml" />
     <Content Include="Views\Shared\Readers_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -315,6 +313,9 @@
     <Content Include="Views\Comments\Delete.cshtml" />
     <Content Include="Views\Writers\Index.cshtml" />
     <Content Include="Views\Writers\Sort.cshtml" />
+    <Content Include="Views\Subscribers\Index.cshtml" />
+    <Content Include="Views\Subscribers\Sort.cshtml" />
+    <Content Include="Views\Subscribers\Results.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">

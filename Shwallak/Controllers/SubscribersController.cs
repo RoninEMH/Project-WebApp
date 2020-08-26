@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using Shwallak.Models;
 
 namespace Shwallak.Controllers
@@ -127,32 +128,56 @@ namespace Shwallak.Controllers
             Subscriber subscriber = db.Subscribers.Find(id);
             db.Subscribers.Remove(subscriber);
             db.SaveChanges();
-            return RedirectToAction("Details/" + subscriber.SubscriberID, "Subscribers");
+            return RedirectToAction("Index");
         }
 
-        public ActionResult Search(string userName, int? age)
+        public ActionResult Search()
         {
-            if (userName == null)
-                return RedirectToAction("Index");
-            List<Subscriber> subscribers = new List<Subscriber>();
-            if (age == null)
+            return View();
+        }
+
+        public ActionResult Results(string nickname, int? age)
+        {
+            List<Subscriber> results = new List<Subscriber>();
+            List<Subscriber> temp = new List<Subscriber>();
+
+            if ((nickname == null || nickname.Equals("")) && age==null)
             {
-                foreach (Subscriber s in db.Subscribers)
-                {
-                    if (s.Nickname.Equals(userName))
-                        subscribers.Add(s);
-                }
-                return View(subscribers);
+                return RedirectToAction("Search");
             }
-            else
+
+            foreach (Subscriber subscriber in db.Subscribers.ToList())
             {
-                foreach (Subscriber s in db.Subscribers)
-                {
-                    if (s.Nickname.Equals(userName) && s.Age >= age)
-                        subscribers.Add(s);
-                }
-                return View(subscribers);
+                results.Add(subscriber);
             }
+
+
+            if (nickname != null && !nickname.Equals(""))
+            {
+                temp.AddRange(results);
+                foreach (Subscriber subscriber in temp)
+                {
+                    if (subscriber.Nickname == null)
+                        results.Remove(subscriber);
+                    else if (!subscriber.Nickname.ToLower().Contains(nickname.ToLower()))
+                        results.Remove(subscriber);
+                }
+                temp.Clear();
+            }
+
+
+            if(age!=null)
+            {
+                temp.AddRange(results);
+                foreach (Subscriber subscriber in temp)
+                {
+                    if (subscriber.Age!=age)
+                        results.Remove(subscriber);
+                }
+                temp.Clear();
+            }
+
+            return View(results);
         }
 
         private int CompareGenderMale(Subscriber x, Subscriber y)
