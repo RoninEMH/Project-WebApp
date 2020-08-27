@@ -5,7 +5,71 @@
     Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<section  id="contentSection">
+<head>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function showTemperature() {
+            var ad = @Html.Raw(Json.Encode(Model.Address));
+            var cad = ad.split(",");
+            var address = cad[1];
+            $.ready(
+                $.ajax({
+                    method: "GET",
+                    url: "https://api.openweathermap.org/data/2.5/weather",
+                    data: {
+                        appid: '76ee9644e83cc00c0ed59e6932b4be21',
+                        q: address,
+                        units: "metric"
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        alert("success");
+                        console.log(data);
+                        var temp = data["main"]["temp"];
+                        var description = data["weather"][0]["description"];
+                        var wind = data["wind"]["speed"]; // meters per seconds
+                        var lon = data["coord"]["lon"];
+                        var lat = data["coord"]["lat"];
+                        var hum = data["main"]["humidity"];
+
+                        document.getElementById('lat').innerHTML = "<lable>" + "latitude: " + lat + "</lable>";
+                        document.getElementById("lon").innerHTML = "<lable>" + "longtitude: " + lon + "</lable>";
+                        document.getElementById("temp").innerHTML = "<lable>" + "temperature: "+ temp + " °C" + "</lable>";
+                        document.getElementById("description").innerHTML = "<lable>" + "description: "+ description + "</lable>";
+                        document.getElementById("wind").innerHTML = "<lable>" + "wind: " + wind + " mps" + "</lable>";
+                        document.getElementById("humidity").innerHTML = "<lable>" + "humidity: " + hum + "</lable>";
+
+                        $("#lat").show();
+                        $("#lon").show();
+                        $("#temp").show();
+                        $("#description").show();
+                        $("#wind").show();
+                        $("#humidity").show();
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                }));
+        }
+        function showLocation() {
+            var add = @Html.Raw(Json.Encode(Model.Address));
+            var address = add.replace(/\s/g, '');
+            var source = "https://maps.google.com/maps?q=";
+            var Mapurl = source.concat(address, "&z=15&output=embed");
+            alert(Mapurl);
+            var map = document.getElementById('map');
+            map.innerHTML = "<iframe src= " + Mapurl + "></iframe>";
+        }
+    </script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<section id="contentSection">
     <div class="row">
         <div class="contact_area">
             <h2>@Model.FullName - Details</h2>
@@ -63,6 +127,22 @@
 
                 </dl>
             </div>
+
+            <button onclick="showLocation()">Show Map</button>
+            <button onclick="showTemperature()">Show Temperature</button>
+            <div id="map"></div>
+            <div>
+                <div>
+                    <div hidden="hidden" id="lat"></div>
+                    <div hidden="hidden" id="lon"></div>
+                </div>
+                <div hidden="hidden" id="temp"></div>
+                <div hidden="hidden" id="description"></div>
+                <div hidden="hidden" id="wind"></div>
+                <div hidden="hidden" id="humidity"></div>
+            </div>
+
+
             <p>
                 <table>
                     <tr>
@@ -101,7 +181,7 @@
                     </tr>
                 </table>
             </p>
-                
+
         </div>
     </div>
 </section>

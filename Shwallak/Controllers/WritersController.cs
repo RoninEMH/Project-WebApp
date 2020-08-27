@@ -119,6 +119,7 @@ namespace Shwallak.Controllers
         {
             if (ModelState.IsValid)
             {
+                /*
                 foreach (Writer wri in db.Writers.ToList())
                 {
                     if (wri.WriterID == writer.WriterID)
@@ -134,6 +135,7 @@ namespace Shwallak.Controllers
                         return View(writer);
                     }
                 }
+                */
                 db.Entry(writer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details/"+writer.WriterID);
