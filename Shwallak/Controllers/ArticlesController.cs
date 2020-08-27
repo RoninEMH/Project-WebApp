@@ -77,8 +77,7 @@ namespace Shwallak.Controllers
             {
                 db.Articles.Add(article);
                 db.SaveChanges();
-                TempData["func"] = "alert(5);";
-                return RedirectToAction("MyArea/"+id, "Writers");
+                return RedirectToAction("Facebook/" + article.ArticleID);
             }
 
             if (id == null)
@@ -355,6 +354,28 @@ namespace Shwallak.Controllers
                 });
             }
             return View(list);
+        }
+        public ActionResult Facebook(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            List<Article> articles = new List<Article>();
+            List<Article> results = new List<Article>();
+            articles.AddRange(db.Articles.Include(x => x.Writer));
+            results.AddRange(articles.Where(x => x.ArticleID == id));
+            if (results.Count != 1)
+            {
+                return HttpNotFound();
+            }
+            if (Session["id"] == null || !Session["id"].Equals(results.First().WriterID))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            db.SaveChanges();
+            return View(results.First());
         }
     }
 }
