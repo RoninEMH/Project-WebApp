@@ -1,7 +1,18 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model IEnumerable<Shwallak.Models.Article>
 
-<p>Use this area to provide additional information.</p>
+@{
+    ViewBag.Title = "SectionList";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
+}
+
+
+<section id="contentSection">
+    <div class="row">
+        <div class="single_page">
+            <div class="related_post">
+                <h2>About</h2>
+                ~ description of our website ~
+            </div>
+        </div>
+    </div>
+</section>
