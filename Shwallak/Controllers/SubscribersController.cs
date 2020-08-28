@@ -104,8 +104,7 @@ namespace Shwallak.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*
-                foreach (Subscriber sub in db.Subscribers.ToList())
+                foreach (Subscriber sub in db.Subscribers.AsNoTracking().ToList())
                 {
                     if (sub.SubscriberID == subscriber.SubscriberID)
                         continue;
@@ -120,7 +119,6 @@ namespace Shwallak.Controllers
                         return View(subscriber);
                     }
                 }
-                */
                 db.Entry(subscriber).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details/" + subscriber.SubscriberID);

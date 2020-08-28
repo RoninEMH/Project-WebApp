@@ -142,8 +142,8 @@ namespace Shwallak.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*
-                foreach (Writer wri in db.Writers.ToList())
+                
+                foreach (Writer wri in db.Writers.AsNoTracking().ToList())
                 {
                     if (wri.WriterID == writer.WriterID)
                         continue;
@@ -158,7 +158,7 @@ namespace Shwallak.Controllers
                         return View(writer);
                     }
                 }
-                */
+                
                 db.Entry(writer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details/"+writer.WriterID);
