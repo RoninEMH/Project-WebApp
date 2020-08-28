@@ -10,6 +10,18 @@ using Shwallak.Models;
 
 namespace Shwallak.Controllers
 {
+    public class InitialComparator : IEqualityComparer<string>
+    {
+        public bool Equals(string x, string y)
+        {
+            return x.Equals(y);
+        }
+
+        public int GetHashCode(string obj)
+        {
+            return obj.GetHashCode();
+        }
+    }
     public class WritersController : Controller
     {
         private OurDB db = new OurDB();
@@ -17,8 +29,19 @@ namespace Shwallak.Controllers
         // GET: Writers
         public ActionResult Index()
         {
+            if(Session["type"] is null)
+                return RedirectToAction("Index", "Home");
             if (!Session["type"].Equals("admin"))
-                RedirectToAction("Index", "Home");
+                  return RedirectToAction("Index", "Home");
+
+            var query = from wri in db.Writers
+                        join sub in db.Subscribers on wri.Email equals sub.Email
+                        select new { id = wri.WriterID.ToString() };
+
+            foreach(var wri in query)
+            {
+                ViewData[wri.id] = "yes";
+            }
             return View(db.Writers.ToList());
         }
 
@@ -321,7 +344,6 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.JavaScriptFunction = TempData["func"];
 
             return View(results.First());
         }

@@ -53,7 +53,6 @@
                 <form name="myForm" action="~/Writers/Sort">
                     <button type="submit" class="btn btn-theme">Sort</button>
                     <br />
-
                     <table>
                         <tr>
                             <td>
@@ -127,6 +126,10 @@
                                 </a>
                                 <div class="media-body">
                                     <a class="catg_title" href="~/Writers/Details/@writer1.WriterID">@writer1.FullName </a>
+                                    @if (ViewData[writer1.WriterID.ToString()] != null && ViewData[writer1.WriterID.ToString()].Equals("yes"))
+                                    {
+                                        <div>email attach to subscriber account</div>
+                                    }
                                 </div>
                             </div>
                         </li>
@@ -137,6 +140,10 @@
                                 </a>
                                 <div class="media-body">
                                     <a class="catg_title" href="~/Writers/Details/@writer2.WriterID">@writer2.FullName </a>
+                                    @if (ViewData[writer2.WriterID.ToString()] != null && ViewData[writer2.WriterID.ToString()].Equals("yes"))
+                                    {
+                                        <div>email attach to subscriber account</div>
+                                    }
                                 </div>
                             </div>
                         </li>
@@ -147,6 +154,10 @@
                                 </a>
                                 <div class="media-body">
                                     <a class="catg_title" href="~/Writers/Details/@writer3.WriterID">@writer3.FullName </a>
+                                    @if (ViewData[writer3.WriterID.ToString()] != null && ViewData[writer3.WriterID.ToString()].Equals("yes"))
+                                    {
+                                        <div>email attach to subscriber account</div>
+                                    }
                                 </div>
                             </div>
                         </li>
@@ -165,6 +176,10 @@
                                 </a>
                                 <div class="media-body">
                                     <a class="catg_title" href="~/Writers/Details/@writer.WriterID">@writer.FullName </a>
+                                    @if (ViewData[writer.WriterID.ToString()] != null && ViewData[writer.WriterID.ToString()].Equals("yes"))
+                                    {
+                                        <div>email attach to subscriber account</div>
+                                    }
                                 </div>
                             </div>
                         </li>

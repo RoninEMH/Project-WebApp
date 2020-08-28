@@ -5,13 +5,6 @@
     Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-@if (ViewData["JavaScriptFunction"] != null)
-{
-    <script type="text/javascript">
-             @Html.Raw(ViewData["JavaScriptFunction"])
-    </script>
-}
-
 <section id="contentSection">
     <div class="row">
         <div class="single_page">

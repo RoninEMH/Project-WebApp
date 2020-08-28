@@ -22,6 +22,20 @@ namespace Shwallak.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
+            ViewBag.priv = 0;
+            ViewBag.pub = 0;
+            foreach(var a in db.Articles.GroupBy(x => x.SubscribersOnly).Select(x => new { Key = x.Key, Count = x.Count() }).ToList())
+            {
+                if(a.Key)
+                {
+                    ViewBag.priv = a.Count;
+                }
+                else
+                {
+                    ViewBag.pub = a.Count;
+                }
+            }
+            
             return View();
         }
 
