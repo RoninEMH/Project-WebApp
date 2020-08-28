@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "SectionList";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
+}
+    <head>
+        <style>
+            .bar {
+                fill: #3B90FF;
+            }
+        </style>
+        <script src="~/Scripts/d3.min.js"></script>
+    </head>
+
+<section id="contentSection">
+    <div class="row">
+        <div class="single_page">
+            <h2>Statistics</h2>
+            <svg id="first" width="600" , height="500"></svg>
+
+        </div>
+    </div>
+</section>
+
+<script>
+
+    var svg = d3.select("svg#first"),
+        margin = 200,
+        width = svg.attr("width") - margin,
+        height = svg.attr("height") - margin;
+
+
+    var xScale = d3.scaleBand().range([0, width]).padding(0.4),
+        yScale = d3.scaleLinear().range([height, 0]);
+
+    var g = svg.append("g")
+        .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+    var dataCsv = d3.csv("/Content/data.csv");
+    dataCsv.then(function (data) {
+        xScale.domain(data.map(function (d) { return parseInt(d.section); }));
+        yScale.domain([0, d3.max(data, function (d) { return parseInt(d.count); })]);
+
+        g.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(xScale).tickFormat(function (d) {
+                return section(d);
+            }));
+
+        g.append("g")
+            .call(d3.axisLeft(yScale).tickFormat(function (d) {
+                return d;
+            }).ticks(10))
+            .append("text")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+            .text("count");
+
+        g.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function (d) { return xScale(d.section); })
+            .attr("y", function (d) { return yScale(d.count); })
+            .attr("width", xScale.bandwidth())
+            .attr("height", function (d) { return height - yScale(d.count); })
+    });
+
+    svg.append("text")
+        .attr("transform", "translate(100,0)")
+        .attr("x", 50)
+        .attr("y", 50)
+        .attr("font-size", "24px")
+        .text("Number Of Articles For Each Section")
+
+    g.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(xScale))
+        .append("text")
+        .attr("y", height - 250)
+        .attr("x", width - 100)
+        .attr("text-anchor", "end")
+        .attr("stroke", "black")
+        .text("Section");
+
+    g.append("g")
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "-5.1em")
+        .attr("text-anchor", "end")
+        .attr("stroke", "black")
+        .text("Articles");
+
+    function section(num) {
+        if (num == 0)
+            return "Sport";
+        else if (num == 1)
+            return "Business";
+        else if (num == 2)
+            return "Culture";
+        else if (num == 3)
+            return "Food";
+        else if (num == 4)
+            return "Celebs";
+        else if (num == 5)
+            return "Fashion";
+        else if (num == 6)
+            return "Health";
+        else if (num == 7)
+            return "Tourism";
+        else if (num == 8)
+            return "Other";
+    }
+</script>

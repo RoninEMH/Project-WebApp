@@ -253,7 +253,10 @@
     <Content Include="Content\assets\fonts\OpenSans-400.woff" />
     <Content Include="Content\assets\fonts\Oswald-Regular-400.woff" />
     <Content Include="Content\assets\fonts\Varela-400.woff" />
+    <Content Include="Content\data.csv" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\d3.js" />
+    <Content Include="Scripts\d3.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -283,7 +286,6 @@
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\Subscribers\Create.cshtml" />
-    <Content Include="Views\Writers\DetailsOld.cshtml" />
     <Content Include="Views\Articles\Search.cshtml" />
     <Content Include="Views\Articles\Results.cshtml" />
     <Content Include="Views\Writers\Search.cshtml" />
@@ -318,6 +320,10 @@
     <Content Include="Views\Articles\Facebook.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Writers\ChangePassword.cshtml" />
+    <Content Include="Views\Subscribers\ChangePassword.cshtml" />
+    <Content Include="Views\Home\Check.cshtml" />
+    <Content Include="Views\Home\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">

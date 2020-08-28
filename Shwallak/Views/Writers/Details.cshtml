@@ -129,6 +129,8 @@
                                 <dd>
                                     @Html.DisplayFor(model => model.Address)
                                 </dd>
+
+
                             </dl>
 
                             <p>
@@ -147,6 +149,14 @@
                                             <td>
                                                 <form action="/Writers/MyArea/@Model.WriterID" class="contact_form">
                                                     <input type="submit" value="Back To My Area">
+                                                </form>
+                                            </td>
+                                            <td>
+                                                &nbsp;  &nbsp;
+                                            </td>
+                                            <td>
+                                                <form action="/Writers/ChangePassword/@Model.WriterID" class="contact_form">
+                                                    <input type="submit" value="ChangePassword">
                                                 </form>
                                             </td>
                                         }

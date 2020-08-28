@@ -1,18 +1,26 @@
-﻿using Shwallak.Models;
+﻿using Newtonsoft.Json;
+using Shwallak.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Windows.Forms;
 
 namespace Shwallak.Controllers
 {
+   
     public class HomeController : Controller
     {
-        private static int tries = 0;
         private OurDB db = new OurDB();
+
+        public ActionResult Statistics()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             return View(db.Articles.Include(a => a.Comments).Include(a => a.Writer).ToList());
@@ -24,19 +32,39 @@ namespace Shwallak.Controllers
 
             ViewBag.priv = 0;
             ViewBag.pub = 0;
-            foreach(var a in db.Articles.GroupBy(x => x.SubscribersOnly).Select(x => new { Key = x.Key, Count = x.Count() }).ToList())
+            foreach(var obj in db.Articles.GroupBy(x => x.SubscribersOnly).Select(x => new { Key = x.Key, Count = x.Count() }).ToList())
             {
-                if(a.Key)
+                if(obj.Key)
                 {
-                    ViewBag.priv = a.Count;
+                    ViewBag.priv = obj.Count;
                 }
                 else
                 {
-                    ViewBag.pub = a.Count;
+                    ViewBag.pub = obj.Count;
                 }
             }
-            
-            return View();
+
+
+            var csv = new StringBuilder();
+
+            csv.AppendLine("section,count");
+            foreach(var obj in db.Articles.GroupBy(x => x.Section).Select(x => new { Count = x.Count(), x.Key }).ToList())
+            {
+                var first =(int) obj.Key;
+                var second = obj.Count;
+                var newLine = string.Format("{0},{1}", first, second);
+                csv.AppendLine(newLine);
+            }
+
+            string path = HttpRuntime.AppDomainAppPath;
+
+            int a = path.IndexOf("\\Shwallak");
+            path = path.Substring(0, a) + "\\Shwallak\\Content\\data.csv";
+
+            System.IO.File.WriteAllText(path, csv.ToString());
+
+
+            return View(db.Articles);
         }
 
         public ActionResult Contact()
@@ -65,14 +93,14 @@ namespace Shwallak.Controllers
                 if (result == System.Windows.Forms.DialogResult.Yes)
                     return RedirectToAction("Create", "Subscribers");
                 else
-                    return tryChecker();
+                    return RedirectToAction("LoginBy");
             }
             Subscriber wanted = subscribers.First(); //user name supposed to be key
             if (!wanted.Password.Equals(password))
             {
                 message = "invalid password";
                 MessageBox.Show(message, message, MessageBoxButtons.OK);
-                return tryChecker();
+                return RedirectToAction("LoginBy");
             }
 
             Session["id"] = wanted.SubscriberID;
@@ -102,7 +130,7 @@ namespace Shwallak.Controllers
             {
                 message = "invalid password";
                 MessageBox.Show(message, message, MessageBoxButtons.OK);
-                return tryChecker();
+                return RedirectToAction("LoginBy");
             }
             Session["id"] = wanted.WriterID;
             Session["username"] = wanted.FullName;
@@ -148,9 +176,9 @@ namespace Shwallak.Controllers
                     {
                         string message = "invalid password";
                         MessageBox.Show(message, message, MessageBoxButtons.OK);
-                        return tryChecker();
+                        return RedirectToAction("LoginBy");
                     }
-                    
+
                 }    
                 else
                 {
@@ -169,20 +197,6 @@ namespace Shwallak.Controllers
             if (!Session["type"].Equals("none"))
                 return RedirectToAction("Index");
             return View();
-        }
-
-        private ActionResult tryChecker()
-        {
-            tries++;
-            if (tries == 3)
-            {
-                string Message = "out of tries";
-                MessageBox.Show(Message, "Limited tries");
-                tries = 0;
-                return RedirectToAction("Index");
-            }
-            MessageBox.Show("got " + (3 - tries) + " left", "Limited tries");
-            return RedirectToAction("LoginBy");
         }
 
         public ActionResult LogOut()

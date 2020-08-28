@@ -347,5 +347,38 @@ namespace Shwallak.Controllers
 
             return View(results.First());
         }
+
+        public ActionResult ChangePassword(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            else if (Session["id"] == null || !Session["id"].Equals(id))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Writer writer = db.Writers.Find(id);
+            if (writer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(writer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword([Bind(Include = "WriterID,FullName,Gender,Email,Year,Password,Address,Age")] Writer writer)
+        {
+            if (ModelState.IsValid)
+            {
+
+                db.Entry(writer).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details/" + writer.WriterID);
+            }
+            return View(writer);
+        }
     }
 }
