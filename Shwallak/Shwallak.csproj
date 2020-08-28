@@ -253,7 +253,8 @@
     <Content Include="Content\assets\fonts\OpenSans-400.woff" />
     <Content Include="Content\assets\fonts\Oswald-Regular-400.woff" />
     <Content Include="Content\assets\fonts\Varela-400.woff" />
-    <Content Include="Content\data.csv" />
+    <Content Include="Content\data1.csv" />
+    <Content Include="Content\data2.csv" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\d3.js" />
     <Content Include="Scripts\d3.min.js" />

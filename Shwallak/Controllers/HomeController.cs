@@ -19,6 +19,56 @@ namespace Shwallak.Controllers
 
         public ActionResult Statistics()
         {
+            var csv1 = new StringBuilder();
+
+            csv1.AppendLine("section,count");
+            foreach (var obj in db.Articles.GroupBy(x => x.Section).Select(x => new { Count = x.Count(), x.Key }).ToList())
+            {
+                var first = (int)obj.Key;
+                var second = obj.Count;
+                var newLine = string.Format("{0},{1}", first, second);
+                csv1.AppendLine(newLine);
+            }
+
+            string path1 = HttpRuntime.AppDomainAppPath;
+
+            int a1 = path1.IndexOf("\\Shwallak");
+            path1 = path1.Substring(0, a1) + "\\Shwallak\\Content\\data1.csv";
+
+            System.IO.File.WriteAllText(path1, csv1.ToString());
+
+            int max = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            int last = 0;
+
+            var csv2 = new StringBuilder();
+
+            csv2.AppendLine("day,count");
+            foreach (var obj in db.Articles.Where(x=>x.Month==DateTime.Now.Month).GroupBy(x => x.Day).Select(x => new { Count = x.Count(), x.Key }).ToList())
+            {
+                if((int)obj.Key != last+1)
+                {
+                    for(int i = last+1;i< (int)obj.Key;i++)
+                    {
+                        csv2.AppendLine(string.Format("{0},{1}", i, 0));
+                    }
+                }
+                last = (int)obj.Key;
+                var first = (int)obj.Key;
+                var second = obj.Count;
+                var newLine = string.Format("{0},{1}", first, second);
+                csv2.AppendLine(newLine);
+            }
+            for(int i=last+1;i<=max;i++)
+            {
+                csv2.AppendLine(string.Format("{0},{1}", i, 0));
+            }
+
+            string path2 = HttpRuntime.AppDomainAppPath;
+
+            int a2 = path2.IndexOf("\\Shwallak");
+            path2 = path2.Substring(0, a2) + "\\Shwallak\\Content\\data2.csv";
+
+            System.IO.File.WriteAllText(path2, csv2.ToString());
             return View();
         }
         public ActionResult Index()
@@ -45,23 +95,7 @@ namespace Shwallak.Controllers
             }
 
 
-            var csv = new StringBuilder();
-
-            csv.AppendLine("section,count");
-            foreach(var obj in db.Articles.GroupBy(x => x.Section).Select(x => new { Count = x.Count(), x.Key }).ToList())
-            {
-                var first =(int) obj.Key;
-                var second = obj.Count;
-                var newLine = string.Format("{0},{1}", first, second);
-                csv.AppendLine(newLine);
-            }
-
-            string path = HttpRuntime.AppDomainAppPath;
-
-            int a = path.IndexOf("\\Shwallak");
-            path = path.Substring(0, a) + "\\Shwallak\\Content\\data.csv";
-
-            System.IO.File.WriteAllText(path, csv.ToString());
+           
 
 
             return View(db.Articles);
