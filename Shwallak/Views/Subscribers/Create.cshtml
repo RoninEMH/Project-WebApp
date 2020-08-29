@@ -5,6 +5,69 @@
     Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
+<head>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var terms = document.getElementById("terms");
+            var ctx = terms.getContext("2d");
+            ctx.font = "30px Arial";
+
+            ctx.fillStyle = "blue";
+            ctx.fillText("Terms of Usage", 10, 30);
+            ctx.fillStyle = "rgb(150, 0, 0)";
+            ctx.font = "10px sans-serif";
+            var opening = "By pressing the v button you are agreeing to the following:";
+            
+            var line = 20;
+            ctx.fillText(opening, 10, 30 + line);
+            ctx.fillStyle = 'rgb(255, 0, 0)';
+            line = line + 30 + 20;
+            var termsOfUsage = [];
+            termsOfUsage[0] = "1) You shall not you this site to encourage racism or cyberbullying of any kind.";
+            termsOfUsage[1] = "2) Curses or mean words are not allowed in the comments.";
+            termsOfUsage[2] = "3) Hacking and fishing are not allowed.";
+            termsOfUsage[3] = "4) Usage of this site for any bad purposes in extremly forbitten.";
+
+            var index = 0;
+            while (index != termsOfUsage.length) {
+                ctx.fillText(termsOfUsage[index], 10, line);
+                line = line + 20;
+                index = index + 1;
+            }
+        });
+
+        function checkTerms() {
+
+            var button = document.getElementById("createButton");
+            var checkBox = document.getElementById("checker");
+            if (checkBox.checked)
+                button.style.display = 'inline';
+            else
+                button.style.display = 'none';
+        }
+
+
+    </script>
+    <style>
+        #terms {
+            height: 300px;
+            width: 580px;
+        }
+
+        #checker {
+            height: 20px;
+            width: 20px;
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
 <section id="contentSection">
     <div class="contact_area">
         <h2>Sigh Up</h2>
@@ -64,9 +127,22 @@
                     </div>
                 </div>
 
+
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                    <table class="center">
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="checker" onclick="checkTerms()" />
+                            </td>
+                            <td>
+                                <canvas id="terms"> </canvas>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10" hidden="hidden" id="createButton">
+                        <input type="submit" value="Create" class="btn btn-default"/>
                     </div>
                 </div>
             </div>
