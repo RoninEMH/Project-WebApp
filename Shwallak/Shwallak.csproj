@@ -282,9 +282,8 @@
     <Content Include="Views\Home\AboutOld.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
-    <Content Include="Views\Comments\DeleteOld.cshtml" />
     <Content Include="Views\Comments\Details.cshtml" />
-    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\EditOld.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\Subscribers\Create.cshtml" />
     <Content Include="Views\Articles\Search.cshtml" />
@@ -325,6 +324,7 @@
     <Content Include="Views\Subscribers\ChangePassword.cshtml" />
     <Content Include="Views\Home\Check.cshtml" />
     <Content Include="Views\Home\Statistics.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">

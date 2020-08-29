@@ -2,17 +2,18 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<section id="contentSection">
+    <div class="contact_area">
+        <h2>Edit Comment</h2>
 
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>Comment</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CommentID)
@@ -25,45 +26,12 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Month, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Month, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Month, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Day, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Day, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Day, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Hour, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hour, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Minute, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Minute, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Minute, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <input class="form-control" id="Year" name="Year" type="hidden" value="@Model.Year">
+        <input class="form-control" id="Month" name="Month" type="hidden" value="@Model.Month">
+        <input class="form-control" id="Day" name="Day" type="hidden" value="@Model.Day">
+        <input class="form-control" id="Hour" name="Hour" type="hidden" value="@Model.Hour">
+        <input class="form-control" id="Minute" name="Minute" type="hidden" value="@Model.Minute">
+        <input class="form-control" id="Second" name="Second" type="hidden" value="@Model.Second">
 
         <div class="form-group">
             @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -73,13 +41,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ArticleID, "ArticleID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ArticleID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ArticleID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <input class="form-control" id="Watches" name="Watches" type="hidden" value="@Model.Watches">
+        <input class="form-control" id="ArticleID" name="ArticleID" type="hidden" value="@Model.ArticleID">
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -87,12 +50,17 @@
             </div>
         </div>
     </div>
-}
+        }
+         <form action="~/Articles/Details/@Model.ArticleID" class="contact_form">
+            <input type="submit" value="cancel" />
+        </form>
+    </div>
+</section>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 }
+
