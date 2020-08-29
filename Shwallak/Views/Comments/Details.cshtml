@@ -64,10 +64,10 @@
                     @if (Session["type"] != null && Session["type"].Equals("admin"))
                     {
                         <form action="~/Comments/Delete/@Model.CommentID">
-                            <button type="submit" class="btn btn-theme">Remove Comment</button>
+                            <button type="submit" class="btn btn-theme">Delete</button>
                         </form>
                         <form action="~/Comments/Edit/@Model.CommentID">
-                            <button type="submit" class="btn btn-theme">Edit Comment</button>
+                            <button type="submit" class="btn btn-theme">Edit</button>
                         </form>
                     }
 

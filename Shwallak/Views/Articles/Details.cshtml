@@ -41,12 +41,12 @@
                                         <p>@paragraph</p>
                                     }
                                 </div>
-                                
+
                             }
                             <form action="~/Comments/Create/@Model.ArticleID">
                                 <button type="submit" class="btn btn-theme">Add Comment</button>
                             </form>
-                            @if (Session["id"] != null && Session["id"].Equals(Model.WriterID))
+                            @if (Session["type"].Equals("writer") && Session["id"] != null && Session["id"].Equals(Model.WriterID))
                             {
                                 <br />
                                 <table>
@@ -60,6 +60,20 @@
                                         <td>
                                             &nbsp;&nbsp;
                                         </td>
+                                        <td>
+
+                                            <form action="~/Articles/Delete/@Model.ArticleID">
+                                                <button type="submit" class="btn btn-theme">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+                            else if (Session["type"].Equals("admin"))
+                            {
+                                <br />
+                                <table>
+                                    <tr>
                                         <td>
 
                                             <form action="~/Articles/Delete/@Model.ArticleID">

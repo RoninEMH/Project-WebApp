@@ -35,7 +35,7 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
-            if (db.Commants.Find(id).Article.SubscribersOnly && Session["type"].Equals("none"))
+            if (db.Commants.Find(id).Article.SubscribersOnly && (Session["type"] == null || Session["type"].Equals("none")))
                 return RedirectToAction("LoginBy", "Home");
 
             db.Commants.Find(id).Watches = db.Commants.Find(id).Watches + 1;
@@ -51,6 +51,9 @@ namespace Shwallak.Controllers
             Article article = db.Articles.Find(id);
             if (article == null)
                 return HttpNotFound();
+
+            if (article.SubscribersOnly && (Session["type"] == null || Session["type"].Equals("none")))
+                return RedirectToAction("LoginBy", "Home");
 
             ViewBag.id = id;
             ViewBag.name = article.Title;
@@ -96,6 +99,10 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
+
             ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "Title", comment.ArticleID);
             return View(comment);
         }
@@ -124,6 +131,10 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
+
             List<Comment> comments = new List<Comment>();
             List<Comment> results = new List<Comment>();
 
@@ -134,9 +145,6 @@ namespace Shwallak.Controllers
                 return HttpNotFound();
             }
 
-            //if (!Session["type"].Equals("admin"))
-                //return RedirectToAction("Details/" + id);
-
             return View(results.First());
         }
 
@@ -145,6 +153,9 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
+
             Comment comment = db.Commants.Find(id);
             db.Commants.Remove(comment);
             db.SaveChanges();

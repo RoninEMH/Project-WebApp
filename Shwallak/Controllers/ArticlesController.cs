@@ -38,7 +38,7 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
-            if (article.SubscribersOnly && Session["type"].Equals("none"))
+            if (article.SubscribersOnly && (Session["type"]==null ||Session["type"].Equals("none")))
                 return RedirectToAction("LoginBy", "Home");
 
             if(Session["type"]!=null && Session["type"].Equals("subscriber"))
@@ -56,10 +56,16 @@ namespace Shwallak.Controllers
         {
             if (id == null)
                 return HttpNotFound();
-            else if (Session["id"] == null || !Session["id"].Equals(id))
+            if(Session["type"]!=null && Session["type"].Equals("writer"))
             {
-                return RedirectToAction("Index", "Home");
+                if (Session["id"] == null || !Session["id"].Equals(id))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
+            else
+                return RedirectToAction("Index", "Home");
+
             Writer writer = db.Writers.Find(id);
             if (writer == null)
                 return HttpNotFound();
@@ -106,7 +112,14 @@ namespace Shwallak.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            else if (Session["id"] == null || !Session["id"].Equals(db.Articles.Find(id).WriterID))
+            if(Session["type"]!=null && Session["type"].Equals("writer"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(db.Articles.Find(id).WriterID))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -173,10 +186,19 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
-            if (Session["id"] == null || !Session["id"].Equals(results.First().WriterID))
+            if(Session["type"]!=null && Session["type"].Equals("writer"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(results.First().WriterID))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else if (Session["type"] == null || !Session["type"].Equals("admin"))
             {
                 return RedirectToAction("Index", "Home");
+
             }
+
             return View(results.First());
         }
 
@@ -185,10 +207,28 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Article article = db.Articles.Find(id);
+
+            if (Session["type"] != null && Session["type"].Equals("writer"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(article.WriterID))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else if (Session["type"] == null || !Session["type"].Equals("admin"))
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+
             db.Articles.Remove(article);
             db.SaveChanges();
-            return RedirectToAction("MyArea/" + article.WriterID, "Writers");
+
+            if(Session["type"]!=null && Session["type"].Equals("writer"))
+                 return RedirectToAction("MyArea/" + article.WriterID, "Writers");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)
@@ -366,6 +406,10 @@ namespace Shwallak.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if(Session["type"]==null || !Session["type"].Equals("writer"))
+            {
+                return RedirectToAction("Index", "Home");
             }
 
             List<Article> articles = new List<Article>();
