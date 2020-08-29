@@ -72,6 +72,13 @@ namespace Shwallak.Controllers
                 return HttpNotFound();
             }
             ViewBag.Address = RemoveWhitespace(writer.Address);
+
+            var query = from wri in db.Writers
+                        join art in db.Articles on wri.Year equals art.Year
+                        where wri.WriterID == writer.WriterID
+                        select new { wri.WriterID };
+
+            ViewBag.number = query.Count();
             return View(writer);
         }
 
