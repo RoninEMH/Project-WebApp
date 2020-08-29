@@ -32,6 +32,7 @@ namespace Shwallak.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter password")]
         public string Password { get; set; }
 
+        [RegularExpression("([A-Za-z])+\\s*,\\s*([A-Za-z])+\\s*,\\s*([A-Za-z])+", ErrorMessage ="you must enter address in a form of: [Country],[City],[Street]")]
         [Display(Name = "address")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter adress")]
         public string Address { get; set; }
