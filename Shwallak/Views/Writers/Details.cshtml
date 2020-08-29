@@ -40,15 +40,16 @@
                         document.getElementById("humidity").innerHTML = "<lable>" + "humidity: " + hum + "</lable>";
 
                         $(document).ready(function () {
-                            $("#lat").show();
-                            $("#lon").show();
-                            $("#temp").show();
-                            $("#description").show();
-                            $("#wind").show();
-                            $("#humidity").show();
-                            $("#data").show();
+                            //$("#lat").show();
+                            //$("#lon").show();
+                            //$("#temp").show();
+                            //$("#description").show();
+                            //$("#wind").show();
+                            //$("#humidity").show();
+                            //$("#data").show();
+                            $("#weatherDetails").show();
                         });
-                       
+
                     },
                     error: function () {
                         alert("error");
@@ -62,18 +63,14 @@
             var Mapurl = source.concat(address, "&z=15&output=embed");
             alert(Mapurl);
             var map = document.getElementById('map');
-            map.innerHTML = "<iframe src= " + Mapurl + "></iframe>";
+            var mapW = '100%';
+            var mapH = '300px';
+            map.innerHTML = "<iframe src= " + Mapurl + " width = " + mapW + " height = " + mapH + "></iframe>";
             $(document).ready(function () {
                 $(".map").show();
             });
         }
     </script>
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
 </head>
 
 <section id="contentSection">
@@ -83,111 +80,111 @@
 
             <div>
                 <hr />
-                            <dl class="dl-horizontal">
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.FullName)
-                                </dt>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </dt>
 
-                                <dd>
-                                    @Html.DisplayFor(model => model.FullName)
-                                </dd>
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.Age)
-                                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </dt>
 
-                                <dd>
-                                    @Html.DisplayFor(model => model.Age)
-                                </dd>
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.Gender)
-                                </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Age)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </dt>
 
-                                <dd>
-                                    @Html.DisplayFor(model => model.Gender)
-                                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
 
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.Email)
-                                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
 
-                                <dd>
-                                    @Html.DisplayFor(model => model.Email)
-                                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
 
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.Year)
-                                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Year)
+                    </dt>
 
-                                <dd>
-                                    @Html.DisplayFor(model => model.Year)
-                                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Year)
+                    </dd>
 
-                                <dt>
-                                    @Html.DisplayNameFor(model => model.Address)
-                                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
 
-                                <dd>
-                                    @Html.DisplayFor(model => model.Address)
-                                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
 
 
-                            </dl>
+                </dl>
 
-                            <p>
-                                <table>
-                                    <tr>
-                                        @if (Session["type"].Equals("writer"))
-                                        {
-                                            <td>
-                                                <form action="/Writers/Edit/@Model.WriterID" class="contact_form">
-                                                    <input type="submit" value="Edit">
-                                                </form>
-                                            </td>
-                                            <td>
-                                                &nbsp;  &nbsp;
-                                            </td>
-                                            <td>
-                                                <form action="/Writers/MyArea/@Model.WriterID" class="contact_form">
-                                                    <input type="submit" value="Back To My Area">
-                                                </form>
-                                            </td>
-                                            <td>
-                                                &nbsp;  &nbsp;
-                                            </td>
-                                            <td>
-                                                <form action="/Writers/ChangePassword/@Model.WriterID" class="contact_form">
-                                                    <input type="submit" value="ChangePassword">
-                                                </form>
-                                            </td>
-                                        }
-                                        else if (Session["type"].Equals("admin"))
-                                        {
-                                            <td>
-                                                <form action="~/Writers/Delete/@Model.WriterID" class="contact_form">
-                                                    <input type="submit" value="Delete">
-                                                </form>
-                                            </td>
-                                            <td>&nbsp; &nbsp;</td>
-                                            <td>
-                                                <form action="~/Writers/Index" class="contact_form">
-                                                    <input type="submit" value="Back To Writers">
-                                                </form>
-                                            </td>
+                <p>
+                    <table>
+                        <tr>
+                            @if (Session["type"].Equals("writer"))
+                            {
+                                <td>
+                                    <form action="/Writers/Edit/@Model.WriterID" class="contact_form">
+                                        <input type="submit" value="Edit">
+                                    </form>
+                                </td>
+                                <td>
+                                    &nbsp;  &nbsp;
+                                </td>
+                                <td>
+                                    <form action="/Writers/MyArea/@Model.WriterID" class="contact_form">
+                                        <input type="submit" value="Back To My Area">
+                                    </form>
+                                </td>
+                                <td>
+                                    &nbsp;  &nbsp;
+                                </td>
+                                <td>
+                                    <form action="/Writers/ChangePassword/@Model.WriterID" class="contact_form">
+                                        <input type="submit" value="ChangePassword">
+                                    </form>
+                                </td>
+                            }
+                            else if (Session["type"].Equals("admin"))
+                            {
+                                <td>
+                                    <form action="~/Writers/Delete/@Model.WriterID" class="contact_form">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </td>
+                                <td>&nbsp; &nbsp;</td>
+                                <td>
+                                    <form action="~/Writers/Index" class="contact_form">
+                                        <input type="submit" value="Back To Writers">
+                                    </form>
+                                </td>
 
-                                        }
-                                        <td>&nbsp;  &nbsp;</td>
-                                        <td>
-                                            <button onclick="showLocation()" type="submit" class="btn btn-theme">Show Map</button>
+                            }
+                            <td>&nbsp;  &nbsp;</td>
+                            <td>
+                                <button onclick="showLocation()" type="submit" class="btn btn-theme">Show Map</button>
 
-                                        </td>
-                                        <td>&nbsp; &nbsp;</td>
-                                        <td>
-                                            <button onclick="showTemperature()" type="submit" class="btn btn-theme">Show Weather Data</button>
+                            </td>
+                            <td>&nbsp; &nbsp;</td>
+                            <td>
+                                <button onclick="showTemperature()" type="submit" class="btn btn-theme">Show Weather Data</button>
 
-                                        </td>
-                                    </tr>
-                                </table>
-                            </p>
+                            </td>
+                        </tr>
+                    </table>
+                </p>
                 <br />
                 <table>
                     <tr>
@@ -195,24 +192,26 @@
                             <h4 class="map" hidden="hidden">Map:</h4>
                             <div id="map"></div>
                         </td>
-                            
-                            
+
+
                     </tr>
                     <tr>
                         <td>
-                            <h4 id="data" hidden="hidden">Weather Data:</h4>
-                            <h5 hidden="hidden" id="lat"></h5>
-                            <h5 hidden="hidden" id="lon"></h5>
-                            <h5 hidden="hidden" id="temp"></h5>
-                            <h5 hidden="hidden" id="description"></h5>
-                            <h5 hidden="hidden" id="wind"></h5>
-                            <h5 hidden="hidden" id="humidity"></h5>
+                            <div id="weatherDetails">
+                                <h4 id="data" hidden="hidden">Weather Data:</h4>
+                                <h5 id="lat"></h5>
+                                <h5 id="lon"></h5>
+                                <h5 id="temp"></h5>
+                                <h5 id="description"></h5>
+                                <h5 id="wind"></h5>
+                                <h5 id="humidity"></h5>
+                            </div>
                         </td>
                     </tr>
                 </table>
-                                      
-                                           
-                
+
+
+
             </div>
         </div>
     </div>
