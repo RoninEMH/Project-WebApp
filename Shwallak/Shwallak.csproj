@@ -237,6 +237,7 @@
     <Content Include="Content\images\shwallak_logo.jpg" />
     <Content Include="Content\images\Sport_section1.jpg" />
     <Content Include="Content\images\Tourism_section1.jpg" />
+    <Content Include="Content\Video\shwallak.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
