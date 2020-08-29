@@ -39,26 +39,7 @@
                         document.getElementById("wind").innerHTML = "<lable>" + "wind: " + wind + " mps" + "</lable>";
                         document.getElementById("humidity").innerHTML = "<lable>" + "humidity: " + hum + "</lable>";
 
-                        var locationCanvas = document.getElementById("location");
-                        var ctx = locationCanvas.getContext("2d");
-                        var image = document.getElementById("locationIcon");
-                        ctx.drawImage(image, 0, 0);
-
-                        var tempCanvas = document.getElementById("temperature");
-                        ctx = tempCanvas.getContext("2d");
-                        image = document.getElementById("tempIcon");
-                        ctx.drawImage(image, 0, 0);
-
-                        var humCanvas = document.getElementById("lahoot");
-                        ctx = humCanvas.getContext("2d");
-                        image = document.getElementById("humidityIcon");
-                        ctx.drawImage(image, 0, 0);
-
-                        var windCanvas = document.getElementById("windSpeed");
-                        ctx = windCanvas.getContext("2d");
-                        image = document.getElementById("windIcon");
-                        ctx.drawImage(image, 0, 0);
-
+                       
                         $(document).ready(function () {
                             $("#weatherDetails").show();
                         });
@@ -69,7 +50,7 @@
                 }));
         }
         function showLocation() {
-            var add = @Html.Raw(Json.Encode(Model.Address));
+            var add = @Html.Raw(Json.Encode(ViewBag.Address));
             var address = add.replace(/\s/g, '');
             var source = "https://maps.google.com/maps?q=";
             var Mapurl = source.concat(address, "&z=15&output=embed");
@@ -80,6 +61,7 @@
             map.innerHTML = "<iframe src= " + Mapurl + " width = " + mapW + " height = " + mapH + "></iframe>";
             $(document).ready(function () {
                 $("#cell1").show();
+                $(".map").show();
             });
         }
     </script>
@@ -217,13 +199,9 @@
                     </table>
                 </p>
                 <br />
-                <img hidden="hidden" id="locationIcon" src="~/Content/images/LocationIcon.jpg" class="center" />
-                <img hidden="hidden" id="windIcon" src="~/Content/images/WindIcon.jpg" class="center"/>
-                <img hidden="hidden" id="tempIcon" src="~/Content/images/TemperatureIcon.jpg" class="center"/>
-                <img hidden="hidden" id="humidityIcon" src="~/Content/images/HumidityIcon.jpg" class="center"/>
                 <table>
                     <td id="cell1">
-                        <h4 class="map" hidden="hidden">Map:</h4>
+                        <h4  id="title" class="map" hidden="hidden">Map:</h4>
                         <div id="map"></div>
                     </td>
                     <td id="cell2">
@@ -237,52 +215,17 @@
                                         <td>
                                             <h5 id="lat"></h5>
                                             <h5 id="lon"></h5>
-                                        </td>
-                                        <td>
-                                            <canvas id="location"></canvas>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </p>
-                            <p>
-                                <table>
-                                    <tr>
-                                        <td>
                                             <h5 id="temp"></h5>
-                                        </td>
-                                        <td>
-                                            <canvas id="temperature"></canvas>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </p>
-                            <p>
-                                <h5 id="description"></h5>
-                            </p>
-                            <p>
-                                <table>
-                                    <tr>
-                                        <td>
+                                            <h5 id="description"></h5>
                                             <h5 id="wind"></h5>
-                                        </td>
-                                        <td>
-                                            <canvas id="windSpeed"></canvas>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </p>
-                            <p>
-                                <table>
-                                    <tr>
-                                        <td>
                                             <h5 id="humidity"></h5>
-                                        </td>
-                                        <td>
-                                            <canvas id="lahoot"></canvas>
+
+
                                         </td>
                                     </tr>
                                 </table>
                             </p>
+                          
                         </div>
                 </table>
             </div>

@@ -71,6 +71,7 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Address = RemoveWhitespace(writer.Address);
             return View(writer);
         }
 
@@ -379,6 +380,13 @@ namespace Shwallak.Controllers
                 return RedirectToAction("Details/" + writer.WriterID);
             }
             return View(writer);
+        }
+
+        private string RemoveWhitespace(string input)
+        {
+            return new string(input.ToCharArray()
+                .Where(c => !Char.IsWhiteSpace(c))
+                .ToArray());
         }
     }
 }
