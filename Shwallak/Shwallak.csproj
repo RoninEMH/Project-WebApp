@@ -237,6 +237,7 @@
     <Content Include="Content\images\Health_section1.jpg" />
     <Content Include="Content\images\HumidityIcon.jpg" />
     <Content Include="Content\images\LocationIcon.jpg" />
+    <Content Include="Content\images\logo_Shwallak.png" />
     <Content Include="Content\images\MalePerson.jpg" />
     <Content Include="Content\images\OtherPerson.jpg" />
     <Content Include="Content\images\Other_section1.jpg" />
