@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 
 namespace Shwallak.Models
 {
@@ -32,5 +33,46 @@ namespace Shwallak.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "you must enter password")]
         [Display(Name = "password")]
         public string Password { get; set; }
+
+        public string Favorite { get; set; }
+
+        public Section Favor()
+        {
+            string[] favorite = Favorite.Split(',');
+            int max = 0;
+            int index = -1;
+            for(int i=0;i<9;i++)
+            {
+                if (int.Parse(favorite[i]) > max)
+                {
+                    max = int.Parse(favorite[i]);
+                    index = i;
+                }
+            }
+
+            switch (index)
+            {
+                case 0:
+                    return Section.Sport;
+                case 1:
+                    return Section.Business;
+                case 2:
+                    return Section.Culture;
+                case 3:
+                    return Section.Food;
+                case 4:
+                    return Section.Celebs;
+                case 5:
+                    return Section.Fashion;
+                case 6:
+                    return Section.Health;
+                case 7:
+                    return Section.Tourism;
+                case 8:
+                    return Section.Other;
+            }
+
+            return Section.Other;
+        }
     }
 }

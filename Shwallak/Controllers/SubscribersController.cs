@@ -43,6 +43,7 @@ namespace Shwallak.Controllers
         {
             if (!Session["type"].Equals("none"))
                 return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -68,6 +69,7 @@ namespace Shwallak.Controllers
                         return View(subscriber);
                     }
                 }
+                subscriber.Favorite = "0,0,0,0,0,0,0,0,0";
                 db.Subscribers.Add(subscriber);
                 db.SaveChanges();
 

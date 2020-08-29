@@ -7,7 +7,7 @@
 
 @{
 
-
+    List<Shwallak.Models.Article> favoriteNews = Model.ToList();
     List<Shwallak.Models.Article> latestNews = Model.ToList();
     List<Shwallak.Models.Article> popularNews = Model.ToList();
     List<Shwallak.Models.Comment> popularComments = new List<Shwallak.Models.Comment>();
@@ -59,6 +59,22 @@
     {
         popularComments = popularComments.GetRange(0, 19);
     }
+
+    favoriteNews.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+    {
+        if (x.Year == y.Year)
+        {
+            if (x.Month == y.Month)
+            {
+                return y.Day - x.Day;
+            }
+            else
+                return y.Month - x.Month;
+        }
+        else
+            return y.Year - x.Year;
+    });
+
 }
 
 <section id="newsSection">
@@ -527,43 +543,95 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
             <aside class="right_content">
-                <!-- watches sortes comments list-->
-                <div class="single_sidebar">
-                    <h2><span>Popular Comments</span></h2>
-                    <ul class="spost_nav">
-                        @foreach (Shwallak.Models.Comment comment in popularComments)
-                        {
-                            <li>
-                                <div class="media wow fadeInDown">
-                                    <a href="~/Comments/Details/@comment.CommentID" class="media-left">
-                                        <img src="~/Content/images/Comment.jpg" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        @{
-                                            string title = comment.Article.Title;
-                                            if (title.Length > 23)
-                                            {
-                                                title = title.Substring(0, 23);
-                                                title = title + "...";
+                @if (ViewBag.favorite != null && ViewBag.favorite != Shwallak.Models.Section.Other)
+                {
+                    favoriteNews = favoriteNews.Where(x => x.Section == ViewBag.favorite).ToList();
+                    if (favoriteNews.Count > 19)
+                    {
+                        favoriteNews = favoriteNews.GetRange(0, 19);
+                    }
+                    <!-- favorite sorted comarticle list-->
+                    <div class="single_sidebar">
+                        <h2><span>You Might Like</span></h2>
+                        <ul class="spost_nav">
+                            @foreach (Shwallak.Models.Article article in favoriteNews)
+                            {
+                                <li>
+                                    <div class="media wow fadeInDown">
+                                        <a href="~/Articles/Details/@article.ArticleID" class="media-left">
+                                            @{ string img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                            <img src=@img alt="" />
+                                        </a>
+                                        <div class="media-body">
+                                            @{
+                                                string title = article.Title;
+                                                if (title.Length > 23)
+                                                {
+                                                    title = title.Substring(0, 23);
+                                                    title = title + "...";
+                                                }
                                             }
-                                        }
-                                        <a href="~/Articles/Details/@comment.ArticleID" class="catg_title"> <h5>@title</h5></a>
-                                        <br />
-                                        @{
-                                            string content = comment.Content;
-                                            if (content.Length > 23)
+                                            <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> <h5>@title</h5></a>
+                                            @if(title.Length<26)
                                             {
-                                                content = content.Substring(0, 23);
-                                                content = content + "...";
+                                                <br />
                                             }
-                                        }
-                                        <a href="~/Comments/Details/@comment.CommentID" class="catg_title"> <h6>@content</h6></a>
+                                            @{
+                                                string content = article.Content;
+                                                if (content.Length > 37)
+                                                {
+                                                    content = content.Substring(0, 37);
+                                                    content = content + "...";
+                                                }
+                                            }
+                                            <a href="~/Articles/Details/@article.ArticleID" class="catg_title"> @content  </a>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <!-- watches sortes comments list-->
+                    <div class="single_sidebar">
+                        <h2><span>Popular Comments</span></h2>
+                        <ul class="spost_nav">
+                            @foreach (Shwallak.Models.Comment comment in popularComments)
+                            {
+                                <li>
+                                    <div class="media wow fadeInDown">
+                                        <a href="~/Comments/Details/@comment.CommentID" class="media-left">
+                                            <img src="~/Content/images/Comment.jpg" alt="">
+                                        </a>
+                                        <div class="media-body">
+                                            @{
+                                                string title = comment.Article.Title;
+                                                if (title.Length > 23)
+                                                {
+                                                    title = title.Substring(0, 23);
+                                                    title = title + "...";
+                                                }
+                                            }
+                                            <a href="~/Articles/Details/@comment.ArticleID" class="catg_title"> <h5>@title</h5></a>
+                                            <br />
+                                            @{
+                                                string content = comment.Content;
+                                                if (content.Length > 23)
+                                                {
+                                                    content = content.Substring(0, 23);
+                                                    content = content + "...";
+                                                }
+                                            }
+                                            <a href="~/Comments/Details/@comment.CommentID" class="catg_title"> <h6>@content</h6></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
             </aside>
         </div>
     </div>

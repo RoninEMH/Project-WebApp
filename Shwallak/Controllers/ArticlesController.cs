@@ -5,8 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Shwallak.Migrations;
 using Shwallak.Models;
 
 namespace Shwallak.Controllers
@@ -39,6 +41,10 @@ namespace Shwallak.Controllers
             if (article.SubscribersOnly && Session["type"].Equals("none"))
                 return RedirectToAction("LoginBy", "Home");
 
+            if(Session["type"]!=null && Session["type"].Equals("subscriber"))
+            {
+                addToFavorite((int)Session["id"], article.Section);
+            }
             article.Watches = article.Watches + 1;
             db.SaveChanges();
             article.Writer = db.Writers.Find(article.WriterID);
@@ -376,6 +382,44 @@ namespace Shwallak.Controllers
             }
             db.SaveChanges();
             return View(results.First());
+        }
+
+        private void addToFavorite(int id, Section section)
+        {
+            int index = 0;
+            switch (section)
+            {
+                case Section.Sport:
+                    index = 0; break;
+                case Section.Business:
+                    index = 1; break;
+                case Section.Culture:
+                    index = 2; break;
+                case Section.Food:
+                    index = 3; break;
+                case Section.Celebs:
+                    index = 4; break;
+                case Section.Fashion:
+                    index = 5; break;
+                case Section.Health:
+                    index = 6; break;
+                case Section.Tourism:
+                    index = 7; break;
+                case Section.Other:
+                    index = 8; break;
+            }
+
+            string[] favorite = db.Subscribers.Find(id).Favorite.Split(',');
+            favorite[index] = (int.Parse(favorite[index]) + 1).ToString();
+            StringBuilder sb = new StringBuilder();
+            sb.Append(favorite[0]);
+            for(int i=1; i<9;i++)
+            {
+                sb.Append(",");
+                sb.Append(favorite[i]);
+            }
+            db.Subscribers.Find(id).Favorite = sb.ToString();
+            db.SaveChanges();
         }
     }
 }
