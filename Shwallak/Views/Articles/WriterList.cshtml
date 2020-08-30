@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Shwallak.Models.Article>
+
+@{
+    ViewBag.Title = "WriterList";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
+}
+
+
+<section id="contentSection">
+    <div class="row">
+        <div class="single_page">
+            <div class="related_post">
+                <h2>@ViewBag.WriterName's Articles:</h2>
+
+                @{
+                    List<Shwallak.Models.Article> articles = Model.ToList();
+                    articles.Sort(delegate (Shwallak.Models.Article x, Shwallak.Models.Article y)
+                    {
+                        if (x.Year == y.Year)
+                        {
+                            if (x.Month == y.Month)
+                            {
+                                return y.Day - x.Day;
+                            }
+                            else
+                                return y.Month - x.Month;
+                        }
+                        else
+                            return y.Year - x.Year;
+                    });
+
+                    int i;
+                    string img = "/Content/images/" + @ViewBag.Section + "_section1.jpg";
+                }
+                @for (i = 0; articles.Count - 3 > i; i += 3)
+                {
+                    Shwallak.Models.Article article1 = articles.ElementAt(i);
+                    Shwallak.Models.Article article2 = articles.ElementAt(i + 1);
+                    Shwallak.Models.Article article3 = articles.ElementAt(i + 2);
+
+                    <ul class="spost_nav wow fadeInDown animated">
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Articles/Details/@article1.ArticleID">
+                                    @{ img = "/Content/images/" + @article1.Section + "_section1.jpg";}
+                                    <img src=@img alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@article1.ArticleID">@article1.Title </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Articles/Details/@article2.ArticleID">
+                                    @{ img = "/Content/images/" + @article2.Section + "_section1.jpg";}
+                                    <img src=@img alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@article2.ArticleID">@article2.Title </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Articles/Details/@article3.ArticleID">
+                                    @{ img = "/Content/images/" + @article3.Section + "_section1.jpg";}
+                                    <img src=@img alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@article3.ArticleID">@article3.Title </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                }
+
+                <ul class="spost_nav wow fadeInDown animated">
+                    @while (i < articles.Count)
+                    {
+                        Shwallak.Models.Article article = articles.ElementAt(i);
+                        <li>
+                            <div class="media">
+                                <a class="media-left" href="~/Articles/Details/@article.ArticleID">
+                                    @{ img = "/Content/images/" + @article.Section + "_section1.jpg";}
+                                    <img src=@img alt="">
+                                </a>
+                                <div class="media-body">
+                                    <a class="catg_title" href="~/Articles/Details/@article.ArticleID">@article.Title </a>
+                                </div>
+                            </div>
+                        </li>
+                        i++;
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

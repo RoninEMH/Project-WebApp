@@ -159,13 +159,13 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ArticleID,Title,Content,Year,Month,Day,SubscribersOnly,Section,WriterID")] Article article)
         {
-            if (id == null)
+            if (article.ArticleID.Equals(null))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             if (Session["type"] != null && Session["type"].Equals("writer"))
             {
-                if (Session["id"] == null || !Session["id"].Equals(db.Articles.Find(id).WriterID))
+                if (Session["id"] == null || !Session["id"].Equals(article.WriterID))
                 {
                     return RedirectToAction("Index", "Home");
                 }
@@ -392,6 +392,19 @@ namespace Shwallak.Controllers
             }
             ViewBag.Section = section;
             results.AddRange(articles.Where(x => x.Section == sec));
+            return View(results);
+        }
+
+        public ActionResult WriterList(int? id)
+        {
+            List<Article> articles = db.Articles.Include(x => x.Comments).ToList();
+            List<Article> results = new List<Article>();
+
+            if (id == null)
+                return HttpNotFound();
+            
+            results.AddRange(articles.Where(x => x.WriterID == id));
+            ViewBag.WriterName = db.Writers.Find(id).FullName;
             return View(results);
         }
 

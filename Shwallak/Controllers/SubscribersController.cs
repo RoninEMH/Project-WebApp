@@ -152,7 +152,7 @@ namespace Shwallak.Controllers
 
             if (Session["type"] != null && Session["type"].Equals("subscriber"))
             {
-                if (Session["id"] == null || !Session["id"].Equals(id))
+                if (Session["id"] == null || !Session["id"].Equals(subscriber.SubscriberID))
                     return RedirectToAction("Index", "Home");
             }
             else
