@@ -42,7 +42,7 @@ img:hover{opacity:0.75}
 .btn-lime:hover{background-color:#05ae05; color:#fff}
 .default-btn{background-color:#12a3df; color:#fff}
 .default-btn:hover{background-color:#0a8ec4; color:#fff}
-.btn-theme{background-color:#3B90FF; color:#fff}
+.btn-theme{background-color:#ACD0FF; color:#fff}
 .btn-theme:hover{background-color:#483BFF; color:#fff}
 .transition{-webkit-transition:all 0.5s; -moz-transition:all 0.5s; -ms-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
 #preloader{position:fixed; top:0; left:0; right:0; bottom:0; background-color:#fff; z-index:99999}
@@ -55,7 +55,7 @@ img:hover{opacity:0.75}
 .top_nav{text-align:left}
 .top_nav li{display:inline-block}
 .top_nav li a{display:inline-block; border-right:1px solid #333; color:#fff; font-size:11px; font-weight:bold; padding:20px 15px; text-transform:uppercase; -webkit-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
-.top_nav li a:hover{background-color:#3B90FF}
+.top_nav li a:hover{background-color:#ACD0FF}
 .header_top_right{float:left; display:inline; width:50%; text-align:right}
 .header_top_right > p{color:#fff; display:inline-block; float:right; font:bold 12px sans-serif; margin-bottom:0; padding-bottom:20px; padding-right:8px; padding-top:20px}
 .header_bottom{background-color:#fff; display:inline; float:left; padding:15px 30px 15px; width:100%}
@@ -205,11 +205,11 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .developer{float:right; width:50%; text-align:right; padding-top:5px; color:#222}
 .developer a{color:#222}
 .catgArchive{border:medium none; color:#fff; display:inline; float:left; font-weight:bold; padding:10px 15px; width:100%; margin-top:15px}
-.catgArchive option{background-color:#fff; font-weight:normal; padding:5px; color:#3B90FF}
+.catgArchive option{background-color:#fff; font-weight:normal; padding:5px; color:#ACD0FF}
 .nav-tabs > li{display:inline-block; float:none; width:32.55%}
 .nav-tabs{ text-align:center}
 .pagination > li > a, .pagination > li > span{background-color:#000; border:1px solid #000; color:#eee; margin-right:5px; -webkit-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
-.pagination > li > a:hover, .pagination > li > a:focus{background-color:#3B90FF; color:#fff; border-color:#3B90FF}
+.pagination > li > a:hover, .pagination > li > a:focus{background-color:#ACD0FF; color:#fff; border-color:#ACD0FF}
 .pagination > li:first-child > a, .pagination > li:first-child > span{border-bottom-left-radius:0; border-top-left-radius:0}
 .pagination > li:last-child > a, .pagination > li:last-child > span{border-bottom-right-radius:0; border-top-right-radius:0}
 .single_page{float:left; display:inline; width:100%}
@@ -269,7 +269,7 @@ figure.effect-layla:hover figcaption::after, figure.effect-layla:hover h2, figur
 .contact_area > p{margin-bottom:20px}
 .contact_form input[type="text"], .contact_form input[type="email"], .contact_form textarea{border-radius:0; margin-bottom:30px}
 .contact_form input[type="submit"]{border:medium none; color:#fff; height:35px; padding:5px 10px; -webkit-transition:all 0.5s; -o-transition:all 0.5s; transition:all 0.5s}
-.contact_form input[type="submit"]:hover{border:1px solid #3B90FF}
+.contact_form input[type="submit"]:hover{border:1px solid #ACD0FF}
 #title {text-shadow: 4px 4px #ebf3ff}
 input[type="submit"]{border-radius:25px;}
 
