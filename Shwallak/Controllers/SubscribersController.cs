@@ -63,6 +63,12 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SubscriberID,Age,Gender,Email,Nickname,Password")] Subscriber subscriber)
         {
+
+            if (Session["type"] == null)
+                return View();
+            if (!Session["type"].Equals("none"))
+                return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
                 foreach(Subscriber sub in db.Subscribers.ToList())
@@ -143,6 +149,15 @@ namespace Shwallak.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details/" + subscriber.SubscriberID);
             }
+
+            if (Session["type"] != null && Session["type"].Equals("subscriber"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(id))
+                    return RedirectToAction("Index", "Home");
+            }
+            else
+                return RedirectToAction("Index", "Home");
+
             return View(subscriber);
         }
 
@@ -333,6 +348,14 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword([Bind(Include = "SubscriberID,Age,Gender,Email,Nickname,Password")] Subscriber subscriber)
         {
+            if (Session["type"] != null && Session["type"].Equals("subscriber"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(subscriber.SubscriberID))
+                    return RedirectToAction("Index", "Home");
+            }
+            else
+                return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
                 db.Entry(subscriber).State = EntityState.Modified;

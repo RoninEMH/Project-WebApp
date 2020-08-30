@@ -77,6 +77,10 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "WriterID,FullName,Gender,Email,Year,Password,Address,Age")] Writer writer)
         {
+
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
                 foreach (Writer wri in db.Writers.ToList())
@@ -132,6 +136,11 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "WriterID,FullName,Gender,Email,Year,Password,Address,Age")] Writer writer)
         {
+            if (Session["type"] == null || !Session["type"].Equals("writer"))
+                return RedirectToAction("Index", "Home");
+            else if (Session["id"] == null || !Session["id"].Equals(writer.WriterID))
+                return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
                 
@@ -380,6 +389,12 @@ namespace Shwallak.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details/" + writer.WriterID);
             }
+
+            if (Session["type"] == null || !Session["type"].Equals("writer"))
+                return RedirectToAction("Index", "Home");
+            else if (Session["id"] == null || !Session["id"].Equals(writer.WriterID))
+                return RedirectToAction("Index", "Home");
+
             return View(writer);
         }
 
