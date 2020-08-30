@@ -81,6 +81,9 @@ namespace Shwallak.Controllers
             if (article == null)
                 return HttpNotFound();
 
+            if (article.SubscribersOnly && (Session["type"] == null || Session["type"].Equals("none")))
+                return RedirectToAction("LoginBy", "Home");
+
             ViewBag.id = id;
             ViewBag.name = article.Title;
             ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "Title", comment.ArticleID);
@@ -120,6 +123,9 @@ namespace Shwallak.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
+
             ViewBag.ArticleID = new SelectList(db.Articles, "ArticleID", "Title", comment.ArticleID);
             return View(comment);
         }

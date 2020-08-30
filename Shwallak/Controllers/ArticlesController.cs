@@ -85,6 +85,18 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ArticleID,Title,Content,Year,Month,Day,SubscribersOnly,Section,WriterID")] Article article, int? id)
         {
+            if (id == null)
+                return HttpNotFound();
+            if (Session["type"] != null && Session["type"].Equals("writer"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(id))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+                return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
                 db.Articles.Add(article);
@@ -147,6 +159,21 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ArticleID,Title,Content,Year,Month,Day,SubscribersOnly,Section,WriterID")] Article article)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (Session["type"] != null && Session["type"].Equals("writer"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(db.Articles.Find(id).WriterID))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(article).State = EntityState.Modified;
