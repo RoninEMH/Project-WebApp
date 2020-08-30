@@ -18,8 +18,8 @@ namespace Shwallak.Controllers
         // GET: Subscribers
         public ActionResult Index()
         {
-            if (!Session["type"].Equals("admin"))
-                RedirectToAction("Index", "Home");
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
             return View(db.Subscribers.ToList());
         }
 
@@ -35,12 +35,21 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+            if (Session["type"] != null && Session["type"].Equals("subscriber"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(id))
+                    return RedirectToAction("Index", "Home");
+            }
+            else if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
             return View(subscriber);
         }
 
         // GET: Subscribers/Create
         public ActionResult Create()
         {
+            if(Session["type"] == null)
+                return View();
             if (!Session["type"].Equals("none"))
                 return RedirectToAction("Index", "Home");
 
@@ -94,6 +103,15 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (Session["type"] != null && Session["type"].Equals("subscriber"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(id))
+                    return RedirectToAction("Index", "Home");
+            }
+            else
+                return RedirectToAction("Index", "Home");
+            
             return View(subscriber);
         }
 
@@ -140,6 +158,9 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
+
             return View(subscriber);
         }
 
@@ -148,6 +169,8 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
             Subscriber subscriber = db.Subscribers.Find(id);
             db.Subscribers.Remove(subscriber);
             db.SaveChanges();
@@ -156,11 +179,15 @@ namespace Shwallak.Controllers
 
         public ActionResult Search()
         {
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
         public ActionResult Results(string nickname, int? age)
         {
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
             List<Subscriber> results = new List<Subscriber>();
             List<Subscriber> temp = new List<Subscriber>();
 
@@ -248,6 +275,8 @@ namespace Shwallak.Controllers
 
         public ActionResult Sort(string sortBy, int? gender)
         {
+            if (Session["type"] == null || !Session["type"].Equals("admin"))
+                return RedirectToAction("Index", "Home");
             if (sortBy == null)
                 return RedirectToAction("Index");
             List<Subscriber> list = new List<Subscriber>();
@@ -286,6 +315,14 @@ namespace Shwallak.Controllers
             {
                 return HttpNotFound();
             }
+            if (Session["type"] != null && Session["type"].Equals("subscriber"))
+            {
+                if (Session["id"] == null || !Session["id"].Equals(id))
+                    return RedirectToAction("Index", "Home");
+            }
+            else
+                return RedirectToAction("Index", "Home");
+
             return View(subscriber);
         }
 

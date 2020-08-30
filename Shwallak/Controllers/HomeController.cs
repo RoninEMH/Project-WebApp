@@ -80,8 +80,6 @@ namespace Shwallak.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             ViewBag.priv = 0;
             ViewBag.pub = 0;
             foreach(var obj in db.Articles.GroupBy(x => x.SubscribersOnly).Select(x => new { Key = x.Key, Count = x.Count() }).ToList())
@@ -95,23 +93,20 @@ namespace Shwallak.Controllers
                     ViewBag.pub = obj.Count;
                 }
             }
-
-
-           
-
-
             return View(db.Articles);
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
         private ActionResult LoginAsSubscriber(string userName, string password)
         {
+            if (Session["type"] != null)
+                return RedirectToAction("Index", "Home");
+            if(!Session["type"].Equals("none"))
+                return RedirectToAction("Index", "Home");
             List<Subscriber> subscribers = new List<Subscriber>();
             foreach (Subscriber s in db.Subscribers)
             {
@@ -148,6 +143,10 @@ namespace Shwallak.Controllers
 
         private ActionResult LoginAsWriter(string userName, string password)
         {
+            if (Session["type"] != null)
+                return RedirectToAction("Index", "Home");
+            if (!Session["type"].Equals("none"))
+                return RedirectToAction("Index", "Home");
             List<Writer> writers = new List<Writer>();
             foreach (Writer w in db.Writers)
             {
@@ -176,6 +175,10 @@ namespace Shwallak.Controllers
 
         public ActionResult Login(string userName, string password, int? type)
         {
+            if (Session["type"] != null)
+                return RedirectToAction("Index", "Home");
+            if (!Session["type"].Equals("none"))
+                return RedirectToAction("Index", "Home");
             if (userName == null || userName.Equals(""))
             {
                 string messege = "you must enter your username";
@@ -230,13 +233,20 @@ namespace Shwallak.Controllers
 
         public ActionResult LoginBy()
         {
+            if (Session["type"] != null)
+                return RedirectToAction("Index", "Home");
             if (!Session["type"].Equals("none"))
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
         public ActionResult LogOut()
         {
+            if (Session["type"] == null)
+                return RedirectToAction("Index", "Home");
+            if (Session["type"].Equals("none"))
+                return RedirectToAction("Index", "Home");
+            
             Session["username"] = "guest";
             Session["type"] = "none";
             Session["id"] = null;

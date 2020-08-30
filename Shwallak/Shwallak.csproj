@@ -329,7 +329,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Writers\ChangePassword.cshtml" />
     <Content Include="Views\Subscribers\ChangePassword.cshtml" />
-    <Content Include="Views\Home\Check.cshtml" />
     <Content Include="Views\Home\Statistics.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
   </ItemGroup>
