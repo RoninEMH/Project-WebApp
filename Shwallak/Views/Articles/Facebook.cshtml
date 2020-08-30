@@ -45,7 +45,7 @@
         });
     }
 
-    const token = "EAAKfdVwAjJ8BAMwSkhHRuOs1mXyWzV9IIb2H5vqNFZAatuUO5eJCc9ZBIBqO4evnG1pY8Tpod0sfTDn2xbaFas6aBboeZCZArEeP0O9uZA2fH4wVr5jfyYS7xNZAIlg6iAbWlYfBPC7cTyTZAaoRWlpsmoSejSXUCZBE7SD8onsGzsZB4tPSv3dprSZCGUiCMvsd8BgxQXVhAm9jw4cNdRApuF";
+    const token = "EAAKfdVwAjJ8BAPom1j2JZAUItEO8utjFjAUNmjB89SQo2O2HtEnsfPMWIsYxLSrfrq5R2fKyvSuU5tVzhOqIQyqvOTUOO5GIosmZBrJT97rwQFCdR1Wu8KeUTfTEQTKrDaZBRi8VwwWzGAU2SZBba5blN4uLST92IWBxISdtEgZAujJSLrcA57ehUCmwN87SZCxzOBZBactnb7Yrs8lGtM2";
 
     // Post using facebook api
     function postAStatus() {
@@ -60,10 +60,10 @@
                 "access_token": token
             },
             function (response) {
-                console.log(response);
+                alert("error" + response);
             }
         );
-        alert("Posted!");
+        alert("success");
     }
 
     function boostAProduct(status, photoURL) {
