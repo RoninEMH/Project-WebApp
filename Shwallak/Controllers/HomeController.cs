@@ -103,9 +103,7 @@ namespace Shwallak.Controllers
 
         private ActionResult LoginAsSubscriber(string userName, string password)
         {
-            if (Session["type"] != null)
-                return RedirectToAction("Index", "Home");
-            if(!Session["type"].Equals("none"))
+            if (Session["type"] != null && !Session["type"].Equals("none"))
                 return RedirectToAction("Index", "Home");
             List<Subscriber> subscribers = new List<Subscriber>();
             foreach (Subscriber s in db.Subscribers)
@@ -143,9 +141,7 @@ namespace Shwallak.Controllers
 
         private ActionResult LoginAsWriter(string userName, string password)
         {
-            if (Session["type"] != null)
-                return RedirectToAction("Index", "Home");
-            if (!Session["type"].Equals("none"))
+            if (Session["type"] != null && !Session["type"].Equals("none"))
                 return RedirectToAction("Index", "Home");
             List<Writer> writers = new List<Writer>();
             foreach (Writer w in db.Writers)
@@ -175,9 +171,7 @@ namespace Shwallak.Controllers
 
         public ActionResult Login(string userName, string password, int? type)
         {
-            if (Session["type"] != null)
-                return RedirectToAction("Index", "Home");
-            if (!Session["type"].Equals("none"))
+            if (Session["type"] != null && !Session["type"].Equals("none"))
                 return RedirectToAction("Index", "Home");
             if (userName == null || userName.Equals(""))
             {
@@ -233,9 +227,7 @@ namespace Shwallak.Controllers
 
         public ActionResult LoginBy()
         {
-            if (Session["type"] != null)
-                return RedirectToAction("Index", "Home");
-            if (!Session["type"].Equals("none"))
+            if (Session["type"] != null && !Session["type"].Equals("none"))
                 return RedirectToAction("Index", "Home");
             return View();
         }
