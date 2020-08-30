@@ -328,6 +328,7 @@
     <Content Include="Views\Subscribers\ChangePassword.cshtml" />
     <Content Include="Views\Home\Statistics.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Home\ShowTemp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">

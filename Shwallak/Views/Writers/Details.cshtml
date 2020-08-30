@@ -39,7 +39,7 @@
                         document.getElementById("wind").innerHTML = "<lable>" + "wind: " + wind + " mps" + "</lable>";
                         document.getElementById("humidity").innerHTML = "<lable>" + "humidity: " + hum + "</lable>";
 
-                       
+
                         $(document).ready(function () {
                             $("#weatherDetails").show();
                         });
@@ -91,8 +91,8 @@
         <div class="contact_area">
             <h2>@Model.FullName - Details</h2>
             <br />
-            @ViewBag.number articles uploaded on @Model.FullName hiring year 
-          
+            @ViewBag.number articles uploaded on @Model.FullName hiring year
+
             <div>
                 <hr />
                 <dl class="dl-horizontal">
@@ -202,33 +202,33 @@
                 </p>
                 <br />
                 <table>
-                    <td id="cell1">
-                        <h4  id="title" class="map" hidden="hidden">Map:</h4>
-                        <div id="map"></div>
-                    </td>
-                    <td id="cell2">
-                        <div id="weatherDetails" hidden="hidden">
-                            <p>
-                                <h4 id="title">Weather Data:</h4>
-                            </p>
-                            <p>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <h5 id="lat"></h5>
-                                            <h5 id="lon"></h5>
-                                            <h5 id="temp"></h5>
-                                            <h5 id="description"></h5>
-                                            <h5 id="wind"></h5>
-                                            <h5 id="humidity"></h5>
-
-
-                                        </td>
-                                    </tr>
-                                </table>
-                            </p>
-                          
-                        </div>
+                    <tr>
+                        <td id="cell1">
+                            <h4 id="title" class="map" hidden="hidden">Map:</h4>
+                            <div id="map"></div>
+                        </td>
+                        <td id="cell2">
+                            <div id="weatherDetails" hidden="hidden">
+                                <p>
+                                    <h4 id="title">Weather Data:</h4>
+                                </p>
+                                <p>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <h5 id="lat"></h5>
+                                                <h5 id="lon"></h5>
+                                                <h5 id="temp"></h5>
+                                                <h5 id="description"></h5>
+                                                <h5 id="wind"></h5>
+                                                <h5 id="humidity"></h5>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

@@ -244,5 +244,8 @@ namespace Shwallak.Controllers
             Session["id"] = null;
             return RedirectToAction("Index");
         }
+
+
+        public ActionResult ShowTemp() => View();
     }
 }

@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "ShowTemp";
+    Layout = "~/Views/Shared/Readers_Layout.cshtml";
+}
+<head>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function showTemperature() {
+
+            var ad = document.getElementById("location").value;
+            var cad = ad.split(",");
+            var address = cad[1];
+            $.ready(
+                $.ajax({
+                    method: "GET",
+                    url: "https://api.openweathermap.org/data/2.5/weather",
+                    data: {
+                        appid: '76ee9644e83cc00c0ed59e6932b4be21',
+                        q: address,
+                        units: "metric"
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        alert("success");
+                        console.log(data);
+                        var temp = data["main"]["temp"];
+                        var description = data["weather"][0]["description"];
+                        var wind = data["wind"]["speed"]; // meters per seconds
+                        var lon = data["coord"]["lon"];
+                        var lat = data["coord"]["lat"];
+                        var hum = data["main"]["humidity"];
+
+                        document.getElementById('lat').innerHTML = "<lable>" + "latitude: " + lat + "</lable>";
+                        document.getElementById("lon").innerHTML = "<lable>" + "longtitude: " + lon + "</lable>";
+                        document.getElementById("temp").innerHTML = "<lable>" + "temperature: " + temp + " °C" + "</lable>";
+                        document.getElementById("description").innerHTML = "<lable>" + "description: " + description + "</lable>";
+                        document.getElementById("wind").innerHTML = "<lable>" + "wind: " + wind + " mps" + "</lable>";
+                        document.getElementById("humidity").innerHTML = "<lable>" + "humidity: " + hum + "</lable>";
+
+
+                        $(document).ready(function () {
+                            $("#weatherDetails").show();
+                        });
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                }));
+        }
+    </script>
+</head>
+<body>
+    <h2>Show Temperature</h2>
+    <br />
+    <div>
+        <input type="text" id="location" />
+        <button onclick="showTemperature()">Show</button>
+    </div>
+    <br />
+    <div id="weatherDetails" hidden="hidden">
+        <p>
+            <h4 id="title">Weather Data:</h4>
+        </p>
+        <p>
+            <table>
+                <tr>
+                    <td>
+                        <h5 id="lat"></h5>
+                        <h5 id="lon"></h5>
+                        <h5 id="temp"></h5>
+                        <h5 id="description"></h5>
+                        <h5 id="wind"></h5>
+                        <h5 id="humidity"></h5>
+                    </td>
+                </tr>
+            </table>
+        </p>
+    </div>
+</body>
+
