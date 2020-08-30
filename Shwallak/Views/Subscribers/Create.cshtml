@@ -13,30 +13,44 @@
         $(document).ready(function () {
             var terms = document.getElementById("terms");
             var ctx = terms.getContext("2d");
-            ctx.font = "30px Arial";
 
+            ctx.font = "30px Arial";
             ctx.fillStyle = "blue";
-            ctx.fillText("Terms of Usage", 10, 30);
-            ctx.fillStyle = "rgb(150, 0, 0)";
-            ctx.font = "10px sans-serif";
+            var title = "Terms of Usage";
+            ctx.fillText(title, 10, 30);
+            var titleW = ctx.measureText(title).width;
+            ctx.fillRect(10, 35, titleW, 2);
+
+            ctx.fillStyle = "black";
+            ctx.font = "11px sans-serif";
             var opening = "By pressing the v button you are agreeing to the following:";
-            
             var line = 20;
             ctx.fillText(opening, 10, 30 + line);
-            ctx.fillStyle = 'rgb(255, 0, 0)';
+            var openingW = ctx.measureText(opening).width;
+            ctx.fillRect(10, line + 30 + 3, openingW, 1);
+
+            ctx.font = "italic 10px Arial"
+            //ctx.fillStyle = 'rgb(255, 0, 0)';
             line = line + 30 + 20;
             var termsOfUsage = [];
-            termsOfUsage[0] = "1) You shall not use this site to encourage racism or cyberbullying of any kind.";
-            termsOfUsage[1] = "2) Curses or mean words are not allowed in the comments.";
-            termsOfUsage[2] = "3) Hacking and fishing are not allowed.";
-            termsOfUsage[3] = "4) Usage of this site for any bad purposes in extremly forbitten.";
+            termsOfUsage[0] = "1) You must not use this site to encourage Racism of any kind.";
+            termsOfUsage[1] = "2) You must not use this site for CyberBullying of any kind.";
+            termsOfUsage[2] = "3) Curses or mean words are not allowed in the comments.";
+            termsOfUsage[3] = "4) Hacking and fishing are not allowed.";
+            termsOfUsage[4] = "5) Usage of this site for any bad purposes in extremly forbitten.";
 
             var index = 0;
             while (index != termsOfUsage.length) {
                 ctx.fillText(termsOfUsage[index], 10, line);
-                line = line + 20;
+                line = line + 18;
                 index = index + 1;
             }
+
+            ctx.fillRect(0, 0, terms.width, 1);
+            ctx.fillRect(0, 0, 1, terms.height);
+            ctx.fillRect(0, terms.height - 1, terms.width, 1);
+            ctx.fillRect(terms.width - 1, 0, 1, terms.height);
+
         });
 
         function checkTerms() {
@@ -48,22 +62,29 @@
             else
                 button.style.display = 'none';
         }
-
-
     </script>
     <style>
         #terms {
             height: 300px;
-            width: 580px;
+            width: 600px;
         }
 
         #checker {
-            height: 20px;
-            width: 20px;
+            height: 25px;
+            width: 25px;
         }
+
         .center {
             margin-left: auto;
             margin-right: auto;
+            border-spacing: 15px;
+            padding: 5px;
+        }
+
+        #arrow {
+            margin-bottom: 18px;
+            height: 30px;
+            width: 30px;
         }
     </style>
 </head>
@@ -132,6 +153,7 @@
                     <table class="center">
                         <tr>
                             <td>
+                                <img id="arrow" src="~/Content/images/arrow.png" />
                                 <input type="checkbox" id="checker" onclick="checkTerms()" />
                             </td>
                             <td>
@@ -142,7 +164,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10" hidden="hidden" id="createButton">
-                        <input type="submit" value="Create" class="btn btn-default"/>
+                        <input type="submit" value="Create" class="btn btn-default" />
                     </div>
                 </div>
             </div>

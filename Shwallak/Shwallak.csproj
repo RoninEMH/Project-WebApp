@@ -227,6 +227,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\arrow.png" />
     <Content Include="Content\images\Business_section1.jpg" />
     <Content Include="Content\images\Celebs_section1.jpg" />
     <Content Include="Content\images\Comment.jpg" />
@@ -235,17 +236,13 @@
     <Content Include="Content\images\FemalePerson.jpg" />
     <Content Include="Content\images\Food_section1.jpg" />
     <Content Include="Content\images\Health_section1.jpg" />
-    <Content Include="Content\images\HumidityIcon.jpg" />
-    <Content Include="Content\images\LocationIcon.jpg" />
     <Content Include="Content\images\logo_Shwallak.png" />
     <Content Include="Content\images\MalePerson.jpg" />
     <Content Include="Content\images\OtherPerson.jpg" />
     <Content Include="Content\images\Other_section1.jpg" />
     <Content Include="Content\images\shwallak_logo.jpg" />
     <Content Include="Content\images\Sport_section1.jpg" />
-    <Content Include="Content\images\TemperatureIcon.jpg" />
     <Content Include="Content\images\Tourism_section1.jpg" />
-    <Content Include="Content\images\WindIcon.jpg" />
     <Content Include="Content\Video\shwallak.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
