@@ -126,7 +126,7 @@ namespace Shwallak.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubscriberID,Age,Gender,Email,Nickname,Password")] Subscriber subscriber)
+        public ActionResult Edit([Bind(Include = "SubscriberID,Age,Gender,Email,Nickname,Password,Favorite")] Subscriber subscriber)
         {
             if (ModelState.IsValid)
             {
@@ -346,7 +346,7 @@ namespace Shwallak.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword([Bind(Include = "SubscriberID,Age,Gender,Email,Nickname,Password")] Subscriber subscriber)
+        public ActionResult ChangePassword([Bind(Include = "SubscriberID,Age,Gender,Email,Nickname,Password,Favorite")] Subscriber subscriber)
         {
             if (Session["type"] != null && Session["type"].Equals("subscriber"))
             {
