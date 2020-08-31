@@ -33,14 +33,14 @@
             </div>
         </div>
 
-        @{int month = DateTime.Now.Month - 1;
+        @{int month = DateTime.Now.Month + 1;
           
         }
         <input class="form-control" id="Year" name="Year" type="hidden" value="@DateTime.Now.Year">
 
         <input class="form-control" id="Month" name="Month" type="hidden" value="@month">
 
-        <input class="form-control" id="Day" name="Day" type="hidden" value="24">
+        <input class="form-control" id="Day" name="Day" type="hidden" value="1">
 
         <div class="form-group">
             @Html.LabelFor(model => model.SubscribersOnly, htmlAttributes: new { @class = "control-label col-md-2" })
