@@ -76,6 +76,7 @@ namespace Shwallak.Controllers
         {
             if (Session["type"] != null && Session["type"].Equals("subscriber"))
                 ViewBag.favorite = db.Subscribers.Find(Session["id"]).Favor();
+
             return View(db.Articles.Include(a => a.Comments).Include(a => a.Writer).ToList());
         }
 
