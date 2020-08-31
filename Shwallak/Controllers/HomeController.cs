@@ -12,11 +12,12 @@ using System.Windows.Forms;
 
 namespace Shwallak.Controllers
 {
-   
+
+
     public class HomeController : Controller
     {
         private OurDB db = new OurDB();
-
+        private string messege;
         public ActionResult Statistics()
         {
             var csv1 = new StringBuilder();
@@ -111,24 +112,20 @@ namespace Shwallak.Controllers
                 if (s.Nickname.Equals(userName))
                     subscribers.Add(s);
             }
-            string message;
             if (subscribers.Count() != 1)
             {
-                message = "invalid username";
+                messege = "invalid username";
                 if (subscribers.Count() == 0)
-                    message = "username not exist, consider sign up";
+                    messege = "username not exist, consider sign up";
 
-                DialogResult result = MessageBox.Show(message, message, MessageBoxButtons.YesNo);
-                if (result == System.Windows.Forms.DialogResult.Yes)
-                    return RedirectToAction("Create", "Subscribers");
-                else
-                    return RedirectToAction("LoginBy");
+                TempData["messege"] = messege;
+                return RedirectToAction("LoginBy");
             }
             Subscriber wanted = subscribers.First(); //user name supposed to be key
             if (!wanted.Password.Equals(password))
             {
-                message = "invalid password";
-                MessageBox.Show(message, message, MessageBoxButtons.OK);
+                messege = "invalid password";
+                TempData["messege"] = messege;
                 return RedirectToAction("LoginBy");
             }
 
@@ -149,18 +146,17 @@ namespace Shwallak.Controllers
                 if (w.FullName.Equals(userName))
                     writers.Add(w);
             }
-            string message;
             if (writers.Count() != 1)
             {
-                message = "invalid username";
-                DialogResult result = MessageBox.Show(message, message, MessageBoxButtons.OK);
-                    return RedirectToAction("LoginBy");
+                messege = "invalid username";
+                TempData["messege"] = messege;
+                return RedirectToAction("LoginBy");
             }
             Writer wanted = writers.First(); //user name supposed to be key
             if (!wanted.Password.Equals(password))
             {
-                message = "invalid password";
-                MessageBox.Show(message, message, MessageBoxButtons.OK);
+                messege = "invalid password";
+                TempData["messege"] = messege;
                 return RedirectToAction("LoginBy");
             }
             Session["id"] = wanted.WriterID;
@@ -175,14 +171,14 @@ namespace Shwallak.Controllers
                 return RedirectToAction("Index", "Home");
             if (userName == null || userName.Equals(""))
             {
-                string messege = "you must enter your username";
-                DialogResult result = MessageBox.Show(messege, messege, MessageBoxButtons.OK);
+                messege = "you must enter username";
+                TempData["messege"] = messege;
                 return RedirectToAction("LoginBy");
             }
             if (password == null || password.Equals(""))
             {
-                string messege = "you must enter your password";
-                DialogResult result = MessageBox.Show(messege, messege, MessageBoxButtons.OK);
+                messege = "you must enter password";
+                TempData["messege"] = messege;
                 return RedirectToAction("LoginBy");
             }
             /*if (userName.Contains(" "))
@@ -207,16 +203,14 @@ namespace Shwallak.Controllers
                     }
                     else
                     {
-                        string message = "invalid password";
-                        MessageBox.Show(message, message, MessageBoxButtons.OK);
+                        TempData["messege"] = messege;
                         return RedirectToAction("LoginBy");
                     }
 
                 }    
                 else
                 {
-                    string message = "invalid username";
-                    DialogResult result = MessageBox.Show(message, message, MessageBoxButtons.OK);
+                    TempData["messege"] = messege;
                     return RedirectToAction("LoginBy");
                 }
 
@@ -229,6 +223,8 @@ namespace Shwallak.Controllers
         {
             if (Session["type"] != null && !Session["type"].Equals("none"))
                 return RedirectToAction("Index", "Home");
+
+            ViewBag.messege = TempData["messege"];
             return View();
         }
 

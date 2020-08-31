@@ -8,6 +8,13 @@
         <div class="row">
             <div class="contact_area">
                 <h2>Login</h2>
+                @if (ViewBag.messege != null)
+                {
+                    <div class="post_commentbox">
+                        <span><i class="fa fa-warning"></i>@ViewBag.messege</span>
+                    </div>
+                    ViewBag.messege = null;
+                }
                 <form action="~/Home/Login" class="contact_form" method="get">
                     <input class="form-control" id="userName" type="text" placeholder="User Name" name="userName">
                     <input class="form-control" id="password" type="password" placeholder="Password" name="password">
@@ -34,7 +41,7 @@
                             <td>
                                 <h5>&nbsp; As Admin</h5>
                             </td>
-</table>
+                    </table>
 
                     <br />
                     <input type="submit" value="Log In">
