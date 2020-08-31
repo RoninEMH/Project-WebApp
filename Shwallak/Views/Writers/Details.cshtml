@@ -12,7 +12,7 @@
             var ad = @Html.Raw(Json.Encode(Model.Address));
             var cad = ad.split(",");
             var address = "";
-            address.concat(cad[0], ",", cad[1]);
+            address = address.concat(cad[0], ",", cad[1]);
             $.ready(
                 $.ajax({
                     method: "GET",
