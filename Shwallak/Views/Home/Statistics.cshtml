@@ -18,7 +18,8 @@
             <svg id="first" width="800" , height="500"></svg>
             <br />
             <svg id="second" width="800" , height="500"></svg>
-
+            <br />
+            <svg id="third" width="800" , height="500"></svg>
 
         </div>
     </div>
@@ -99,7 +100,7 @@
        
     }
 
-    function graph2(location) {
+    function graph2(location, file, month) {
 
         var svg = d3.select("svg#" + location),
             margin = 200,
@@ -113,7 +114,7 @@
         var g = svg.append("g")
             .attr("transform", "translate(" + 100 + "," + 100 + ")");
 
-        var dataCsv = d3.csv("/Content/data2.csv");
+        var dataCsv = d3.csv(file);
         dataCsv.then(function (data) {
             xScale.domain(data.map(function (d) { return parseInt(d.day); }));
             yScale.domain([0, d3.max(data, function (d) { return parseInt(d.count); })]);
@@ -149,7 +150,7 @@
             .attr("x", 50)
             .attr("y", 50)
             .attr("font-size", "24px")
-            .text("This Month's Number Of Articles Per Day")
+            .text(month + " Month's Number Of Articles Per Day")
 
         g.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -195,5 +196,6 @@
     }
 
     graph1("first");
-    graph2("second");
+    graph2("second", "/Content/data2.csv", "This");
+    graph2("third", "/Content/data3.csv", "Last");
 </script>

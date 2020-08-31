@@ -262,6 +262,7 @@
     <Content Include="Content\assets\fonts\Varela-400.woff" />
     <Content Include="Content\data1.csv" />
     <Content Include="Content\data2.csv" />
+    <Content Include="Content\data3.csv" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\d3.js" />
     <Content Include="Scripts\d3.min.js" />
@@ -381,6 +382,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Content\data3.csv</ApplicationManifest>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

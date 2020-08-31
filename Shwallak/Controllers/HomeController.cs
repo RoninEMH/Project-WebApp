@@ -70,6 +70,42 @@ namespace Shwallak.Controllers
             path2 = path2.Substring(0, a2) + "\\Shwallak\\Content\\data2.csv";
 
             System.IO.File.WriteAllText(path2, csv2.ToString());
+
+            int month = DateTime.Now.Month - 1;
+            if (month == 0)
+                month = 12;
+            int max2 = DateTime.DaysInMonth(DateTime.Now.Year, month);
+            int last2 = 0;
+
+            var csv3 = new StringBuilder();
+
+            csv3.AppendLine("day,count");
+            foreach (var obj in db.Articles.Where(x => x.Month == month).GroupBy(x => x.Day).Select(x => new { Count = x.Count(), x.Key }).ToList())
+            {
+                if ((int)obj.Key != last2 + 1)
+                {
+                    for (int i = last2 + 1; i < (int)obj.Key; i++)
+                    {
+                        csv3.AppendLine(string.Format("{0},{1}", i, 0));
+                    }
+                }
+                last2 = (int)obj.Key;
+                var first2 = (int)obj.Key;
+                var second2 = obj.Count;
+                var newLine2 = string.Format("{0},{1}", first2, second2);
+                csv2.AppendLine(newLine2);
+            }
+            for (int i = last2 + 1; i <= max2; i++)
+            {
+                csv3.AppendLine(string.Format("{0},{1}", i, 0));
+            }
+
+            string path3 = HttpRuntime.AppDomainAppPath;
+
+            int a3 = path3.IndexOf("\\Shwallak");
+            path3 = path3.Substring(0, a3) + "\\Shwallak\\Content\\data3.csv";
+
+            System.IO.File.WriteAllText(path3, csv3.ToString());
             return View();
         }
         public ActionResult Index()
