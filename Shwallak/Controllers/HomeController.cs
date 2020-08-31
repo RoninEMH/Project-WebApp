@@ -93,7 +93,7 @@ namespace Shwallak.Controllers
                 var first2 = (int)obj.Key;
                 var second2 = obj.Count;
                 var newLine2 = string.Format("{0},{1}", first2, second2);
-                csv2.AppendLine(newLine2);
+                csv3.AppendLine(newLine2);
             }
             for (int i = last2 + 1; i <= max2; i++)
             {
