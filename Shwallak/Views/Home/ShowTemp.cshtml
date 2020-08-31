@@ -10,7 +10,8 @@
 
             var ad = document.getElementById("location").value;
             var cad = ad.split(",");
-            var address = cad[1];
+            var address = "";
+            address = address.concat(cad[0], ",", cad[1]);
             $.ready(
                 $.ajax({
                     method: "GET",
@@ -43,8 +44,9 @@
                             $("#weatherDetails").show();
                         });
                     },
-                    error: function () {
+                    error: function (data) {
                         alert("error");
+                        console.log(data);
                     }
                 }));
         }
