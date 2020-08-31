@@ -395,19 +395,6 @@ namespace Shwallak.Controllers
             return View(results);
         }
 
-        public ActionResult WriterList(int? id)
-        {
-            List<Article> articles = db.Articles.Include(x => x.Comments).ToList();
-            List<Article> results = new List<Article>();
-
-            if (id == null)
-                return HttpNotFound();
-            
-            results.AddRange(articles.Where(x => x.WriterID == id));
-            ViewBag.WriterName = db.Writers.Find(id).FullName;
-            return View(results);
-        }
-
         //public ActionResult SortBy() => View();
 
         public ActionResult Sort(string sortBy)

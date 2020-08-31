@@ -329,7 +329,6 @@
     <Content Include="Views\Home\Statistics.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Home\ShowTemp.cshtml" />
-    <Content Include="Views\Articles\WriterList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202008041351535_InitialCreate.resx">
