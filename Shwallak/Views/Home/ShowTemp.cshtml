@@ -52,32 +52,38 @@
         }
     </script>
 </head>
-<body>
-    <h2>Show Temperature</h2>
-    <br />
-    <div>
-        <input type="text" id="location" />
-        <button onclick="showTemperature()">Show</button>
+<section id="contentSection">
+    <div class="row">
+        <div class="contact_area">
+            <h2>Show Temperature</h2>
+            <p>Search temerature in any location using our website</p>
+            <p>write in a formet of [country],[city]</p>
+                <input class="form-control" id="location" type="text" placeholder="Location [Country],[City]" name="location">
+                <br />
+                <input onclick="showTemperature()" type="submit" value="Search">
+
+            <div id="weatherDetails" hidden="hidden">
+                <p>
+                    <h4 id="title">Weather Data:</h4>
+                </p>
+                <p>
+                    <table>
+                        <tr>
+                            <td>
+                                <h5 id="lat"></h5>
+                                <h5 id="lon"></h5>
+                                <h5 id="temp"></h5>
+                                <h5 id="description"></h5>
+                                <h5 id="wind"></h5>
+                                <h5 id="humidity"></h5>
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+            </div>
+        </div>
     </div>
-    <br />
-    <div id="weatherDetails" hidden="hidden">
-        <p>
-            <h4 id="title">Weather Data:</h4>
-        </p>
-        <p>
-            <table>
-                <tr>
-                    <td>
-                        <h5 id="lat"></h5>
-                        <h5 id="lon"></h5>
-                        <h5 id="temp"></h5>
-                        <h5 id="description"></h5>
-                        <h5 id="wind"></h5>
-                        <h5 id="humidity"></h5>
-                    </td>
-                </tr>
-            </table>
-        </p>
-    </div>
-</body>
+</section>
+
+    
 

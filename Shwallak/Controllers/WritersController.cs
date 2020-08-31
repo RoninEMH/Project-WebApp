@@ -383,6 +383,12 @@ namespace Shwallak.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword([Bind(Include = "WriterID,FullName,Gender,Email,Year,Password,Address,Age")] Writer writer)
         {
+            if (Session["type"] == null || !Session["type"].Equals("writer"))
+                return RedirectToAction("Index", "Home");
+            else if (Session["id"] == null || !Session["id"].Equals(writer.WriterID))
+                return RedirectToAction("Index", "Home");
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(writer).State = EntityState.Modified;
@@ -390,11 +396,7 @@ namespace Shwallak.Controllers
                 return RedirectToAction("Details/" + writer.WriterID);
             }
 
-            if (Session["type"] == null || !Session["type"].Equals("writer"))
-                return RedirectToAction("Index", "Home");
-            else if (Session["id"] == null || !Session["id"].Equals(writer.WriterID))
-                return RedirectToAction("Index", "Home");
-
+          
             return View(writer);
         }
 

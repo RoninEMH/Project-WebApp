@@ -45,11 +45,10 @@
         });
     }
 
-    const token = "EAAKfdVwAjJ8BAPom1j2JZAUItEO8utjFjAUNmjB89SQo2O2HtEnsfPMWIsYxLSrfrq5R2fKyvSuU5tVzhOqIQyqvOTUOO5GIosmZBrJT97rwQFCdR1Wu8KeUTfTEQTKrDaZBRi8VwwWzGAU2SZBba5blN4uLST92IWBxISdtEgZAujJSLrcA57ehUCmwN87SZCxzOBZBactnb7Yrs8lGtM2";
+    const token = "EAAKfdVwAjJ8BAK7DVZAW6xqb98Yg14qA8jY0vXOxcc5M8lVzjZAEOigWemlIn68ZCx9vDjjsQP1nJDZA1UCo3WISfeFii0Mk04hS2mzDoGsOMAAZCHuHZBgB7LZB3E2KMFzBEO53aoQ1E9wJMQmJrXGzZCxakyr9xvniNlt4ZBWbA23iqc0kVRaP6QNYhWMJNWSg3CfYyF0bflqnLcRfMsZC2W";
 
     // Post using facebook api
     function postAStatus() {
-        alert("im in");
         var status = "Go check out the new article in our website!\n\n" + document.getElementById("title").value + "\nBy " + document.getElementById("writer").value + "\nOn " + document.getElementById("section").value;
 
         FB.api(
