@@ -10,8 +10,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Windows.Forms;
 
+
 namespace Shwallak.Controllers
 {
+
     public class HomeController : Controller
     {
         private OurDB db = new OurDB();
