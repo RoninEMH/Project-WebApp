@@ -157,7 +157,7 @@ namespace Shwallak.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ArticleID,Title,Content,Year,Month,Day,SubscribersOnly,Section,WriterID")] Article article)
+        public ActionResult Edit([Bind(Include = "ArticleID,Title,Content,Year,Month,Day,SubscribersOnly,Section,Watches,WriterID")] Article article)
         {
             if (article.ArticleID.Equals(null))
             {

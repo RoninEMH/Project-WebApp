@@ -14,66 +14,68 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.ArticleID)
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ArticleID)
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SubscribersOnly, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.SubscribersOnly)
-                            @Html.ValidationMessageFor(model => model.SubscribersOnly, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <input class="form-control" id="Year" name="Year" type="hidden" value="@DateTime.Now.Year">
-
-                <input class="form-control" id="Month" name="Month" type="hidden" value="@DateTime.Now.Month">
-
-                <input class="form-control" id="Day" name="Day" type="hidden" value="@DateTime.Now.Day">
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Section, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EnumDropDownListFor(model => model.Section, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Section, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="WriterID">Writer</label>
-                    <div class="col-md-10">
-                        <select class="form-control" id="WriterID" name="WriterID">
-                            <option value=@ViewBag.id> @ViewBag.name </option>
-                        </select>
-                        <span class="field-validation-valid text-danger" data-valmsg-for="WriterID" data-valmsg-replace="true"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
-                    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubscribersOnly, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.SubscribersOnly)
+                    @Html.ValidationMessageFor(model => model.SubscribersOnly, "", new { @class = "text-danger" })
                 </div>
             </div>
+        </div>
+        <input class="form-control" id="Year" name="Year" type="hidden" value="@DateTime.Now.Year">
+
+        <input class="form-control" id="Month" name="Month" type="hidden" value="@DateTime.Now.Month">
+
+        <input class="form-control" id="Day" name="Day" type="hidden" value="@DateTime.Now.Day">
+
+        <input class="form-control" id="Watches" name="Watches" type="hidden" value="@Model.Watches">
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Section, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Section, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Section, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="WriterID">Writer</label>
+            <div class="col-md-10">
+                <select class="form-control" id="WriterID" name="WriterID">
+                    <option value=@ViewBag.id> @ViewBag.name </option>
+                </select>
+                <span class="field-validation-valid text-danger" data-valmsg-for="WriterID" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
          }
 
         <form action="~/Articles/Details/@Model.ArticleID" class="contact_form">
